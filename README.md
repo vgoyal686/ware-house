@@ -1,4 +1,5 @@
-# SpringSecurityLoginTutorial
+# Warehouse code for inventory management with real time slots availability
+
 
 1. mvn clean
 2. mvn clean install
