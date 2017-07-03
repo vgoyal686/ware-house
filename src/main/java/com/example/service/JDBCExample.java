@@ -17,7 +17,9 @@ public class JDBCExample {
    //  Database credentials
    static final String USER = "root";
    static final String PASS = "careerpower";
+  
    
+	 
    public static void exceuteQuery(String sqlQueryString) {
      
      Connection conn = null;

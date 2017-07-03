@@ -32,7 +32,7 @@ public class CsvToDBService {
 
   public String getCsvToDBTableString() {
     
-    String sql = "LOAD DATA LOCAL INFILE '/Users/anurag/Documents/freelancing/ware-house/src/main/resources/sample_product.csv' "
+    String sql = "LOAD DATA LOCAL INFILE '/Users/careerpower1/Documents/workspace2/ware-house/src/main/resources/sample_product.csv' "
               +" INTO TABLE SAMPLE "
               +" FIELDS TERMINATED BY ',' " 
               +" LINES TERMINATED BY '\n' "

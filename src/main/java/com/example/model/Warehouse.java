@@ -41,11 +41,11 @@ public class Warehouse
 
 	@Column(name = "totalspace")
 	@NotEmpty(message = "*Please provide your area")
-	private Float totalspace;
+	private String totalspace;
 
 	@Column(name = "availablespace")
 	@NotEmpty(message = "*Please provide your remarea")
-	private Float availablespace;
+	private String availablespace;
 
 	@Column(name = "state")
 	@NotEmpty(message = "*Please provide your state")
@@ -109,22 +109,22 @@ public class Warehouse
 		this.phone2 = phone2;
 	}
 
-	public Float getTotalspace()
+	public String getTotalspace()
 	{
 		return totalspace;
 	}
 
-	public void setTotalspace(Float totalspace)
+	public void setTotalspace(String totalspace)
 	{
 		this.totalspace = totalspace;
 	}
 
-	public Float getAvailablespace()
+	public String getAvailablespace()
 	{
 		return availablespace;
 	}
 
-	public void setAvailablespace(Float availablespace)
+	public void setAvailablespace(String availablespace)
 	{
 		this.availablespace = availablespace;
 	}

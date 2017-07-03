@@ -29,14 +29,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<div class="col-sm-9">
-						<label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-								class="validation-message"></label>
-							<input type="text" th:field="*{lastName}"
-								placeholder="Last Name" class="form-control" /> 
-						</div>
-					</div>
+					
 					<div class="form-group">
 						<div class="col-sm-9">
 							<input type="text" th:field="*{email}" placeholder="Email"
@@ -47,12 +40,71 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" /> <label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+							<input type="text" th:field="*{phone1}"
+								placeholder="phone1" class="form-control" /> <label
+								th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}"
 								class="validation-message"></label>
 						</div>
 					</div>
+
+<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{phone2}"
+								placeholder="phone2" class="form-control" /> <label
+								th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone2}"
+								class="validation-message"></label>
+						</div>
+					</div>
+
+<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{totalspace}"
+								placeholder="totalspace" class="form-control" /> <label
+								th:if="${#fields.hasErrors('totalspace')}" th:errors="*{totalspace}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+				
+				<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{availablespace}"
+								placeholder="availablespace" class="form-control" /> <label
+								th:if="${#fields.hasErrors('availablespace')}" th:errors="*{availablespace}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{state}"
+								placeholder="state" class="form-control" /> <label
+								th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					
+				
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{city}"
+								placeholder="city" class="form-control" /> <label
+								th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{pincode}"
+								placeholder="pincode" class="form-control" /> <label
+								th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					
 
 					<div class="form-group">
 						<div class="col-sm-9">
