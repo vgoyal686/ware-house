@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @Table(name = "testreport")
 public class TestReport {
   
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private int id;
   @Column(name="Barcode")
   private String Barcode;
   

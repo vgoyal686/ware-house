@@ -41,7 +41,7 @@ public class CsvToDBService {
     System.out.println(sql);
     return sql;
   }
-  public static void main(String[] args) {
+  public  void excelTodata() {
     
     CsvToDBService csvToDBService = new CsvToDBService();
     

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.model.User;
 import com.example.model.Warehouse;
+import com.example.service.IExcelService;
 import com.example.service.UserService;
 import com.example.service.WarehouseServiceImpl;
 
@@ -24,6 +25,8 @@ public class LoginController
 	private UserService userService;
 	@Autowired
 	private WarehouseServiceImpl warehouseService;
+	@Autowired
+	private IExcelService excelService;
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
@@ -33,6 +36,17 @@ public class LoginController
 		return modelAndView;
 	}
 
+	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
+	public ModelAndView excelFileTodb()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("excel-upload");
+		return modelAndView;
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration()
 	{
