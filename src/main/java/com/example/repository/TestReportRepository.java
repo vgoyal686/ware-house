@@ -15,5 +15,5 @@ import com.example.model.TestReport;;
  */
 @Repository("testReportRepository")
 public interface TestReportRepository extends JpaRepository<TestReport, Long> {
-    TestReport findByBarcode(String barcode);
+    //TestReport findByBarcode(String barcode);
 }
