@@ -1,14 +1,13 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>import</title>
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <form:form modelAttribute="fileBean" method="post" enctype="multipart/form-data">
-        <form:label for="fileData" path="fileUpload1">Select file</form:label><br/><br/>
-        <form:input path="fileData" type="file"/>
-        <input type="submit" />
-    </form:form>
+
+<h1>Spring Boot file upload example</h1>
+
+<form method="POST" action="/upload" enctype="multipart/form-data">
+    <input type="file" name="file" /><br/><br/>
+    <input type="submit" value="Submit" />
+</form>
+
 </body>
 </html>

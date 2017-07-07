@@ -7,15 +7,29 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.service.IExcelService;
 import com.example.service.UserService;
 import com.example.service.WarehouseServiceImpl;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 @Controller
 public class LoginController
@@ -36,6 +50,9 @@ public class LoginController
 		return modelAndView;
 	}
 
+	
+	
+	
 	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
 	public ModelAndView excelFileTodb()
 	{
@@ -43,9 +60,6 @@ public class LoginController
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;
 	}
-	
-	
-	
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration()
@@ -57,7 +71,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@RequestMapping(value = "/registration/1", method = RequestMethod.POST)
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult)
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -129,5 +143,61 @@ public class LoginController
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
+	
+	
+	
+	
+
+
+    @GetMapping("/")
+    public String index() {
+        return "upload";
+    }
+
+    @PostMapping("/upload") // //new annotation since 4.3
+    public String singleFileUpload(@RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) {
+
+      
+        
+        
+        String message = "" ;
+        
+        String name = file.getName();
+		String originalName = file.getOriginalFilename();
+		
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+
+				// Creating the directory to store file
+				String rootPath = System.getProperty("catalina.home");
+				long timestamp = System.currentTimeMillis() / 1000;
+				File dir = new File(rootPath + File.separator + "tmpFiles/" + timestamp);
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Create the file on server
+				File serverFile = new File(dir.getAbsolutePath() + File.separator + originalName);
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+				
+				
+			} catch (Exception e) {
+				message= "You failed to upload " + name + " => " + e.getMessage();
+				
+			}
+		} else {
+			message= "You failed to upload " + name + " because the file was empty.";
+			
+		}
+		
+		return message;
+		
+    }
+
+   
+
 
 }
