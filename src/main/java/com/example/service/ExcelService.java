@@ -208,4 +208,24 @@ public class ExcelService implements IExcelService
 		}
 
 	}
+    @Override
+    public void readFromExcelAndSaveToDb(String excelFilePath)
+    {
+
+        //ExcelService excelService = new ExcelService();
+        try
+        {
+            Workbook workbook = convertFileToWorkbook(excelFilePath);
+            List<TestReport> testReports = parseWorkbook(workbook);
+            System.out.println(testReports.size());
+            if (testReports.size() >= 1) System.out.println(testReports.get(0));
+            testReportRepository.save(testReports);
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }    
 }

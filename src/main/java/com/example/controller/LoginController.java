@@ -179,9 +179,13 @@ public class LoginController
 
 				// Create the file on server
 				File serverFile = new File(dir.getAbsolutePath() + File.separator + originalName);
+				String fileAbsolutePath = serverFile.getAbsolutePath();
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
+				
+				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
+				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
 				
 				
 			} catch (Exception e) {
