@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+
+  <h1>WareHouse Listing</h1>
+  
+    <table>
+      <tr>
+        <th>NAME</th>
+        <th>EMAIL</th>
+       
+      </tr>
+       <tr th:each="warehouse: ${wareHouses}">
+        <td th:text="${warehouse.name}">..</td>
+        <td th:text="${warehouse.email}">..</td>
+      
+      </tr>
+    </table>
+  
+    <p>
+      <a href="../home.html" th:href="@{/warehouse/view/registration}">Return to home</a>
+    </p>
+
+
+
+</body>
+</html>
+

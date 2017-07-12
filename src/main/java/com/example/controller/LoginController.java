@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 public class LoginController
@@ -119,11 +120,13 @@ public class LoginController
 		else
 		{
 			warehouseService.saveWarehouse(user);
-			modelAndView.addObject("successMessage", "User has been registered successfully");
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
-
+			
 		}
+		
+		
+		List<Warehouse> wareHouses = warehouseService.findWarehouses();
+		modelAndView.addObject("wareHouses", wareHouses);
+		modelAndView.setViewName("warehouseListing");
 		return modelAndView;
 	}
 
@@ -144,6 +147,16 @@ public class LoginController
 	public String index()
 	{
 		return "upload";
+	}
+
+	@RequestMapping(value = "/warehouse/listing", method = RequestMethod.GET)
+	public ModelAndView viewWareHouses()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		List<Warehouse> wareHouses = warehouseService.findWarehouses();
+		modelAndView.addObject("wareHouses", wareHouses);
+		modelAndView.setViewName("warehouseListing");
+		return modelAndView;
 	}
 
 	@PostMapping("/upload") // //new annotation since 4.3
@@ -180,7 +193,7 @@ public class LoginController
 
 				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
-				message= "File uploaded successfully";
+				message = "File uploaded successfully";
 			}
 			catch (Exception e)
 			{
@@ -188,8 +201,6 @@ public class LoginController
 
 			}
 
-			
-			
 		}
 		else
 		{
@@ -197,7 +208,7 @@ public class LoginController
 
 		}
 		modelAndView.addObject("message", message);
-		
+
 		modelAndView.setViewName("result");
 		return modelAndView;
 

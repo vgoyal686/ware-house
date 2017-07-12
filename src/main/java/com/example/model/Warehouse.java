@@ -30,12 +30,10 @@ public class Warehouse
 	private String email;
 
 	@Column(name = "phone1")
-	@Email(message = "*Please provide a valid phone number 1")
 	@NotEmpty(message = "*Please provide an phone number 1")
 	private String phone1;
 
 	@Column(name = "phone2")
-	@Email(message = "*Please provide a valid phone number 2")
 	@NotEmpty(message = "*Please provide an phone number 2")
 	private String phone2;
 
