@@ -30,7 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
 @Controller
 public class LoginController
 {
@@ -50,9 +49,6 @@ public class LoginController
 		return modelAndView;
 	}
 
-	
-	
-	
 	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
 	public ModelAndView excelFileTodb()
 	{
@@ -60,7 +56,7 @@ public class LoginController
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration()
 	{
@@ -143,31 +139,29 @@ public class LoginController
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
-	
-	
-	
-	
 
+	@GetMapping("/")
+	public String index()
+	{
+		return "upload";
+	}
 
-    @GetMapping("/")
-    public String index() {
-        return "upload";
-    }
+	@PostMapping("/upload") // //new annotation since 4.3
+	public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file,
+			RedirectAttributes redirectAttributes)
+	{
 
-    @PostMapping("/upload") // //new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+		ModelAndView modelAndView = new ModelAndView();
 
-      
-        
-        
-        String message = "" ;
-        
-        String name = file.getName();
+		String message = "test";
+
+		String name = file.getName();
 		String originalName = file.getOriginalFilename();
-		
-		if (!file.isEmpty()) {
-			try {
+
+		if (!file.isEmpty())
+		{
+			try
+			{
 				byte[] bytes = file.getBytes();
 
 				// Creating the directory to store file
@@ -183,25 +177,30 @@ public class LoginController
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
-				
+
 				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
-				
-				
-			} catch (Exception e) {
-				message= "You failed to upload " + name + " => " + e.getMessage();
-				
+				message= "File uploaded successfully";
 			}
-		} else {
-			message= "You failed to upload " + name + " because the file was empty.";
+			catch (Exception e)
+			{
+				message = "You failed to upload " + name + " => " + e.getMessage();
+
+			}
+
+			
 			
 		}
-		
-		return message;
-		
-    }
+		else
+		{
+			message = "You failed to upload " + name + " because the file was empty.";
 
-   
+		}
+		modelAndView.addObject("message", message);
+		
+		modelAndView.setViewName("result");
+		return modelAndView;
 
+	}
 
 }
