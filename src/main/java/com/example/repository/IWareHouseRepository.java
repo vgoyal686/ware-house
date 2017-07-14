@@ -7,6 +7,6 @@ import com.example.model.User;
 import com.example.model.Warehouse;
 
 @Repository("wareHouseRepository")
-public interface WareHouseRepository extends JpaRepository<Warehouse, Long> {
+public interface IWareHouseRepository extends JpaRepository<Warehouse, Long> {
 	Warehouse findByEmail(String email);
 }

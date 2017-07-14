@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.model.Warehouse;
-import com.example.repository.WareHouseRepository;
+import com.example.repository.IWareHouseRepository;
 
 @Service("warehouseService")
 public class WarehouseServiceImpl implements IWarehouseService
 {
 
 	@Autowired
-	private WareHouseRepository wareHouseRepository;
+	private IWareHouseRepository wareHouseRepository;
 
 	@Override
 	public Warehouse findWarehouseByEmail(String email)
