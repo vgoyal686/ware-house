@@ -11,5 +11,7 @@ import com.example.model.CustomerList;
  * @description 
  */
 public interface ICustomerListService {
-  CustomerList findByCustomerID(String customerID);
+  public Boolean saveCustomerList(CustomerList customerList);
+  public CustomerList saveAndGetCustomerList(CustomerList customerList);
+  public CustomerList findByCustomerID(String customerID);
 }

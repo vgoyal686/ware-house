@@ -21,8 +21,27 @@ public class CustomerListServiceImpl implements ICustomerListService{
   private ICustomerListRepository customerListRepository;
 
   @Override
-  public CustomerList findByCustomerID(String customerID) {
-    // TODO Auto-generated method stub
-    return null;
+  public Boolean saveCustomerList(CustomerList customerList) {
+    
+    try{
+      customerListRepository.save(customerList);
+    } catch(Exception e){
+      return false;
+    }
+    return true;
   }
+
+  @Override
+  public CustomerList saveAndGetCustomerList(CustomerList customerList) {
+    
+    return customerListRepository.save(customerList);
+  }
+
+  @Override
+  public CustomerList findByCustomerID(String customerID) {
+
+    return customerListRepository.findByCustomerID(customerID);
+  }
+
+
 }

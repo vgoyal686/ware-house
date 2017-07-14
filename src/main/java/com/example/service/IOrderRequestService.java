@@ -11,5 +11,7 @@ import com.example.model.OrderRequest;
  * @description 
  */
 public interface IOrderRequestService {
-  OrderRequest findByCustomerID(String customerID);
+  public Boolean saveOrderRequest(OrderRequest orderRequest);
+  public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest);
+  public OrderRequest findByCustomerID(String customerID);
 }

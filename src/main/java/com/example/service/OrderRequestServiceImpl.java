@@ -17,12 +17,32 @@ import com.example.repository.IOrderRequestRepository;
 @Service("orderRequestService")
 public class OrderRequestServiceImpl implements IOrderRequestService {
 
+  @Autowired
   private IOrderRequestRepository orderRequestRepository;
   
   @Override
-  public OrderRequest findByCustomerID(String customerID) {
-    // TODO Auto-generated method stub
-    return null;
+  public Boolean saveOrderRequest(OrderRequest orderRequest) {
+    
+    try{ 
+      orderRequestRepository.save(orderRequest);
+    } catch(Exception e){
+      return false;
+    }
+    return true;
   }
+  
+  @Override
+  public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest) {
+    
+    return orderRequestRepository.save(orderRequest);
+  }
+
+  @Override
+  public OrderRequest findByCustomerID(String customerID) {
+    
+    return orderRequestRepository.findByCustomerID(customerID);
+  }
+
+
 
 }
