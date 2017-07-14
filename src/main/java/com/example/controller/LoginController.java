@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.service.IExcelService;
-import com.example.service.UserService;
+import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
 
 import java.io.BufferedOutputStream;
@@ -36,7 +36,7 @@ public class LoginController
 {
 
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	@Autowired
 	private WarehouseServiceImpl warehouseService;
 	@Autowired

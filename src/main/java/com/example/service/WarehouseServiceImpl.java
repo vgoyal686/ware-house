@@ -8,7 +8,7 @@ import com.example.model.Warehouse;
 import com.example.repository.WareHouseRepository;
 
 @Service("warehouseService")
-public class WarehouseServiceImpl implements WarehouseService
+public class WarehouseServiceImpl implements IWarehouseService
 {
 
 	@Autowired
