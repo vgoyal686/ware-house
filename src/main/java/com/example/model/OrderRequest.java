@@ -73,13 +73,13 @@ public class OrderRequest {
   //@NotEmpty(message = "Please provide your openingBalance")
   private String openingBalance;
 
-  @Column(name = "in")
+  @Column(name = "input")
   //@NotEmpty(message = "Please provide your in")
-  private String in;
+  private String input;
 
-  @Column(name = "out")
+  @Column(name = "output")
   //@NotEmpty(message = "Please provide your out")
-  private String out;
+  private String output;
 
   @Column(name = "closingBalance")
   //@NotEmpty(message = "Please provide your closingBalance")
@@ -317,32 +317,32 @@ public class OrderRequest {
    * @author Anurag
    * @return the in
    */
-  public String getIn() {
-    return in;
+  public String getInput() {
+    return input;
   }
 
   /**
    * @author Anurag
    * @param in the in to set
    */
-  public void setIn(String in) {
-    this.in = in;
+  public void setInput(String input) {
+    this.input = input;
   }
 
   /**
    * @author Anurag
    * @return the out
    */
-  public String getOut() {
-    return out;
+  public String getOutput() {
+    return output;
   }
 
   /**
    * @author Anurag
    * @param out the out to set
    */
-  public void setOut(String out) {
-    this.out = out;
+  public void setOutput(String output) {
+    this.output = output;
   }
 
   /**
@@ -515,7 +515,7 @@ public class OrderRequest {
         + ", currentStock=" + currentStock + ", details=" + details + ", requestRaisedBy="
         + requestRaisedBy + ", managerApproval=" + managerApproval + ", documentReceived="
         + documentReceived + ", wareConfirmation=" + wareConfirmation + ", openingBalance="
-        + openingBalance + ", in=" + in + ", out=" + out + ", closingBalance=" + closingBalance
+        + openingBalance + ", in=" + input + ", out=" + output + ", closingBalance=" + closingBalance
         + ", ratePerUnitPerDay=" + ratePerUnitPerDay + ", spaceCharge=" + spaceCharge
         + ", loadingCharge=" + loadingCharge + ", unloadingCharge=" + unloadingCharge
         + ", otherCharge=" + otherCharge + ", discount=" + discount + ", tax=" + tax + ", total="
