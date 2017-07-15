@@ -23,6 +23,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "CustomerList")
 public class CustomerList {
   
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private int id;
+	
   @Column(name = "customerID")
   @NotEmpty(message = "*Please provide your customerID")
   private String customerID;

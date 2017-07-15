@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Anurag
@@ -22,6 +20,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "OrderRequest")
 public class OrderRequest {
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private int id;
+	
   @Column(name = "customerID")
   //@NotEmpty(message = "Please provide your customerID")
   private String customerID;
