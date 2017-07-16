@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.bean.InputFormBean;
+import com.example.model.Gif;
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.service.IExcelService;
@@ -25,10 +31,6 @@ import com.example.service.WarehouseServiceImpl;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -50,10 +52,14 @@ public class LoginController
 		return modelAndView;
 	}
 
+	
+
 	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
 	public ModelAndView excelFileTodb()
 	{
 		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("inputFormBean", new InputFormBean());
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;
 	}
@@ -120,10 +126,9 @@ public class LoginController
 		else
 		{
 			warehouseService.saveWarehouse(user);
-			
+
 		}
-		
-		
+
 		List<Warehouse> wareHouses = warehouseService.findWarehouses();
 		modelAndView.addObject("wareHouses", wareHouses);
 		modelAndView.setViewName("warehouseListing");
@@ -212,6 +217,51 @@ public class LoginController
 		modelAndView.setViewName("result");
 		return modelAndView;
 
+	}
+
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
+			ModelMap model, final @RequestParam("file") MultipartFile file)
+	{
+		
+		String originalName = file.getOriginalFilename();
+
+		if (!file.isEmpty())
+		{
+			try
+			{
+				byte[] bytes = file.getBytes();
+
+				// Creating the directory to store file
+				String rootPath = System.getProperty("catalina.home");
+				long timestamp = System.currentTimeMillis() / 1000;
+				File dir = new File(rootPath + File.separator + "tmpFiles/" + timestamp);
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Create the file on server
+				File serverFile = new File(dir.getAbsolutePath() + File.separator + originalName);
+				String fileAbsolutePath = serverFile.getAbsolutePath();
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
+				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
+				
+			}
+			catch (Exception e)
+			{
+				
+
+			}
+
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("header");
+		return modelAndView;
+		
 	}
 
 }
