@@ -26,6 +26,7 @@ public class OrderRequestServiceImpl implements IOrderRequestService {
     try{ 
       orderRequestRepository.save(orderRequest);
     } catch(Exception e){
+      e.printStackTrace();
       return false;
     }
     return true;

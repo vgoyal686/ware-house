@@ -25,6 +25,7 @@ import com.example.model.Gif;
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.service.IExcelService;
+import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
 
@@ -44,6 +45,9 @@ public class LoginController
 	@Autowired
 	private IExcelService excelService;
 
+    @Autowired
+    private IInputTxnService inputTxnService;
+	
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
 	{
@@ -219,7 +223,7 @@ public class LoginController
 
 	}
 
-	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveFileAndForm", method = RequestMethod.POST)
 	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
 	{
@@ -246,14 +250,13 @@ public class LoginController
 				stream.write(bytes);
 				stream.close();
 
-				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
+				inputTxnService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath);
+				//excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
 				
 			}
-			catch (Exception e)
-			{
-				
-
+			catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}

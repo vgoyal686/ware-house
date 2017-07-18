@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.bean.InputFormBean;
+
 public interface IExcelService
 {
 
@@ -11,5 +13,6 @@ public interface IExcelService
    * @param excelFilePath
    */
   void readFromExcelAndSaveToDb(String excelFilePath);
-
+  
+  void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath);
 }
