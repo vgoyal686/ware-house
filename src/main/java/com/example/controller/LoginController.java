@@ -3,9 +3,11 @@ package com.example.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,15 +18,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.bean.InputFormBean;
 import com.example.model.Gif;
+import com.example.model.OrderRequest;
 import com.example.model.User;
 import com.example.model.Warehouse;
+import com.example.repository.PageWrapper;
 import com.example.service.IExcelService;
+import com.example.service.IOrderRequestService;
 import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
 
@@ -44,6 +50,9 @@ public class LoginController
 	@Autowired
 	private IExcelService excelService;
 
+	@Autowired
+	private IOrderRequestService orderRequestService;
+
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
 	{
@@ -51,8 +60,6 @@ public class LoginController
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
-
-	
 
 	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
 	public ModelAndView excelFileTodb()
@@ -219,11 +226,19 @@ public class LoginController
 
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchPost(String query)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("header");
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
 	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
 	{
-		
+
 		String originalName = file.getOriginalFilename();
 
 		if (!file.isEmpty())
@@ -248,11 +263,10 @@ public class LoginController
 
 				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
-				
+
 			}
 			catch (Exception e)
 			{
-				
 
 			}
 
@@ -261,7 +275,36 @@ public class LoginController
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("header");
 		return modelAndView;
-		
+
 	}
+
+	@RequestMapping(value = "students", method = RequestMethod.GET)
+	public String showStudentBySurname(@RequestParam(value = "search", required = false) String search, Model model)
+	{
+		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		model.addAttribute("search", orderRequests);
+		return "students";
+	}
+
+	/*@RequestMapping(value = "/blog", method = RequestMethod.GET)
+	public String blog(Model uiModel, Pageable pageable)
+	{
+		PageWrapper<OrderRequest> page = new PageWrapper<OrderRequest>(
+				orderRequestService.getAllOrderRequestWithPagination(pageable), "/blog");
+		uiModel.addAttribute("page", page);
+
+		return "blog";
+	}*/
+
+	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
+	public ModelAndView blog(Pageable pageable)
+	{
+
+		ModelAndView m = new ModelAndView();
+		m.addObject("orderRequests", orderRequestService.findAllOrderRequest());
+		m.setViewName("orderRequest");
+		return m;
+	}
+	
 
 }

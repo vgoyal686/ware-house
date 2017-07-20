@@ -4,7 +4,11 @@
  */
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.model.OrderRequest;
@@ -40,9 +44,32 @@ public class OrderRequestServiceImpl implements IOrderRequestService {
   @Override
   public OrderRequest findByCustomerID(String customerID) {
     
-    return orderRequestRepository.findByCustomerID(customerID);
+  //  return orderRequestRepository.findByCustomerID(customerID);
+	  
+	  return new OrderRequest();
   }
 
 
+  
+  @Override
+  public  Iterable<OrderRequest> listByCustomerID(String customerID) {
+    
+    return orderRequestRepository.findByCustomerID(customerID);
+  }
+  
+ 
+  @Override
+  public  List<OrderRequest> findAllOrderRequest() {
+    
+    return orderRequestRepository.findAll();
+  }
+  
+  
+  
+  @Override
+  public Page<OrderRequest> getAllOrderRequestWithPagination(Pageable pageable) {
+      Page<OrderRequest> blogList = orderRequestRepository.findAll(pageable);
+      return blogList;
+  }
 
 }
