@@ -21,9 +21,9 @@ import com.example.model.OrderRequest;
 public interface IOrderRequestRepository extends JpaRepository<OrderRequest, Long> {
 
  // OrderRequest findByCustomerID(String customerID);  
-  Iterable<OrderRequest> findByCustomerID(String customerID);  
+  //Iterable<OrderRequest> findByCustomerID(String customerID);  
   List<OrderRequest> findAll();
   Page<OrderRequest> findAll(Pageable pageable);
-  
+  List<OrderRequest> findByCustomerID(String customerID);  
 
 }

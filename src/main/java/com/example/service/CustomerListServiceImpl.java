@@ -26,6 +26,7 @@ public class CustomerListServiceImpl implements ICustomerListService{
     try{
       customerListRepository.save(customerList);
     } catch(Exception e){
+      e.printStackTrace();
       return false;
     }
     return true;

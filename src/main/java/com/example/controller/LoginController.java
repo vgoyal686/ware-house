@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -10,30 +9,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.bean.InputFormBean;
-import com.example.model.Gif;
 import com.example.model.OrderRequest;
 import com.example.model.User;
 import com.example.model.Warehouse;
-import com.example.repository.PageWrapper;
 import com.example.service.IExcelService;
 import com.example.service.IOrderRequestService;
+import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,8 +43,14 @@ public class LoginController
 	@Autowired
 	private IExcelService excelService;
 
+
 	@Autowired
 	private IOrderRequestService orderRequestService;
+
+
+    @Autowired
+    private IInputTxnService inputTxnService;
+	
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
@@ -226,15 +225,19 @@ public class LoginController
 
 	}
 
+
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView searchPost(String query)
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("header");
+		//modelAndView.setViewName("header");
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+	
+
+	@RequestMapping(value = "/saveFileAndForm", method = RequestMethod.POST)
+
 	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
 	{
@@ -261,12 +264,15 @@ public class LoginController
 				stream.write(bytes);
 				stream.close();
 
-				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
+				inputTxnService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath);
+				//excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
 
 			}
-			catch (Exception e)
-			{
+
+			
+			catch (Exception e) {
+				e.printStackTrace();
 
 			}
 
@@ -286,15 +292,7 @@ public class LoginController
 		return "students";
 	}
 
-	/*@RequestMapping(value = "/blog", method = RequestMethod.GET)
-	public String blog(Model uiModel, Pageable pageable)
-	{
-		PageWrapper<OrderRequest> page = new PageWrapper<OrderRequest>(
-				orderRequestService.getAllOrderRequestWithPagination(pageable), "/blog");
-		uiModel.addAttribute("page", page);
-
-		return "blog";
-	}*/
+	
 
 	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
 	public ModelAndView blog(Pageable pageable)

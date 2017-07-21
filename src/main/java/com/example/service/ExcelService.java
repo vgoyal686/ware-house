@@ -61,7 +61,7 @@ public class ExcelService implements IExcelService
 	}
 
 	@SuppressWarnings("resource")
-	private Workbook convertFileToWorkbook(String filepath) throws Exception
+	public static Workbook convertFileToWorkbook(String filepath) throws Exception
 	{
 
 		FileInputStream file;
@@ -168,7 +168,7 @@ public class ExcelService implements IExcelService
 		return testReport;
 	}
 
-	private String parseCellValueToString(Cell cell)
+	public static String parseCellValueToString(Cell cell)
 	{
 		String value = null;
 		switch (cell.getCellType())
@@ -227,5 +227,11 @@ public class ExcelService implements IExcelService
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath) {
+      // TODO Auto-generated method stub
+      
     }    
 }
