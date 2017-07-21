@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -154,11 +154,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@GetMapping("/")
-	public String index()
-	{
-		return "upload";
-	}
+	
 
 	@RequestMapping(value = "/warehouse/listing", method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
@@ -234,10 +230,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	
-
-	@RequestMapping(value = "/saveFileAndForm", method = RequestMethod.POST)
-
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
 	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
 	{
@@ -279,7 +272,7 @@ public class LoginController
 		}
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("header");
+		modelAndView.setViewName("successFormSubmission");
 		return modelAndView;
 
 	}
