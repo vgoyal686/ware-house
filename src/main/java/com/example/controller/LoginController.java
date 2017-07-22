@@ -43,14 +43,11 @@ public class LoginController
 	@Autowired
 	private IExcelService excelService;
 
-
 	@Autowired
 	private IOrderRequestService orderRequestService;
 
-
-    @Autowired
-    private IInputTxnService inputTxnService;
-	
+	@Autowired
+	private IInputTxnService inputTxnService;
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
@@ -60,15 +57,14 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
-	public ModelAndView excelFileTodb()
-	{
-		ModelAndView modelAndView = new ModelAndView();
-
-		modelAndView.addObject("inputFormBean", new InputFormBean());
-		modelAndView.setViewName("excel-upload");
-		return modelAndView;
-	}
+	/*
+	 * @RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
+	 * public ModelAndView excelFileTodb() { ModelAndView modelAndView = new
+	 * ModelAndView();
+	 * 
+	 * modelAndView.addObject("inputFormBean", new InputFormBean());
+	 * modelAndView.setViewName("excel-upload"); return modelAndView; }
+	 */
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration()
@@ -154,8 +150,6 @@ public class LoginController
 		return modelAndView;
 	}
 
-	
-
 	@RequestMapping(value = "/warehouse/listing", method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
@@ -221,12 +215,11 @@ public class LoginController
 
 	}
 
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView searchPost(String query)
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		//modelAndView.setViewName("header");
+		modelAndView.setViewName("header");
 		return modelAndView;
 	}
 
@@ -258,13 +251,13 @@ public class LoginController
 				stream.close();
 
 				inputTxnService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath);
-				//excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
+				// excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
 
 			}
 
-			
-			catch (Exception e) {
+			catch (Exception e)
+			{
 				e.printStackTrace();
 
 			}
@@ -278,14 +271,15 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "students", method = RequestMethod.GET)
-	public String showStudentBySurname(@RequestParam(value = "search", required = false) String search, Model model)
+	public ModelAndView showStudentBySurname(@RequestParam(value = "search", required = false) String search,
+			Model model)
 	{
 		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
-		model.addAttribute("search", orderRequests);
-		return "students";
+		model.addAttribute("orderRequests", orderRequests);
+		ModelAndView modelv = new ModelAndView();
+		modelv.setViewName("OrderRequestListing");
+		return modelv;
 	}
-
-	
 
 	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
 	public ModelAndView blog(Pageable pageable)
@@ -293,9 +287,27 @@ public class LoginController
 
 		ModelAndView m = new ModelAndView();
 		m.addObject("orderRequests", orderRequestService.findAllOrderRequest());
+
 		m.setViewName("orderRequest");
 		return m;
 	}
-	
+
+	@RequestMapping(value = "/mergeForm", method = RequestMethod.GET)
+	public ModelAndView id(@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "customerId", required = false) String customerId,
+			@RequestParam(value = "warehouseID", required = false) String warehouseID,
+			@RequestParam(value = "orderID", required = false) String orderID)
+	{
+
+		ModelAndView modelAndView = new ModelAndView();
+		InputFormBean inputFormBean = new InputFormBean();
+		inputFormBean.setCustomerID(customerId);
+		inputFormBean.setOrderID(orderID);
+		inputFormBean.setWarehouseID(warehouseID);
+		modelAndView.addObject("inputFormBean", inputFormBean);
+		modelAndView.setViewName("excel-upload");
+		return modelAndView;
+
+	}
 
 }

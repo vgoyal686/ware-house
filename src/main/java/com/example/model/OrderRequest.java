@@ -121,7 +121,17 @@ public class OrderRequest {
   //@NotEmpty(message = "Please provide your status")
   private String status;
 
-  /**
+  public int getId()
+{
+	return id;
+}
+
+public void setId(int id)
+{
+	this.id = id;
+}
+
+/**
    * @author Anurag
    * @return the customerID
    */

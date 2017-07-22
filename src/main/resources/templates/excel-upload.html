@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<h1>Excel file upload example</h1>
+	<h1>Excel file upload example</h1>
 
 
 
@@ -13,140 +13,158 @@
 
 
 
-<form name="jobsForm" id="jobsForm" novalidate="novalidate" action="#" th:action="@{/addEmployee}"
-                    th:object="${inputFormBean}" method="post" enctype="multipart/form-data">
-    <div class="control-group form-group">
-        <div class="controls">
-            <label>orderID:</label>
-            <input type="text" class="form-control" id="orderID" th:field="*{orderID}" required="required" data-validation-required-message="Please enter OrderId." />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>customerID:</label>
-            <input type="text" class="form-control" id="customerID" th:field="*{customerID}" required="required" data-validation-required-message="Please enter  customerID" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>warehouseID:</label>
-            <input type="text" class="form-control" id="warehouseID" th:field="*{warehouseID}" required="required" data-validation-required-message="Please enter warehouseID" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>invoiceNo:</label>
-            <input type="text" class="form-control" id="invoiceNo" th:field="*{invoiceNo}" required="required" data-validation-required-message="Please enter invoiceNo." />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>invoiceDate:</label>
-            <input type="text" class="form-control" id="invoiceDate" th:field="*{invoiceDate}" required="required" data-validation-required-message="Please enter invoiceDate" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>lCNo:</label>
-            <input type="text" class="form-control" id="lCNo" th:field="*{lCNo}" required="required" data-validation-required-message="Please enterlCNo" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>dateOfIssue:</label>
-            <input type="text" class="form-control" id="dateOfIssue" th:field="*{dateOfIssue}" required="required" data-validation-required-message="Please enter dateOfIssue" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>customer:</label>
-            <input type="text" class="form-control" id="customer" th:field="*{customer}" required="required" data-validation-required-message="Please enter customer" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>deliveryTerms:</label>
-            <input type="text" class="form-control" id="deliveryTerms" th:field="*{deliveryTerms}" required="required" data-validation-required-message="Please enter deliveryTerms" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>portOfImport:</label>
-            <input type="text" class="form-control" id="portOfImport" th:field="*{portOfImport}" required="required" data-validation-required-message="Please enter portOfImport" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>bLNo:</label>
-            <input type="text" class="form-control" id="bLNo" th:field="*{bLNo}" required="required" data-validation-required-message="Please enter bLNo" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>pONo:</label>
-            <input type="text" class="form-control" id="pONo" th:field="*{pONo}" required="required" data-validation-required-message="Please enter pONo" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
-   
-   <div class="control-group form-group">
-        <div class="controls">
-            <label>comments:</label>
-            <input type="text" class="form-control" id="comments" th:field="*{comments}" required="required" data-validation-required-message="Please enter comments" />
-            <p class="help-block"></p>
-        </div>
-    </div>
-   
+	<form name="jobsForm" id="jobsForm" novalidate="novalidate" action="#"
+		th:action="@{/addEmployee}" th:object="${inputFormBean}" method="post"
+		enctype="multipart/form-data">
+		
+		
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>orderID:</label> <input readonly type="text" class="form-control"
+					id="orderID" th:field="*{orderID}" required="required"
+					data-validation-required-message="Please enter  customerID" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+		
 
-              
-   
-    <div class=" control-group form-group">
-         <span class="btn btn-primary btn-file">
-                                Upload Excel File <input type="file" name="file" id="file" required="required"/>
-                         </span>
-    </div>
-    <div id="success"></div>
-    <!-- For success/fail messages -->
-    <button type="submit" class="btn btn-primary">Apply!</button>
-</form>
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>customerID:</label> <input  readonly type="text" class="form-control"
+					id="customerID" th:field="*{customerID}" required="required"
+					data-validation-required-message="Please enter  customerID" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>warehouseID:</label> <input readonly type="text" class="form-control"
+					id="warehouseID" th:field="*{warehouseID}" required="required"
+					data-validation-required-message="Please enter warehouseID" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>invoiceNo:</label> <input type="text" class="form-control"
+					id="invoiceNo" th:field="*{invoiceNo}" required="required"
+					data-validation-required-message="Please enter invoiceNo." />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>invoiceDate:</label> <input type="text" class="form-control"
+					id="invoiceDate" th:field="*{invoiceDate}" required="required"
+					data-validation-required-message="Please enter invoiceDate" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>lCNo:</label> <input type="text" class="form-control"
+					id="lCNo" th:field="*{lCNo}" required="required"
+					data-validation-required-message="Please enterlCNo" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>dateOfIssue:</label> <input type="text" class="form-control"
+					id="dateOfIssue" th:field="*{dateOfIssue}" required="required"
+					data-validation-required-message="Please enter dateOfIssue" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>customer:</label> <input type="text" class="form-control"
+					id="customer" th:field="*{customer}" required="required"
+					data-validation-required-message="Please enter customer" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>deliveryTerms:</label> <input type="text"
+					class="form-control" id="deliveryTerms" th:field="*{deliveryTerms}"
+					required="required"
+					data-validation-required-message="Please enter deliveryTerms" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>portOfImport:</label> <input type="text" class="form-control"
+					id="portOfImport" th:field="*{portOfImport}" required="required"
+					data-validation-required-message="Please enter portOfImport" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>bLNo:</label> <input type="text" class="form-control"
+					id="bLNo" th:field="*{bLNo}" required="required"
+					data-validation-required-message="Please enter bLNo" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>pONo:</label> <input type="text" class="form-control"
+					id="pONo" th:field="*{pONo}" required="required"
+					data-validation-required-message="Please enter pONo" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+		<div class="control-group form-group">
+			<div class="controls">
+				<label>comments:</label> <input type="text" class="form-control"
+					id="comments" th:field="*{comments}" required="required"
+					data-validation-required-message="Please enter comments" />
+				<p class="help-block"></p>
+			</div>
+		</div>
+
+
+
+
+		<div class=" control-group form-group">
+			<span class="btn btn-primary btn-file"> Upload Excel File <input
+				type="file" name="file" id="file" required="required" />
+			</span>
+		</div>
+		<div id="success"></div>
+		<!-- For success/fail messages -->
+		<button type="submit" class="btn btn-primary">Apply!</button>
+	</form>
 
 
 
