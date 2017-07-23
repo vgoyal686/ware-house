@@ -3,6 +3,8 @@ package com.example.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +25,7 @@ import com.example.bean.InputFormBean;
 import com.example.model.OrderRequest;
 import com.example.model.User;
 import com.example.model.Warehouse;
+import com.example.repository.PageWrapper;
 import com.example.service.IExcelService;
 import com.example.service.IOrderRequestService;
 import com.example.service.IInputTxnService;
@@ -109,6 +113,36 @@ public class LoginController
 		modelAndView.addObject("user", warehouse);
 		modelAndView.setViewName("warehouse");
 		return modelAndView;
+	}
+
+	@RequestMapping(value = "create/view/orderRequest", method = RequestMethod.GET)
+	public ModelAndView orderRequest()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		Warehouse warehouse = new Warehouse();
+		modelAndView.addObject("user", warehouse);
+		modelAndView.setViewName("warehouse");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
+	public String createNewWareHouse(@Valid OrderRequest orderRequest, BindingResult bindingResult)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+
+		// if (orderRequestService.findById((long) orderRequest.getId()))
+		// {
+		// bindingResult.rejectValue("email", "error.user",
+		// "There is already a user registered with the email provided");
+		// }
+		// if (bindingResult.hasErrors())
+		// {
+		// modelAndView.setViewName("registration");
+		// }
+
+		orderRequestService.saveOrderRequest(orderRequest);
+
+		return "";
 	}
 
 	@RequestMapping(value = "warehouse/registration", method = RequestMethod.POST)
@@ -219,6 +253,16 @@ public class LoginController
 	public ModelAndView searchPost(String query)
 	{
 		ModelAndView modelAndView = new ModelAndView();
+
+		PageRequest pageable = new PageRequest(0, 2);
+		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
+
+		PageWrapper<OrderRequest> page = new PageWrapper<OrderRequest>(paginated, "/orderRequest/paginated/listing");
+		modelAndView.addObject("products", page.getContent());
+		modelAndView.addObject("page", page);
+		modelAndView.addObject("newWorkerValue", paginated.getContent());
+		modelAndView.addObject("totalPages", page.getTotalPages());
+		
 		modelAndView.setViewName("header");
 		return modelAndView;
 	}
@@ -285,11 +329,32 @@ public class LoginController
 	public ModelAndView blog(Pageable pageable)
 	{
 
-		ModelAndView m = new ModelAndView();
-		m.addObject("orderRequests", orderRequestService.findAllOrderRequest());
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("orderRequests", orderRequestService.findAllOrderRequest());
+		modelAndView.setViewName("orderRequest");
+		return modelAndView;
+	}
 
-		m.setViewName("orderRequest");
-		return m;
+	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
+	public ModelAndView fragment()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("searchFragment");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/guests/{surname}", method = RequestMethod.GET)
+	public String showGuestList(Model model, @PathVariable("surname") String surname)
+	{
+		model.addAttribute("guests", orderRequestService.listByCustomerID(surname));
+		return "results :: resultsList";
+	}
+
+	@RequestMapping(value = "/guests", method = RequestMethod.GET)
+	public String showGuestList(Model model)
+	{
+		model.addAttribute("guests", orderRequestService.findAllOrderRequest());
+		return "results :: resultsList";
 	}
 
 	@RequestMapping(value = "/mergeForm", method = RequestMethod.GET)
@@ -308,6 +373,15 @@ public class LoginController
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;
 
+	}
+
+	@RequestMapping(value = "/orderRequest/paginated/listing", method = RequestMethod.GET)
+	public String list(Model model,int page, int size)
+	{
+		PageRequest pageable = new PageRequest(page, size);
+		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
+		model.addAttribute("orderRequests", paginated.getContent());
+		return "OrderRequestListing :: resultsList";
 	}
 
 }

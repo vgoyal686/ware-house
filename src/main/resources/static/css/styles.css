@@ -1,15 +1,36 @@
-.error{
-    color: red;
-    font-size: 15px;
-}
-.user{
-    color: blue;
-    font-size: 15px;
-}
-table {
-    border-collapse: collapse;
+.error {
+	color: red;
+	font-size: 15px;
 }
 
+.user {
+	color: blue;
+	font-size: 15px;
+}
+
+table {
+	border-collapse: collapse;
+	padding-border: 20%;
+}
+
+
+
 table, th, td {
-    border: 1px solid black;
-} 
+	border: 1px solid black;
+}
+
+form {
+	padding-top: 4%;
+	padding-border: 20%;
+	color: #0090FF;
+	padding-bottom: 3%;
+	
+}
+div{
+	padding-bottom: 1%;
+}
+
+
+
+
+

@@ -1,116 +1,121 @@
-
-
-
-
-
 <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Order Request Form</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" action="#" th:action="@{/warehouse/registration}"
+					th:object="${orserRequest}" method="post" class="form-horizontal"
+					role="form">
+					<h2>Registration Form</h2>
+					<div class="form-group">
+						<div class="col-sm-9">
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+								class="validation-message"></label>
+						<input type="text" th:field="*{name}" placeholder="Name"
+								class="form-control" /> 
+						</div>
+					</div>
 
-<html lang="en">
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{email}" placeholder="Email"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{phone1}"
+								placeholder="phone1" class="form-control" /> <label
+								th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}"
+								class="validation-message"></label>
+						</div>
+					</div>
 
-  <head th:substituteby="fragments/headTag :: headTag">
+<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{phone2}"
+								placeholder="phone2" class="form-control" /> <label
+								th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone2}"
+								class="validation-message"></label>
+						</div>
+					</div>
 
-    <!-- ============================================================================ -->
-    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
-    <!-- and is therefore entirely optionl, as this markup fragment will be included  -->
-    <!-- from "fragments.html" at runtime.                                            -->
-    <!-- ============================================================================ -->
+<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{totalspace}"
+								placeholder="totalspace" class="form-control" /> <label
+								th:if="${#fields.hasErrors('totalspace')}" th:errors="*{totalspace}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+				
+				<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{availablespace}"
+								placeholder="availablespace" class="form-control" /> <label
+								th:if="${#fields.hasErrors('availablespace')}" th:errors="*{availablespace}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{state}"
+								placeholder="state" class="form-control" /> <label
+								th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					
+				
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{city}"
+								placeholder="city" class="form-control" /> <label
+								th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{pincode}"
+								placeholder="pincode" class="form-control" /> <label
+								th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>PetClinic :: a Spring Framework demonstration</title>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Register User</button>
+						</div>
+					</div>
+					
+					<span th:utext="${successMessage}"></span>
+					
+					
+				</form>
+			</div>
+		</div>
+	</div>
 
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
-      th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
-    <link href="../../../resources/css/petclinic.css"
-      th:href="@{/resources/css/petclinic.css}" rel="stylesheet" />
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-      th:src="@{/webjars/jquery/1.9.0/jquery.js}"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"
-      th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.js}"></script>
-
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css"
-      th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}"
-      rel="stylesheet" />
-
-  </head>
-
-  <body>
-
-    <div class="container">
-
-      <div th:include="fragments/bodyHeader" th:remove="tag">
-
-        <!-- =========================================================================== -->
-        <!-- This div is only used for static prototyping purposes (natural templates)   -->
-        <!-- and is therefore entirely optionl, as this markup fragment will be included -->
-        <!-- from "fragments.html" at runtime.                                           -->
-        <!-- =========================================================================== -->
-
-        <img th:src="@{/resources/images/banner-graphic.png}"
-          src="../../../resources/images/banner-graphic.png"/>
-
-        <div class="navbar" style="width: 601px;">
-          <div class="navbar-inner">
-            <ul class="nav">
-              <li style="width: 100px;">
-                <a href="../welcome.html" th:href="@{/}">
-                  <i class="icon-home"></i>Home
-                </a>
-              </li>
-              <li style="width: 130px;">
-                <a href="../owners/findOwners.html" th:href="@{/owners/find.html}">
-                  <i class="icon-search"></i>Find owners
-                </a>
-              </li>
-              <li style="width: 140px;">
-                <a href="../vets/vetList.html" th:href="@{/vets.html}">
-                  <i class="icon-th-list"></i>Veterinarians
-                </a>
-              </li>
-              <li style="width: 90px;">
-                <a href="../exception.html" th:href="@{/oups.html}"
-                  title="trigger a RuntimeException to see how it is handled">
-                  <i class="icon-warning-sign"></i>Error
-                </a>
-              </li>
-              <li style="width: 80px;">
-                <a href="#" title="not available yet. Work in progress!!">
-                  <i class=" icon-question-sign"></i>Help
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- ... -->
-
-
-      <table th:substituteby="fragments/footer :: footer" class="footer">
-
-        <!-- =========================================================================== -->
-        <!-- This table section is only used for static prototyping purposes (natural    -->
-        <!-- templates) and is therefore entirely optionl, as this markup fragment will  -->
-        <!-- be included from "fragments.html" at runtime.                               -->
-        <!-- =========================================================================== -->
-
-        <tr>
-          <td></td>
-          <td align="right">
-            <img src="../../../resources/images/springsource-logo.png"
-              th:src="@{/resources/images/springsource-logo.png}"
-              alt="Sponsored by SpringSource" />
-          </td>
-        </tr>
-
-      </table>
-
-    </div>
-
-  </body>
-
+</body>
 </html>
-    
-   

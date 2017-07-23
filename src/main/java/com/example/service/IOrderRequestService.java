@@ -23,11 +23,12 @@ public interface IOrderRequestService
 
 	public OrderRequest findByCustomerID(String customerID);
 
-	public Iterable<OrderRequest> listByCustomerID(String customerID);
+	public List<OrderRequest> listByCustomerID(String customerID);
 
 	public List<OrderRequest> findAllOrderRequest();
 
 	public Page<OrderRequest> getAllOrderRequestWithPagination(Pageable pageable);
 
-	
+	boolean findById(Long id);
+
 }

@@ -1,32 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
 <body>
 
 
-	<div class="container">
-
-		<h2>Search for students</h2>
 		<form th:object="${student}" th:action="@{/students}" method="get">
 			<input type="text" name="search" id="search" th:value="${search}" />
 			<input type="submit" value="Search" />
-			<div th:if="${not #lists.isEmpty(search)}">
-				<h2>Students List</h2>
-				<table class="table table-striped">
-					<tr>
-						<th>customerID</th>
-						<th>orderID</th>
-						<th>orderDate</th>
-					</tr>
-					<tr th:each="student: ${search}">
-						<td th:text="${student.customerID}"><a
-							href="/student/${student.idStudent}">idStudent</a></td>
-						<td th:text="${student.orderID}">name</td>
-						<td th:text="${student.orderDate}">surname</td>
-				</table>
-			</div>
+			
 		</form>
-	</div>
 
+
+	<!-- Results block -->
+	<div id="resultsBlock"></div>
+	
+
+	<!-- Pagination Bar -->
+	
+		
+
+			<div class="search-block">
+				<!--  <button id="searchButton1" name="searchButton1"
+						th:onclick="'retrieveGuests(\''+${page.url}+ '\',0,\''+${page.size}+'\');'"
+						type="button">← First</button>
+					<button id="searchButton2" name="searchButton2"
+						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${page.number-2}+ '\',\''+${page.size}+'\');'"
+						type="button">«</button>
+
+					<button id="searchButton3" name="searchButton3"
+						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${page.number}+ '\',\''+${page.size}+'\');'"
+						type="button">»</button>
+
+					<button id="searchButton4" name="searchButton4"
+						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${totalPages - 1} + '\',\''+${page.size}+'\');'"
+						type="button">Last →</button>
+-->
+				<span th:each='item : ${page.items}'>
+					<button id="searchButton" name="searchButton"
+						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
+						type="button" th:text='${item.number}'></button>
+				</span>
+
+
+
+			</div>
+
+			<script>
+				function retrieveGuests(url, page, size) {
+					//	 url = '/th-spring-integration/spring/guests';
+					var k = url + "?page=" + page + "&size=" + size;
+					//	if ($('#searchSurname').val() != '') {
+					//		url = url + '/' + $('#searchSurname').val();
+					//	}
+
+					$("#resultsBlock").load(k);
+				}
+
+				retrieveGuests('orderRequest/paginated/listing', 0, 2);
+			</script>
 </body>
 </html>
 
