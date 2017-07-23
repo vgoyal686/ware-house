@@ -13,15 +13,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/warehouse/registration}"
-					th:object="${orserRequest}" method="post" class="form-horizontal"
+				<form autocomplete="off" action="#" th:action="@{/create/data/orderRequest}"
+					th:object="${orderRequest}" method="post" class="form-horizontal"
 					role="form">
-					<h2>Registration Form</h2>
+					<h2>Order Request Form</h2>
 					<div class="form-group">
 						<div class="col-sm-9">
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						<label th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}"
 								class="validation-message"></label>
-						<input type="text" th:field="*{name}" placeholder="Name"
+						<input type="text" th:field="*{customerID}" placeholder="Customer Id"
 								class="form-control" /> 
 						</div>
 					</div>
@@ -29,35 +29,35 @@
 					
 					<div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{email}" placeholder="Email"
+							<input type="text" th:field="*{orderID}" placeholder="orderID"
 								class="form-control" /> <label
-								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
 								class="validation-message"></label>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{phone1}"
-								placeholder="phone1" class="form-control" /> <label
-								th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}"
+							<input type="text" th:field="*{orderDate}"
+								placeholder="orderDate" class="form-control" /> <label
+								th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"
 								class="validation-message"></label>
 						</div>
 					</div>
 
 <div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{phone2}"
-								placeholder="phone2" class="form-control" /> <label
-								th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone2}"
+							<input type="text" th:field="*{warehouseID}"
+								placeholder="warehouseID" class="form-control" /> <label
+								th:if="${#fields.hasErrors('warehouseID')}" th:errors="*{warehouseID}"
 								class="validation-message"></label>
 						</div>
 					</div>
 
 <div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{totalspace}"
-								placeholder="totalspace" class="form-control" /> <label
-								th:if="${#fields.hasErrors('totalspace')}" th:errors="*{totalspace}"
+							<input type="text" th:field="*{currentUnit}"
+								placeholder="currentUnit" class="form-control" /> <label
+								th:if="${#fields.hasErrors('currentUnit')}" th:errors="*{currentUnit}"
 								class="validation-message"></label>
 						</div>
 					</div>
@@ -65,47 +65,145 @@
 				
 				<div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{availablespace}"
-								placeholder="availablespace" class="form-control" /> <label
-								th:if="${#fields.hasErrors('availablespace')}" th:errors="*{availablespace}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="text" th:field="*{state}"
-								placeholder="state" class="form-control" /> <label
-								th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+							<input type="text" th:field="*{currentStock}"
+								placeholder="currentStock" class="form-control" /> <label
+								th:if="${#fields.hasErrors('currentStock')}" th:errors="*{currentStock}"
 								class="validation-message"></label>
 						</div>
 					</div>
 					
 					
-				
 					
 					<div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{city}"
-								placeholder="city" class="form-control" /> <label
-								th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+							<input type="text" th:field="*{details}"
+								placeholder="details" class="form-control" /> <label
+								th:if="${#fields.hasErrors('details')}" th:errors="*{details}"
 								class="validation-message"></label>
 						</div>
-					</div>
-					<div class="form-group">
+					</div><div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{pincode}"
-								placeholder="pincode" class="form-control" /> <label
-								th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}"
+							<input type="text" th:field="*{requestRaisedBy}"
+								placeholder="requestRaisedBy" class="form-control" /> <label
+								th:if="${#fields.hasErrors('requestRaisedBy')}" th:errors="*{requestRaisedBy}"
 								class="validation-message"></label>
 						</div>
-					</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{managerApproval}"
+								placeholder="managerApproval" class="form-control" /> <label
+								th:if="${#fields.hasErrors('managerApproval')}" th:errors="*{managerApproval}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{documentReceived}"
+								placeholder="documentReceived" class="form-control" /> <label
+								th:if="${#fields.hasErrors('documentReceived')}" th:errors="*{documentReceived}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{wareConfirmation}"
+								placeholder="wareConfirmation" class="form-control" /> <label
+								th:if="${#fields.hasErrors('wareConfirmation')}" th:errors="*{wareConfirmation}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{openingBalance}"
+								placeholder="openingBalance" class="form-control" /> <label
+								th:if="${#fields.hasErrors('openingBalance')}" th:errors="*{openingBalance}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{input}"
+								placeholder="input" class="form-control" /> <label
+								th:if="${#fields.hasErrors('input')}" th:errors="*{input}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{output}"
+								placeholder="output" class="form-control" /> <label
+								th:if="${#fields.hasErrors('output')}" th:errors="*{output}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{closingBalance}"
+								placeholder="closingBalance" class="form-control" /> <label
+								th:if="${#fields.hasErrors('closingBalance')}" th:errors="*{closingBalance}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{ratePerUnitPerDay}"
+								placeholder="ratePerUnitPerDay" class="form-control" /> <label
+								th:if="${#fields.hasErrors('ratePerUnitPerDay')}" th:errors="*{ratePerUnitPerDay}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{spaceCharge}"
+								placeholder="spaceCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('spaceCharge')}" th:errors="*{spaceCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{loadingCharge}"
+								placeholder="loadingCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('loadingCharge')}" th:errors="*{loadingCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{unloadingCharge}"
+								placeholder="unloadingCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('unloadingCharge')}" th:errors="*{unloadingCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{otherCharge}"
+								placeholder="otherCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('otherCharge')}" th:errors="*{otherCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{discount}"
+								placeholder="discount" class="form-control" /> <label
+								th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{tax}"
+								placeholder="tax" class="form-control" /> <label
+								th:if="${#fields.hasErrors('tax')}" th:errors="*{tax}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{total}"
+								placeholder="total" class="form-control" /> <label
+								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{status}"
+								placeholder="status" class="form-control" /> <label
+								th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+								class="validation-message"></label>
+						</div>
 					
-					
-
 					<div class="form-group">
 						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Register User</button>
+							<button type="submit" class="btn btn-primary btn-block">Create Order Request</button>
 						</div>
 					</div>
 					

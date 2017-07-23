@@ -125,6 +125,19 @@ public class LoginController
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "create/orderRequest/form", method = RequestMethod.GET)
+	public ModelAndView creatOrderRequest()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		OrderRequest orderRequest = new OrderRequest();
+		modelAndView.addObject("orderRequest", orderRequest);
+		modelAndView.setViewName("orderRequest");
+		return modelAndView;
+	}
+
+	
+	
+	
 	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
 	public String createNewWareHouse(@Valid OrderRequest orderRequest, BindingResult bindingResult)
 	{
@@ -325,7 +338,7 @@ public class LoginController
 		return modelv;
 	}
 
-	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
 	public ModelAndView blog(Pageable pageable)
 	{
 
@@ -334,7 +347,7 @@ public class LoginController
 		modelAndView.setViewName("orderRequest");
 		return modelAndView;
 	}
-
+*/
 	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
 	public ModelAndView fragment()
 	{
