@@ -12,23 +12,32 @@
 <body>
 
 
-		<form th:object="${student}" th:action="@{/students}" method="get">
-			<input type="text" name="search" id="search" th:value="${search}" />
-			<input type="submit" value="Search" />
-			
-		</form>
+	<form th:object="${student}" th:action="@{/students}" method="get">
+		<input type="text" name="search" id="search" th:value="${search}" />
+		<input type="submit" value="Search" />
 
+	</form>
+
+	<div class="create">
+		<a th:href="@{/create/orderRequest/form}">Create Order Request</a>
+
+	</div>
 
 	<!-- Results block -->
 	<div id="resultsBlock"></div>
-	
+
 
 	<!-- Pagination Bar -->
-	
-		
 
-			<div class="search-block">
-				<!--  <button id="searchButton1" name="searchButton1"
+<input type="hidden" id="jsonBom" th:value="${psize}"/>
+
+
+
+
+
+
+	<div class="search-block">
+		<!--  <button id="searchButton1" name="searchButton1"
 						th:onclick="'retrieveGuests(\''+${page.url}+ '\',0,\''+${page.size}+'\');'"
 						type="button">← First</button>
 					<button id="searchButton2" name="searchButton2"
@@ -43,17 +52,17 @@
 						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${totalPages - 1} + '\',\''+${page.size}+'\');'"
 						type="button">Last →</button>
 -->
-				<span th:each='item : ${page.items}'>
-					<button id="searchButton" name="searchButton"
-						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
-						type="button" th:text='${item.number}'></button>
-				</span>
+		<span th:each='item : ${page.items}'>
+			<button id="searchButton" name="searchButton"
+				th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
+				type="button" th:text='${item.number}'></button>
+		</span>
 
 
 
-			</div>
+	</div>
 
-			<script>
+	<script>
 				function retrieveGuests(url, page, size) {
 					//	 url = '/th-spring-integration/spring/guests';
 					var k = url + "?page=" + page + "&size=" + size;
@@ -63,8 +72,8 @@
 
 					$("#resultsBlock").load(k);
 				}
-
-				retrieveGuests('orderRequest/paginated/listing', 0, 2);
+				var jsonBom = $('#jsonBom').val();
+				retrieveGuests('orderRequest/paginated/listing', 0, jsonBom);
 			</script>
 </body>
 </html>

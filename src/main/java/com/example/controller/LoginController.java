@@ -135,27 +135,14 @@ public class LoginController
 		return modelAndView;
 	}
 
-	
-	
-	
 	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
 	public String createNewWareHouse(@Valid OrderRequest orderRequest, BindingResult bindingResult)
 	{
 		ModelAndView modelAndView = new ModelAndView();
-
-		// if (orderRequestService.findById((long) orderRequest.getId()))
-		// {
-		// bindingResult.rejectValue("email", "error.user",
-		// "There is already a user registered with the email provided");
-		// }
-		// if (bindingResult.hasErrors())
-		// {
-		// modelAndView.setViewName("registration");
-		// }
-
 		orderRequestService.saveOrderRequest(orderRequest);
+		modelAndView.setViewName("header");
+		return "redirect:/search";
 
-		return "";
 	}
 
 	@RequestMapping(value = "warehouse/registration", method = RequestMethod.POST)
@@ -263,11 +250,16 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView searchPost(String query)
+	public ModelAndView searchPost(String query, Integer pageSize)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 
-		PageRequest pageable = new PageRequest(0, 2);
+		if (pageSize == null)
+		{
+			pageSize = new Integer(10);
+		}
+
+		PageRequest pageable = new PageRequest(0, pageSize);
 		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
 
 		PageWrapper<OrderRequest> page = new PageWrapper<OrderRequest>(paginated, "/orderRequest/paginated/listing");
@@ -275,7 +267,8 @@ public class LoginController
 		modelAndView.addObject("page", page);
 		modelAndView.addObject("newWorkerValue", paginated.getContent());
 		modelAndView.addObject("totalPages", page.getTotalPages());
-		
+
+		modelAndView.addObject("psize", pageSize);
 		modelAndView.setViewName("header");
 		return modelAndView;
 	}
@@ -338,16 +331,15 @@ public class LoginController
 		return modelv;
 	}
 
-/*	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
-	public ModelAndView blog(Pageable pageable)
-	{
-
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("orderRequests", orderRequestService.findAllOrderRequest());
-		modelAndView.setViewName("orderRequest");
-		return modelAndView;
-	}
-*/
+	/*
+	 * @RequestMapping(value = "/orderRequest/listing", method =
+	 * RequestMethod.GET) public ModelAndView blog(Pageable pageable) {
+	 * 
+	 * ModelAndView modelAndView = new ModelAndView();
+	 * modelAndView.addObject("orderRequests",
+	 * orderRequestService.findAllOrderRequest());
+	 * modelAndView.setViewName("orderRequest"); return modelAndView; }
+	 */
 	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
 	public ModelAndView fragment()
 	{
@@ -389,7 +381,7 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/orderRequest/paginated/listing", method = RequestMethod.GET)
-	public String list(Model model,int page, int size)
+	public String list(Model model, int page, int size)
 	{
 		PageRequest pageable = new PageRequest(page, size);
 		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
