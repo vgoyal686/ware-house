@@ -18,10 +18,38 @@
 
 	</form>
 
-	<div class="create">
+	<div class="createOrderRequest">
 		<a th:href="@{/create/orderRequest/form}">Create Order Request</a>
 
 	</div>
+
+	<div class="wareHouseCreate">
+		<a th:href="@{/warehouse/view/registration}">Create WareHouse</a>
+
+	</div>
+
+
+<div class="CreateUsers">
+		<a th:href="@{/registration}">Create Users</a>
+
+	</div>
+
+	<div class="wareHouseListing">
+		<a th:href="@{/warehouse/listing}">View WareHouses</a>
+
+	</div>
+
+<div class="usersListing">
+		<a th:href="@{/users/listing}">View Users </a>
+
+	</div>
+
+
+
+
+
+
+
 
 	<!-- Results block -->
 	<div id="resultsBlock"></div>
@@ -29,7 +57,7 @@
 
 	<!-- Pagination Bar -->
 
-<input type="hidden" id="jsonBom" th:value="${psize}"/>
+	<input type="hidden" id="jsonBom" th:value="${psize}" />
 
 
 

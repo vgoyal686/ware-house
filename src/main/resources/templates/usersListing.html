@@ -1,3 +1,7 @@
+
+
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,7 +11,7 @@
 
 
 
-	<h1>WareHouse Listing</h1>
+	<h1>Users Listing</h1>
 
 	<table>
 		<tr>
@@ -15,17 +19,14 @@
 			<th>EMAIL</th>
 
 		</tr>
-		<tr th:each="warehouse: ${wareHouses}">
-			<td th:text="${warehouse.name}">..</td>
-			<td th:text="${warehouse.email}">..</td>
+		<tr th:each="user: ${users}">
+			<td th:text="${user.name}">..</td>
+			<td th:text="${user.email}">..</td>
 
 		</tr>
 	</table>
 
-	<p>
-		<a href="../home.html" th:href="@{/warehouse/view/registration}">Return
-			to home</a>
-	</p>
+	
 
 
 

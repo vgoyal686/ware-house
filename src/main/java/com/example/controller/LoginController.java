@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.bean.InputFormBean;
 import com.example.model.OrderRequest;
+import com.example.model.Role;
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.repository.PageWrapper;
@@ -34,7 +35,9 @@ import com.example.service.WarehouseServiceImpl;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class LoginController
@@ -81,7 +84,7 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/registration/1", method = RequestMethod.POST)
-	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult)
+	public String createNewUser(User user, BindingResult bindingResult)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
@@ -96,12 +99,26 @@ public class LoginController
 		}
 		else
 		{
-			userService.saveUser(user);
-			modelAndView.addObject("successMessage", "User has been registered successfully");
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
+			Role role = new Role();
+			role.setRole("ADMIN");
+			role.setId(1);
+			Set<Role> roleSet = new HashSet<Role>();
+			roleSet.add(role);
 
+			user.setRoles(roleSet);
+			userService.saveUser(user);
+			return "redirect:/users/listing";
 		}
+		return "redirect:/registration";
+	}
+
+	@RequestMapping(value = "/users/listing", method = RequestMethod.GET)
+	public ModelAndView usersListing()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		List<User> users = userService.findAllUsers();
+		modelAndView.addObject("users", users);
+		modelAndView.setViewName("usersListing");
 		return modelAndView;
 	}
 
@@ -194,61 +211,6 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@PostMapping("/upload") // //new annotation since 4.3
-	public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes)
-	{
-
-		ModelAndView modelAndView = new ModelAndView();
-
-		String message = "test";
-
-		String name = file.getName();
-		String originalName = file.getOriginalFilename();
-
-		if (!file.isEmpty())
-		{
-			try
-			{
-				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-				String rootPath = System.getProperty("catalina.home");
-				long timestamp = System.currentTimeMillis() / 1000;
-				File dir = new File(rootPath + File.separator + "tmpFiles/" + timestamp);
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + originalName);
-				String fileAbsolutePath = serverFile.getAbsolutePath();
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
-				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
-				message = "File uploaded successfully";
-			}
-			catch (Exception e)
-			{
-				message = "You failed to upload " + name + " => " + e.getMessage();
-
-			}
-
-		}
-		else
-		{
-			message = "You failed to upload " + name + " because the file was empty.";
-
-		}
-		modelAndView.addObject("message", message);
-
-		modelAndView.setViewName("result");
-		return modelAndView;
-
-	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView searchPost(String query, Integer pageSize)
 	{
@@ -331,15 +293,6 @@ public class LoginController
 		return modelv;
 	}
 
-	/*
-	 * @RequestMapping(value = "/orderRequest/listing", method =
-	 * RequestMethod.GET) public ModelAndView blog(Pageable pageable) {
-	 * 
-	 * ModelAndView modelAndView = new ModelAndView();
-	 * modelAndView.addObject("orderRequests",
-	 * orderRequestService.findAllOrderRequest());
-	 * modelAndView.setViewName("orderRequest"); return modelAndView; }
-	 */
 	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
 	public ModelAndView fragment()
 	{

@@ -42,18 +42,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	{
 
 		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll()
-				.antMatchers("/registration").permitAll().antMatchers("/fileUpload").permitAll()
+				.antMatchers("/registration", "/registration/1").permitAll().antMatchers("/fileUpload").permitAll()
 				.antMatchers("/uploadStatus").permitAll().antMatchers("/warehouse/listing").permitAll()
 				.antMatchers("/home").permitAll().antMatchers("/gifs/**").permitAll().antMatchers("/addEmployee")
 				.permitAll().antMatchers("/search").permitAll().antMatchers("/students").permitAll()
 				.antMatchers("/blog").permitAll().antMatchers("/orderRequest/listing").permitAll()
 				.antMatchers("/saveFileAndForm").permitAll().antMatchers("/mergeForm").permitAll()
-				.antMatchers("/orderRequest/paginated/listing").permitAll()
-				.antMatchers("/guests/**","/searchFragment").permitAll()
-				.antMatchers("/create/orderRequest/form","/create/data/orderRequest").permitAll()
-				
-				
-				
+				.antMatchers("/orderRequest/paginated/listing").permitAll().antMatchers("/guests/**", "/searchFragment")
+				.permitAll().antMatchers("/create/orderRequest/form", "/create/data/orderRequest", "/users/listing")
+				.permitAll()
+
 				.antMatchers("/upload").permitAll().antMatchers("/warehouse/view/registration").permitAll()
 				.antMatchers("/warehouse/registration").permitAll().antMatchers("/admin/**").hasAuthority("ADMIN")
 				.anyRequest().authenticated().and().csrf().disable().formLogin().loginPage("/login")
