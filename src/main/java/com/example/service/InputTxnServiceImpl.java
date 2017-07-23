@@ -64,17 +64,20 @@ public class InputTxnServiceImpl implements IInputTxnService{
 
   @Override
   public InputTxn findByCustomerID(String customerID) {
-    return inputTxnRepository.findByCustomerID(customerID);
+    //return inputTxnRepository.findByCustomerID(customerID);
+    return inputTxnRepository.findByCustomerIDAndSoftDelete(customerID, false);
   }
 
   @Override
   public InputTxn findByWarehouseID(String warehouseID) {
-    return inputTxnRepository.findByWarehouseID(warehouseID);
+    //return inputTxnRepository.findByWarehouseID(warehouseID);
+    return inputTxnRepository.findByWarehouseIDAndSoftDelete(warehouseID, false);
   }
 
   @Override
   public InputTxn findByOrderID(String orderID) {
-    return inputTxnRepository.findByOrderID(orderID);
+    //return inputTxnRepository.findByOrderID(orderID);
+    return inputTxnRepository.findByOrderIDAndSoftDelete(orderID, false);
   }
 
   @Override
@@ -116,12 +119,13 @@ public class InputTxnServiceImpl implements IInputTxnService{
   @Override
   public List<InputTxn> parseWorkbook(InputFormBean inputFormBean, Workbook workbook) {
 
+    //Assuming this is the "FIRST" Sheet in the excel File
     List<InputTxn> inputTxns = new ArrayList<InputTxn>();
     try
     {
         if (workbook != null)
         {
-            // Get first sheet from the workbook
+            // Get "first" sheet from the workbook
             Sheet sheet = workbook.getSheetAt(0);
 
             // Iterate through each rows from first sheet
@@ -149,7 +153,7 @@ public class InputTxnServiceImpl implements IInputTxnService{
 
   @Override
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath) {
-
+   
     try
     {
         Workbook workbook = ExcelService.convertFileToWorkbook(excelFilePath);
