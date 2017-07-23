@@ -3,14 +3,13 @@ package com.example.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.bean.InputFormBean;
-import com.example.model.Gif;
+import com.example.model.OrderRequest;
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.service.IExcelService;
+import com.example.service.IOrderRequestService;
 import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,9 +43,12 @@ public class LoginController
 	@Autowired
 	private IExcelService excelService;
 
-    @Autowired
-    private IInputTxnService inputTxnService;
-	
+	@Autowired
+	private IOrderRequestService orderRequestService;
+
+	@Autowired
+	private IInputTxnService inputTxnService;
+
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
 	{
@@ -56,17 +57,14 @@ public class LoginController
 		return modelAndView;
 	}
 
-	
-
-	@RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
-	public ModelAndView excelFileTodb()
-	{
-		ModelAndView modelAndView = new ModelAndView();
-
-		modelAndView.addObject("inputFormBean", new InputFormBean());
-		modelAndView.setViewName("excel-upload");
-		return modelAndView;
-	}
+	/*
+	 * @RequestMapping(value = { "/fileUpload" }, method = RequestMethod.GET)
+	 * public ModelAndView excelFileTodb() { ModelAndView modelAndView = new
+	 * ModelAndView();
+	 * 
+	 * modelAndView.addObject("inputFormBean", new InputFormBean());
+	 * modelAndView.setViewName("excel-upload"); return modelAndView; }
+	 */
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration()
@@ -152,12 +150,6 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@GetMapping("/")
-	public String index()
-	{
-		return "upload";
-	}
-
 	@RequestMapping(value = "/warehouse/listing", method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
@@ -223,11 +215,19 @@ public class LoginController
 
 	}
 
-	@RequestMapping(value = "/saveFileAndForm", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchPost(String query)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("header");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
 	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
 	{
-		
+
 		String originalName = file.getOriginalFilename();
 
 		if (!file.isEmpty())
@@ -251,20 +251,63 @@ public class LoginController
 				stream.close();
 
 				inputTxnService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath);
-				//excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
+				// excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
-				
+
 			}
-			catch (Exception e) {
+
+			catch (Exception e)
+			{
 				e.printStackTrace();
+
 			}
 
 		}
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("header");
+		modelAndView.setViewName("successFormSubmission");
 		return modelAndView;
-		
+
+	}
+
+	@RequestMapping(value = "students", method = RequestMethod.GET)
+	public ModelAndView showStudentBySurname(@RequestParam(value = "search", required = false) String search,
+			Model model)
+	{
+		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		model.addAttribute("orderRequests", orderRequests);
+		ModelAndView modelv = new ModelAndView();
+		modelv.setViewName("OrderRequestListing");
+		return modelv;
+	}
+
+	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
+	public ModelAndView blog(Pageable pageable)
+	{
+
+		ModelAndView m = new ModelAndView();
+		m.addObject("orderRequests", orderRequestService.findAllOrderRequest());
+
+		m.setViewName("orderRequest");
+		return m;
+	}
+
+	@RequestMapping(value = "/mergeForm", method = RequestMethod.GET)
+	public ModelAndView id(@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "customerId", required = false) String customerId,
+			@RequestParam(value = "warehouseID", required = false) String warehouseID,
+			@RequestParam(value = "orderID", required = false) String orderID)
+	{
+
+		ModelAndView modelAndView = new ModelAndView();
+		InputFormBean inputFormBean = new InputFormBean();
+		inputFormBean.setCustomerID(customerId);
+		inputFormBean.setOrderID(orderID);
+		inputFormBean.setWarehouseID(warehouseID);
+		modelAndView.addObject("inputFormBean", inputFormBean);
+		modelAndView.setViewName("excel-upload");
+		return modelAndView;
+
 	}
 
 }

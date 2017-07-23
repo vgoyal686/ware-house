@@ -1,1 +1,32 @@
-success
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+	<div class="container">
+
+		<h2>Search for students</h2>
+		<form th:object="${student}" th:action="@{/students}" method="get">
+			<input type="text" name="search" id="search" th:value="${search}" />
+			<input type="submit" value="Search" />
+			<div th:if="${not #lists.isEmpty(search)}">
+				<h2>Students List</h2>
+				<table class="table table-striped">
+					<tr>
+						<th>customerID</th>
+						<th>orderID</th>
+						<th>orderDate</th>
+					</tr>
+					<tr th:each="student: ${search}">
+						<td th:text="${student.customerID}"><a
+							href="/student/${student.idStudent}">idStudent</a></td>
+						<td th:text="${student.orderID}">name</td>
+						<td th:text="${student.orderDate}">surname</td>
+				</table>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
+
