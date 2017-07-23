@@ -17,4 +17,9 @@ public interface IInputTxnRepository extends JpaRepository<InputTxn, Long> {
   InputTxn findByCustomerID(String customerID);  
   InputTxn findByWarehouseID(String warehouseID);
   InputTxn findByOrderID(String orderID);
+
+  InputTxn findByCustomerIDAndSoftDelete(String customerID, boolean softDelete);  
+  InputTxn findByWarehouseIDAndSoftDelete(String warehouseID, boolean softDelete);
+  InputTxn findByOrderIDAndSoftDelete(String orderID, boolean softDelete);
+
 }

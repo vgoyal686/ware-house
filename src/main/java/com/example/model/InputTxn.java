@@ -24,7 +24,9 @@ public class InputTxn {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
   private int id;
-    
+  
+  @Column(name = "softDelete")
+  private boolean softDelete = false;
   
   /****************************  First Part from the Input Form  ****************************/
   
@@ -144,6 +146,23 @@ public class InputTxn {
    */
   public void setId(int id) {
     this.id = id;
+  }
+
+  
+  /**
+   * @author Anurag
+   * @return the softDelete
+   */
+  public boolean isSoftDelete() {
+    return softDelete;
+  }
+
+  /**
+   * @author Anurag
+   * @param softDelete the softDelete to set
+   */
+  public void setSoftDelete(boolean softDelete) {
+    this.softDelete = softDelete;
   }
 
   /**
@@ -673,25 +692,27 @@ public class InputTxn {
   public void setDescription(String description) {
     this.description = description;
   }
+  
 
   /* (non-Javadoc)
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "InputTxn [id=" + id + ", customerID=" + customerID + ", warehouseID=" + warehouseID
-        + ", orderID=" + orderID + ", invoiceNo=" + invoiceNo + ", invoiceDate=" + invoiceDate
-        + ", lCNo=" + lCNo + ", dateOfIssue=" + dateOfIssue + ", customer=" + customer
-        + ", deliveryTerms=" + deliveryTerms + ", portOfImport=" + portOfImport + ", bLNo=" + bLNo
-        + ", bLDate=" + bLDate + ", pONo=" + pONo + ", comments=" + comments + ", category="
-        + category + ", subCategory=" + subCategory + ", product=" + product + ", principalCompany="
-        + principalCompany + ", model=" + model + ", identifierID=" + identifierID + ", uom=" + uom
-        + ", quantity=" + quantity + ", attribute1Name=" + attribute1Name + ", attribute1Value="
-        + attribute1Value + ", attribute2Name=" + attribute2Name + ", attribute2Value="
-        + attribute2Value + ", attribute3Name=" + attribute3Name + ", attribute3Value="
-        + attribute3Value + ", attribute4Name=" + attribute4Name + ", attribute4Value="
-        + attribute4Value + ", attribute5Name=" + attribute5Name + ", attribute5Value="
-        + attribute5Value + ", description=" + description + "]";
+    return "InputTxn [id=" + id + ", softDelete=" + softDelete + ", customerID=" + customerID
+        + ", warehouseID=" + warehouseID + ", orderID=" + orderID + ", invoiceNo=" + invoiceNo
+        + ", invoiceDate=" + invoiceDate + ", lCNo=" + lCNo + ", dateOfIssue=" + dateOfIssue
+        + ", customer=" + customer + ", deliveryTerms=" + deliveryTerms + ", portOfImport="
+        + portOfImport + ", bLNo=" + bLNo + ", bLDate=" + bLDate + ", pONo=" + pONo + ", comments="
+        + comments + ", category=" + category + ", subCategory=" + subCategory + ", product="
+        + product + ", principalCompany=" + principalCompany + ", model=" + model
+        + ", identifierID=" + identifierID + ", uom=" + uom + ", quantity=" + quantity
+        + ", attribute1Name=" + attribute1Name + ", attribute1Value=" + attribute1Value
+        + ", attribute2Name=" + attribute2Name + ", attribute2Value=" + attribute2Value
+        + ", attribute3Name=" + attribute3Name + ", attribute3Value=" + attribute3Value
+        + ", attribute4Name=" + attribute4Name + ", attribute4Value=" + attribute4Value
+        + ", attribute5Name=" + attribute5Name + ", attribute5Value=" + attribute5Value
+        + ", description=" + description + "]";
   }
 
   /**
