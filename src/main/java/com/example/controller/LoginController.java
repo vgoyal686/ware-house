@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.bean.InputFormBean;
+import com.example.model.InputTxn;
 import com.example.model.OrderRequest;
 import com.example.model.User;
 import com.example.model.Warehouse;
 import com.example.service.IExcelService;
+import com.example.service.IInputTxnLevelMappingService;
 import com.example.service.IOrderRequestService;
 import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
@@ -48,6 +50,10 @@ public class LoginController
 
 	@Autowired
 	private IInputTxnService inputTxnService;
+	
+    @Autowired
+    private IInputTxnLevelMappingService inputTxnLevelMappingService;
+	
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
@@ -250,7 +256,8 @@ public class LoginController
 				stream.write(bytes);
 				stream.close();
 
-				inputTxnService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath);
+				List<InputTxn> savedInputTxns = inputTxnService.readFromExcelAndReturnAfterSaveToDb(inputFormBean, fileAbsolutePath);
+				inputTxnLevelMappingService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath, savedInputTxns);
 				// excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
 

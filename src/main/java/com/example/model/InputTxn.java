@@ -4,13 +4,21 @@
  */
 package com.example.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+
+import com.example.model.Level1PK;
 
 /**
  * @author Anurag
@@ -18,6 +26,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "InputTxn")
+//@IdClass(Level1PK.class)
 public class InputTxn {
 
   @Id
@@ -28,6 +37,18 @@ public class InputTxn {
   @Column(name = "softDelete")
   private boolean softDelete = false;
   
+  //@OneToOne(optional=true)//(cascade = CascadeType.ALL)
+  //@PrimaryKeyJoinColumn
+
+//  @OneToOne(optional=true)
+//  @JoinColumns ({
+//    @JoinColumn(name="level2Value", referencedColumnName="level2Value"),
+//    @JoinColumn(name="level2Name", referencedColumnName="level2Name")
+//  })
+//  private InputTxnLevelMapping inputTxnLevelMapping;
+  
+
+
   /****************************  First Part from the Input Form  ****************************/
   
   
@@ -90,9 +111,11 @@ public class InputTxn {
   @Column(name = "model")
   private String model;
 
+  //@Id
   @Column(name = "identifierID")
   private String identifierID;
-
+  
+  //@Id
   @Column(name = "uom")
   private String uom;
 
@@ -795,6 +818,89 @@ public class InputTxn {
     this.attribute5Value = attribute5Value;
     this.description = description;
   }
+
+  /**
+   * @param id
+   * @param softDelete
+   * @param customerID
+   * @param warehouseID
+   * @param orderID
+   * @param invoiceNo
+   * @param invoiceDate
+   * @param lCNo
+   * @param dateOfIssue
+   * @param customer
+   * @param deliveryTerms
+   * @param portOfImport
+   * @param bLNo
+   * @param bLDate
+   * @param pONo
+   * @param comments
+   * @param category
+   * @param subCategory
+   * @param product
+   * @param principalCompany
+   * @param model
+   * @param identifierID
+   * @param uom
+   * @param quantity
+   * @param attribute1Name
+   * @param attribute1Value
+   * @param attribute2Name
+   * @param attribute2Value
+   * @param attribute3Name
+   * @param attribute3Value
+   * @param attribute4Name
+   * @param attribute4Value
+   * @param attribute5Name
+   * @param attribute5Value
+   * @param description
+   */
+  public InputTxn(int id, boolean softDelete, String customerID, String warehouseID, String orderID,
+      String invoiceNo, String invoiceDate, String lCNo, String dateOfIssue, String customer,
+      String deliveryTerms, String portOfImport, String bLNo, String bLDate, String pONo,
+      String comments, String category, String subCategory, String product, String principalCompany,
+      String model, String identifierID, String uom, String quantity, String attribute1Name,
+      String attribute1Value, String attribute2Name, String attribute2Value, String attribute3Name,
+      String attribute3Value, String attribute4Name, String attribute4Value, String attribute5Name,
+      String attribute5Value, String description) {
+    this.id = id;
+    this.softDelete = softDelete;
+    this.customerID = customerID;
+    this.warehouseID = warehouseID;
+    this.orderID = orderID;
+    this.invoiceNo = invoiceNo;
+    this.invoiceDate = invoiceDate;
+    this.lCNo = lCNo;
+    this.dateOfIssue = dateOfIssue;
+    this.customer = customer;
+    this.deliveryTerms = deliveryTerms;
+    this.portOfImport = portOfImport;
+    this.bLNo = bLNo;
+    this.bLDate = bLDate;
+    this.pONo = pONo;
+    this.comments = comments;
+    this.category = category;
+    this.subCategory = subCategory;
+    this.product = product;
+    this.principalCompany = principalCompany;
+    this.model = model;
+    this.identifierID = identifierID;
+    this.uom = uom;
+    this.quantity = quantity;
+    this.attribute1Name = attribute1Name;
+    this.attribute1Value = attribute1Value;
+    this.attribute2Name = attribute2Name;
+    this.attribute2Value = attribute2Value;
+    this.attribute3Name = attribute3Name;
+    this.attribute3Value = attribute3Value;
+    this.attribute4Name = attribute4Name;
+    this.attribute4Value = attribute4Value;
+    this.attribute5Name = attribute5Name;
+    this.attribute5Value = attribute5Value;
+    this.description = description;
+  }
  
+  public InputTxn() {}
   
 }

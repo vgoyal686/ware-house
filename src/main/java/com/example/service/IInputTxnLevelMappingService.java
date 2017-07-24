@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.example.bean.InputFormBean;
+import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -25,6 +26,8 @@ public interface IInputTxnLevelMappingService {
   public Boolean saveInputTxnLevelMappings(List<InputTxnLevelMapping> inputTxnLevelMappings);
   public List<InputTxnLevelMapping> saveAndGetInputTxnLevelMappings(List<InputTxnLevelMapping> inputTxnLevelMappings);
 
+  public int markCorrespondingInputTxnsAsOut(List<InputTxnLevelMapping> inputTxnLevelMappings);
+  
   /******************** Find/Search Api *****************************/
 //  public InputTxnLevelMapping findByCustomerID(String customerID);  
 //  public InputTxnLevelMapping findByWarehouseID(String warehouseID);
@@ -47,5 +50,6 @@ public interface IInputTxnLevelMappingService {
   public InputTxnLevelMapping parseRowToModel(InputFormBean inputFormBean, Row row);
   public List<InputTxnLevelMapping> parseWorkbook(InputFormBean inputFormBean, Workbook workbook);
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath);
+  public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath, List<InputTxn> inputTxns);
   
 }

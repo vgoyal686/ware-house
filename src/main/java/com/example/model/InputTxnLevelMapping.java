@@ -4,11 +4,20 @@
  */
 package com.example.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +32,20 @@ public class InputTxnLevelMapping {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
   private int id;
-    
+   
+//  @AttributeOverrides({
+//    @AttributeOverride(name="identifierID", column = @Column(name="level1Value")),
+//    @AttributeOverride(name="uom", column = @Column(name="level1Name"))
+//  })
+//  @EmbeddedId
+//  Level1PK level1pk;
+  
+//  @OneToOne
+//  @JoinColumns({
+//    @JoinColumn(name="level1Value", referencedColumnName="identifierID"),
+//    @JoinColumn(name="level1Name", referencedColumnName="uom")
+//    })
+
   
   /****************************  First Part from the Input Form  ****************************/
   
@@ -39,12 +61,25 @@ public class InputTxnLevelMapping {
 
   
   /****************************  Second Part from the excel sheet  ****************************/
-
+  
+  //@Id
   @Column(name ="level1Name")
   private String level1Name;
   
+  //@Id
   @Column(name ="level1Value")
   private String level1Value;
+
+  //@MapsId
+  @OneToOne//(mappedBy = "inputTxnLevelMapping")
+  @JoinColumns({
+  @JoinColumn(name="inputTxnId", referencedColumnName="id"),
+  @JoinColumn(name="identifierID", referencedColumnName="identifierID"),
+  @JoinColumn(name="uom", referencedColumnName="uom")
+  //@JoinColumn(name="level1Value", referencedColumnName="identifierID"),
+  //@JoinColumn(name="level1Name", referencedColumnName="uom")
+  }) 
+  InputTxn inputTxn;
   
   @Column(name ="level2Name")
   private String level2Name;
@@ -57,6 +92,23 @@ public class InputTxnLevelMapping {
   
   @Column(name ="level3Value")
   private String level3Value;
+  
+
+  /**
+   * @author Anurag
+   * @return the inputTxn
+   */
+  public InputTxn getInputTxn() {
+    return inputTxn;
+  }
+
+  /**
+   * @author Anurag
+   * @param inputTxn the inputTxn to set
+   */
+  public void setInputTxn(InputTxn inputTxn) {
+    this.inputTxn = inputTxn;
+  }
 
   /**
    * @author Anurag
@@ -128,6 +180,7 @@ public class InputTxnLevelMapping {
    */
   public String getLevel1Name() {
     return level1Name;
+    //return inputTxn.getUom();
   }
 
   /**
@@ -144,6 +197,7 @@ public class InputTxnLevelMapping {
    */
   public String getLevel1Value() {
     return level1Value;
+    //return inputTxn.getIdentifierID();
   }
 
   /**
@@ -224,8 +278,8 @@ public class InputTxnLevelMapping {
   @Override
   public String toString() {
     return "InputTxnLevelMapping [id=" + id + ", customerID=" + customerID + ", warehouseID="
-        + warehouseID + ", orderID=" + orderID + ", level1Name=" + level1Name + ", level1Value="
-        + level1Value + ", level2Name=" + level2Name + ", level2Value=" + level2Value
+        + warehouseID + ", orderID=" + orderID + ", level1Name="  + ", level1Value="
+        + ", level2Name=" + level2Name + ", level2Value=" + level2Value
         + ", level3Name=" + level3Name + ", level3Value=" + level3Value + "]";
   }
 

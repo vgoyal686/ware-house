@@ -5,14 +5,17 @@
 package com.example.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
 import com.example.model.InputTxn;
@@ -23,92 +26,108 @@ import com.example.repository.IInputTxnLevelMappingRepository;
  * @author Anurag
  * @description 
  */
+@Service("inputTxnLevelMappingService")
 public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingService{
 
   @Autowired
   private IInputTxnLevelMappingRepository inputTxnLevelMappingRepository;
+  
+  @Autowired
+  private IInputTxnService inputTxnService;
 
   @Override
   public Boolean saveInputTxnLevelMapping(InputTxnLevelMapping inputTxnLevelMapping) {
-    // TODO Auto-generated method stub
-    return null;
+    
+    try{
+      inputTxnLevelMappingRepository.save(inputTxnLevelMapping);
+    } catch(Exception e){
+      e.printStackTrace();
+      return false;
+    }
+    return true; 
   }
 
   
   @Override
   public InputTxnLevelMapping saveAndGetInputTxnLevelMapping(
       InputTxnLevelMapping inputTxnLevelMapping) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.save(inputTxnLevelMapping);
   }
 
   @Override
   public Boolean saveInputTxnLevelMappings(List<InputTxnLevelMapping> inputTxnLevelMappings) {
-    // TODO Auto-generated method stub
-    return null;
+    
+    try{
+      inputTxnLevelMappingRepository.save(inputTxnLevelMappings);
+    } catch(Exception e){
+      e.printStackTrace();
+      return false;
+    }
+    return true;
   }
 
   @Override
   public List<InputTxnLevelMapping> saveAndGetInputTxnLevelMappings(
       List<InputTxnLevelMapping> inputTxnLevelMappings) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.save(inputTxnLevelMappings);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByCustomerID(String customerID) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByCustomerID(customerID);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByWarehouseID(String warehouseID) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByWarehouseID(warehouseID);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByOrderID(String orderID) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByOrderID(orderID);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByLevel1Value(String level1Value) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByLevel1Value(level1Value);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByLevel2Value(String level2Value) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByLevel2Value(level2Value);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByLevel3Value(String level3Value) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByLevel3Value(level3Value);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByLevel1NameAndLevel1Value(String level1Name,
       String level1Value) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByLevel1NameAndLevel1Value(level1Name, level1Value);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name,
       String level2Value) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByLevel2NameAndLevel2Value(level2Name, level2Value);
   }
 
   @Override
   public List<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name,
       String level3Value) {
-    // TODO Auto-generated method stub
+    
     return inputTxnLevelMappingRepository.findByLevel3NameAndLevel3Value(level3Name, level3Value);
   }
 
@@ -121,12 +140,38 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
     {
       
         // Cell cell = cellIterator.next();
-      String level1Name = ExcelService.parseCellValueToString(cellIterator.next());
-      String level1Value = ExcelService.parseCellValueToString(cellIterator.next());
-      String level2Name = ExcelService.parseCellValueToString(cellIterator.next());
-      String level2Value = ExcelService.parseCellValueToString(cellIterator.next());
-      String level3Name = ExcelService.parseCellValueToString(cellIterator.next());
-      String level3Value = ExcelService.parseCellValueToString(cellIterator.next());
+//      String level1Name = ExcelService.parseCellValueToString(cellIterator.next());
+//      String level1Value = ExcelService.parseCellValueToString(cellIterator.next());
+//      String level2Name = ExcelService.parseCellValueToString(cellIterator.next());
+//      String level2Value = ExcelService.parseCellValueToString(cellIterator.next());
+//      String level3Name = ExcelService.parseCellValueToString(cellIterator.next());
+//      String level3Value = ExcelService.parseCellValueToString(cellIterator.next());
+
+      String level1Name = null; 
+      if(cellIterator.hasNext()) {
+          level1Name = ExcelService.parseCellValueToString(cellIterator.next());
+      }
+      String level1Value = null; 
+      if(cellIterator.hasNext()) {
+          level1Value = ExcelService.parseCellValueToString(cellIterator.next());
+      }
+      String level2Name = null; 
+      if(cellIterator.hasNext()) {
+          level2Name = ExcelService.parseCellValueToString(cellIterator.next());
+      }
+      String level2Value = null; 
+      if(cellIterator.hasNext()) {
+          level2Value = ExcelService.parseCellValueToString(cellIterator.next());
+      }
+      String level3Name = null; 
+      if(cellIterator.hasNext()) {
+          level3Name = ExcelService.parseCellValueToString(cellIterator.next());
+      }
+      String level3Value = null; 
+      if(cellIterator.hasNext()) {
+          level3Value = ExcelService.parseCellValueToString(cellIterator.next());
+      }
+
       
       inputTxnLevelMapping = new InputTxnLevelMapping(inputFormBean.getCustomerID(),inputFormBean.getWarehouseID(), inputFormBean.getOrderID()
         ,level1Name,level1Value,level2Name,level2Value,level3Name,level3Value);
@@ -188,6 +233,80 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
         e.printStackTrace();
     }
     
+  }
+
+
+  /* (non-Javadoc)
+   * @see com.example.service.IInputTxnLevelMappingService#readFromExcelAndSaveToDb(com.example.bean.InputFormBean, java.lang.String, java.util.List)
+   */
+  @Override
+  public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath,
+      List<InputTxn> inputTxns) {
+    
+    try
+    {
+        Workbook workbook = ExcelService.convertFileToWorkbook(excelFilePath);
+        List<InputTxnLevelMapping> inputTxnLevelMappings = parseWorkbook(inputFormBean, workbook);
+        System.out.println(inputTxnLevelMappings.size());
+        
+        
+        Map<String, InputTxn> hashMapOfPKAndInputTxns = _getHashMapOfPKAndInputTxns(inputTxns);
+        List<InputTxnLevelMapping> inputTxnLevelMappingsWithInputTxns = _getInputTxnLevelMappingsWithInputTxns(inputTxnLevelMappings, hashMapOfPKAndInputTxns);
+        
+        if (inputTxnLevelMappings.size() >= 1) System.out.println(inputTxnLevelMappings.get(1));
+        inputTxnLevelMappingRepository.save(inputTxnLevelMappingsWithInputTxns);
+    }
+    catch (Exception e)
+    {
+        e.printStackTrace();
+    }    
+  }
+  
+  private Map<String, InputTxn> _getHashMapOfPKAndInputTxns(List<InputTxn> inputTxns){
+    
+    Map<String, InputTxn> hashMapOfPKAndInputTxns = new HashMap<>();
+    for(InputTxn inputTxn : inputTxns) {
+      String primaryKey = inputTxn.getUom() + "~" + inputTxn.getIdentifierID();
+      if( ! ( primaryKey == null || primaryKey.isEmpty() )){
+        hashMapOfPKAndInputTxns.put(primaryKey, inputTxn);
+      }
+    }
+    return hashMapOfPKAndInputTxns;
+  }
+  
+  @SuppressWarnings("unused")
+  private List<InputTxnLevelMapping> _getInputTxnLevelMappingsWithInputTxns(
+                                                                            List<InputTxnLevelMapping> inputTxnLevelMappings, 
+                                                                            Map<String, InputTxn> hashMapOfPKAndInputTxns){
+    
+    List<InputTxnLevelMapping> inputTxnLevelMappingsWithInputTxns = new ArrayList<>();
+    
+    for(InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings){
+      String primaryKey = inputTxnLevelMapping.getLevel1Name() + "~" + inputTxnLevelMapping.getLevel1Value();
+      if( ! ( primaryKey == null || primaryKey.isEmpty() )){
+        InputTxn inputTxn = hashMapOfPKAndInputTxns.get(primaryKey);
+        inputTxnLevelMapping.setInputTxn(inputTxn);
+        inputTxnLevelMappingsWithInputTxns.add(inputTxnLevelMapping);
+      }
+      
+    }
+    return inputTxnLevelMappingsWithInputTxns;
+  }
+
+
+  /* (non-Javadoc)
+   * @see com.example.service.IInputTxnLevelMappingService#markCorrespondingInputTxnsAsOut(java.util.List)
+   */
+  @Override
+  public int markCorrespondingInputTxnsAsOut(
+      List<InputTxnLevelMapping> inputTxnLevelMappings) {
+    
+    List<Integer> inputTxnIds = new ArrayList<>();
+    for(InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings){
+      inputTxnIds.add(inputTxnLevelMapping.getInputTxn().getId());
+    }
+    
+    return inputTxnService.markInputTxnsAsOut(inputTxnIds);
   }
 
 }

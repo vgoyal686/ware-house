@@ -63,6 +63,12 @@ public class InputTxnServiceImpl implements IInputTxnService{
   }
 
   @Override
+  public int markInputTxnsAsOut(List<Integer> inputTxnIds) {
+
+    return inputTxnRepository.updateSoftDelete(inputTxnIds, true);
+  }
+  
+  @Override
   public InputTxn findByCustomerID(String customerID) {
     //return inputTxnRepository.findByCustomerID(customerID);
     return inputTxnRepository.findByCustomerIDAndSoftDelete(customerID, false);
@@ -167,4 +173,28 @@ public class InputTxnServiceImpl implements IInputTxnService{
         e.printStackTrace();
     }
   }
+
+  /* (non-Javadoc)
+   * @see com.example.service.IInputTxnService#readFromExcelAndReturnAfterSaveToDb(com.example.bean.InputFormBean, java.lang.String)
+   */
+  @Override
+  public List<InputTxn> readFromExcelAndReturnAfterSaveToDb(InputFormBean inputFormBean,
+      String excelFilePath) {
+    
+    List<InputTxn> savedInputTxns = null;
+    try
+    {
+        Workbook workbook = ExcelService.convertFileToWorkbook(excelFilePath);
+        List<InputTxn> inputTxns = parseWorkbook(inputFormBean, workbook);
+        System.out.println(inputTxns.size());
+        if (inputTxns.size() >= 1) System.out.println(inputTxns.get(0));
+        savedInputTxns = inputTxnRepository.save(inputTxns);
+    }
+    catch (Exception e)
+    {
+        e.printStackTrace();
+    }  
+    return savedInputTxns;
+  }
+
 }
