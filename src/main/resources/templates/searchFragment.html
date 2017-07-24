@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+	<form>
+		<span class="subtitle">Guest list form</span>
+		<div class="listBlock">
+			<div class="search-block">
+				<input type="text" id="searchSurname" name="searchSurname" /> <br />
+				<label for="searchSurname">Search
+					label:</label>
+				<button id="searchButton" name="searchButton"
+					onclick="retrieveGuests('/guests')" type="button" >Search
+					button</button>
+			</div>
+
+			<!-- Results block -->
+			<div id="resultsBlock"></div>
+		</div>
+	</form>
+
+</body>
+<script>
+function retrieveGuests(url) {
+   
+
+    if ($('#searchSurname').val() != '') {
+        url = url + '/' + $('#searchSurname').val();
+    }
+
+    $("#resultsBlock").load(url);
+}</script>
+</html>

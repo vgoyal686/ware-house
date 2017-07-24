@@ -16,61 +16,74 @@ import com.example.repository.IOrderRequestRepository;
 
 /**
  * @author Anurag
- * @description 
+ * @description
  */
 @Service("orderRequestService")
-public class OrderRequestServiceImpl implements IOrderRequestService {
+public class OrderRequestServiceImpl implements IOrderRequestService
+{
 
-  @Autowired
-  private IOrderRequestRepository orderRequestRepository;
-  
-  @Override
-  public Boolean saveOrderRequest(OrderRequest orderRequest) {
-    
-    try{ 
-      orderRequestRepository.save(orderRequest);
-    } catch(Exception e){
-      e.printStackTrace();
-      return false;
-    }
-    return true;
-  }
-  
-  @Override
-  public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest) {
-    
-    return orderRequestRepository.save(orderRequest);
-  }
+	@Autowired
+	private IOrderRequestRepository orderRequestRepository;
 
-  @Override
-  public OrderRequest findByCustomerID(String customerID) {
-    
-  //  return orderRequestRepository.findByCustomerID(customerID);
-	  
-	  return new OrderRequest();
-  }
+	@Override
+	public Boolean saveOrderRequest(OrderRequest orderRequest)
+	{
 
+		try
+		{
+			orderRequestRepository.save(orderRequest);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 
-  
-  @Override
-  public  Iterable<OrderRequest> listByCustomerID(String customerID) {
-    
-    return orderRequestRepository.findByCustomerID(customerID);
-  }
-  
- 
-  @Override
-  public  List<OrderRequest> findAllOrderRequest() {
-    
-    return orderRequestRepository.findAll();
-  }
-  
-  
-  
-  @Override
-  public Page<OrderRequest> getAllOrderRequestWithPagination(Pageable pageable) {
-      Page<OrderRequest> blogList = orderRequestRepository.findAll(pageable);
-      return blogList;
-  }
+	@Override
+	public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest)
+	{
+
+		return orderRequestRepository.save(orderRequest);
+	}
+
+	@Override
+	public OrderRequest findByCustomerID(String customerID)
+	{
+
+		
+
+		return new OrderRequest();
+	}
+
+	@Override
+	public boolean findById(Long id)
+	{
+
+		return orderRequestRepository.exists(id);
+
+	}
+
+	@Override
+	public List<OrderRequest> listByCustomerID(String customerID)
+	{
+
+		return orderRequestRepository.findByCustomerID(customerID);
+	}
+
+	@Override
+	public List<OrderRequest> findAllOrderRequest()
+	{
+
+		return orderRequestRepository.findAll();
+	}
+
+	@Override
+	public Page<OrderRequest> getAllOrderRequestWithPagination(Pageable pageable)
+	{
+		Page<OrderRequest> blogList = orderRequestRepository.findAll(pageable);
+		return blogList;
+	}
 
 }

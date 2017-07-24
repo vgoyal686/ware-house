@@ -1,116 +1,219 @@
-
-
-
-
-
 <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Order Request Form</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" action="#" th:action="@{/create/data/orderRequest}"
+					th:object="${orderRequest}" method="post" class="form-horizontal"
+					role="form">
+					<h2>Order Request Form</h2>
+					<div class="form-group">
+						<div class="col-sm-9">
+						<label th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}"
+								class="validation-message"></label>
+						<input type="text" th:field="*{customerID}" placeholder="Customer Id"
+								class="form-control" /> 
+						</div>
+					</div>
 
-<html lang="en">
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{orderID}" placeholder="orderID"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{orderDate}"
+								placeholder="orderDate" class="form-control" /> <label
+								th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"
+								class="validation-message"></label>
+						</div>
+					</div>
 
-  <head th:substituteby="fragments/headTag :: headTag">
+<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{warehouseID}"
+								placeholder="warehouseID" class="form-control" /> <label
+								th:if="${#fields.hasErrors('warehouseID')}" th:errors="*{warehouseID}"
+								class="validation-message"></label>
+						</div>
+					</div>
 
-    <!-- ============================================================================ -->
-    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
-    <!-- and is therefore entirely optionl, as this markup fragment will be included  -->
-    <!-- from "fragments.html" at runtime.                                            -->
-    <!-- ============================================================================ -->
+<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{currentUnit}"
+								placeholder="currentUnit" class="form-control" /> <label
+								th:if="${#fields.hasErrors('currentUnit')}" th:errors="*{currentUnit}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+				
+				<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{currentStock}"
+								placeholder="currentStock" class="form-control" /> <label
+								th:if="${#fields.hasErrors('currentStock')}" th:errors="*{currentStock}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{details}"
+								placeholder="details" class="form-control" /> <label
+								th:if="${#fields.hasErrors('details')}" th:errors="*{details}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{requestRaisedBy}"
+								placeholder="requestRaisedBy" class="form-control" /> <label
+								th:if="${#fields.hasErrors('requestRaisedBy')}" th:errors="*{requestRaisedBy}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{managerApproval}"
+								placeholder="managerApproval" class="form-control" /> <label
+								th:if="${#fields.hasErrors('managerApproval')}" th:errors="*{managerApproval}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{documentReceived}"
+								placeholder="documentReceived" class="form-control" /> <label
+								th:if="${#fields.hasErrors('documentReceived')}" th:errors="*{documentReceived}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{wareConfirmation}"
+								placeholder="wareConfirmation" class="form-control" /> <label
+								th:if="${#fields.hasErrors('wareConfirmation')}" th:errors="*{wareConfirmation}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{openingBalance}"
+								placeholder="openingBalance" class="form-control" /> <label
+								th:if="${#fields.hasErrors('openingBalance')}" th:errors="*{openingBalance}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{input}"
+								placeholder="input" class="form-control" /> <label
+								th:if="${#fields.hasErrors('input')}" th:errors="*{input}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{output}"
+								placeholder="output" class="form-control" /> <label
+								th:if="${#fields.hasErrors('output')}" th:errors="*{output}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{closingBalance}"
+								placeholder="closingBalance" class="form-control" /> <label
+								th:if="${#fields.hasErrors('closingBalance')}" th:errors="*{closingBalance}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{ratePerUnitPerDay}"
+								placeholder="ratePerUnitPerDay" class="form-control" /> <label
+								th:if="${#fields.hasErrors('ratePerUnitPerDay')}" th:errors="*{ratePerUnitPerDay}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{spaceCharge}"
+								placeholder="spaceCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('spaceCharge')}" th:errors="*{spaceCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{loadingCharge}"
+								placeholder="loadingCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('loadingCharge')}" th:errors="*{loadingCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{unloadingCharge}"
+								placeholder="unloadingCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('unloadingCharge')}" th:errors="*{unloadingCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{otherCharge}"
+								placeholder="otherCharge" class="form-control" /> <label
+								th:if="${#fields.hasErrors('otherCharge')}" th:errors="*{otherCharge}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{discount}"
+								placeholder="discount" class="form-control" /> <label
+								th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{tax}"
+								placeholder="tax" class="form-control" /> <label
+								th:if="${#fields.hasErrors('tax')}" th:errors="*{tax}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{total}"
+								placeholder="total" class="form-control" /> <label
+								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"
+								class="validation-message"></label>
+						</div>
+					</div><div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{status}"
+								placeholder="status" class="form-control" /> <label
+								th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+								class="validation-message"></label>
+						</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Create Order Request</button>
+						</div>
+					</div>
+					
+					<span th:utext="${successMessage}"></span>
+					
+					
+				</form>
+			</div>
+		</div>
+	</div>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>PetClinic :: a Spring Framework demonstration</title>
-
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
-      th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
-    <link href="../../../resources/css/petclinic.css"
-      th:href="@{/resources/css/petclinic.css}" rel="stylesheet" />
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-      th:src="@{/webjars/jquery/1.9.0/jquery.js}"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"
-      th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.js}"></script>
-
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css"
-      th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}"
-      rel="stylesheet" />
-
-  </head>
-
-  <body>
-
-    <div class="container">
-
-      <div th:include="fragments/bodyHeader" th:remove="tag">
-
-        <!-- =========================================================================== -->
-        <!-- This div is only used for static prototyping purposes (natural templates)   -->
-        <!-- and is therefore entirely optionl, as this markup fragment will be included -->
-        <!-- from "fragments.html" at runtime.                                           -->
-        <!-- =========================================================================== -->
-
-        <img th:src="@{/resources/images/banner-graphic.png}"
-          src="../../../resources/images/banner-graphic.png"/>
-
-        <div class="navbar" style="width: 601px;">
-          <div class="navbar-inner">
-            <ul class="nav">
-              <li style="width: 100px;">
-                <a href="../welcome.html" th:href="@{/}">
-                  <i class="icon-home"></i>Home
-                </a>
-              </li>
-              <li style="width: 130px;">
-                <a href="../owners/findOwners.html" th:href="@{/owners/find.html}">
-                  <i class="icon-search"></i>Find owners
-                </a>
-              </li>
-              <li style="width: 140px;">
-                <a href="../vets/vetList.html" th:href="@{/vets.html}">
-                  <i class="icon-th-list"></i>Veterinarians
-                </a>
-              </li>
-              <li style="width: 90px;">
-                <a href="../exception.html" th:href="@{/oups.html}"
-                  title="trigger a RuntimeException to see how it is handled">
-                  <i class="icon-warning-sign"></i>Error
-                </a>
-              </li>
-              <li style="width: 80px;">
-                <a href="#" title="not available yet. Work in progress!!">
-                  <i class=" icon-question-sign"></i>Help
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- ... -->
-
-
-      <table th:substituteby="fragments/footer :: footer" class="footer">
-
-        <!-- =========================================================================== -->
-        <!-- This table section is only used for static prototyping purposes (natural    -->
-        <!-- templates) and is therefore entirely optionl, as this markup fragment will  -->
-        <!-- be included from "fragments.html" at runtime.                               -->
-        <!-- =========================================================================== -->
-
-        <tr>
-          <td></td>
-          <td align="right">
-            <img src="../../../resources/images/springsource-logo.png"
-              th:src="@{/resources/images/springsource-logo.png}"
-              alt="Sponsored by SpringSource" />
-          </td>
-        </tr>
-
-      </table>
-
-    </div>
-
-  </body>
-
+</body>
 </html>
-    
-   

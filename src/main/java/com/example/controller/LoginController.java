@@ -3,6 +3,8 @@ package com.example.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,8 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.bean.InputFormBean;
 import com.example.model.InputTxn;
 import com.example.model.OrderRequest;
+import com.example.model.Role;
 import com.example.model.User;
 import com.example.model.Warehouse;
+import com.example.repository.PageWrapper;
 import com.example.service.IExcelService;
 import com.example.service.IInputTxnLevelMappingService;
 import com.example.service.IOrderRequestService;
@@ -32,7 +37,9 @@ import com.example.service.WarehouseServiceImpl;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class LoginController
@@ -83,7 +90,7 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/registration/1", method = RequestMethod.POST)
-	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult)
+	public String createNewUser(User user, BindingResult bindingResult)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
@@ -98,12 +105,26 @@ public class LoginController
 		}
 		else
 		{
-			userService.saveUser(user);
-			modelAndView.addObject("successMessage", "User has been registered successfully");
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
+			Role role = new Role();
+			role.setRole("ADMIN");
+			role.setId(1);
+			Set<Role> roleSet = new HashSet<Role>();
+			roleSet.add(role);
 
+			user.setRoles(roleSet);
+			userService.saveUser(user);
+			return "redirect:/users/listing";
 		}
+		return "redirect:/registration";
+	}
+
+	@RequestMapping(value = "/users/listing", method = RequestMethod.GET)
+	public ModelAndView usersListing()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		List<User> users = userService.findAllUsers();
+		modelAndView.addObject("users", users);
+		modelAndView.setViewName("usersListing");
 		return modelAndView;
 	}
 
@@ -115,6 +136,36 @@ public class LoginController
 		modelAndView.addObject("user", warehouse);
 		modelAndView.setViewName("warehouse");
 		return modelAndView;
+	}
+
+	@RequestMapping(value = "create/view/orderRequest", method = RequestMethod.GET)
+	public ModelAndView orderRequest()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		Warehouse warehouse = new Warehouse();
+		modelAndView.addObject("user", warehouse);
+		modelAndView.setViewName("warehouse");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "create/orderRequest/form", method = RequestMethod.GET)
+	public ModelAndView creatOrderRequest()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		OrderRequest orderRequest = new OrderRequest();
+		modelAndView.addObject("orderRequest", orderRequest);
+		modelAndView.setViewName("orderRequest");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
+	public String createNewWareHouse(@Valid OrderRequest orderRequest, BindingResult bindingResult)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		orderRequestService.saveOrderRequest(orderRequest);
+		modelAndView.setViewName("header");
+		return "redirect:/search";
+
 	}
 
 	@RequestMapping(value = "warehouse/registration", method = RequestMethod.POST)
@@ -166,65 +217,26 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@PostMapping("/upload") // //new annotation since 4.3
-	public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes)
-	{
-
-		ModelAndView modelAndView = new ModelAndView();
-
-		String message = "test";
-
-		String name = file.getName();
-		String originalName = file.getOriginalFilename();
-
-		if (!file.isEmpty())
-		{
-			try
-			{
-				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-				String rootPath = System.getProperty("catalina.home");
-				long timestamp = System.currentTimeMillis() / 1000;
-				File dir = new File(rootPath + File.separator + "tmpFiles/" + timestamp);
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + originalName);
-				String fileAbsolutePath = serverFile.getAbsolutePath();
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
-				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
-				message = "File uploaded successfully";
-			}
-			catch (Exception e)
-			{
-				message = "You failed to upload " + name + " => " + e.getMessage();
-
-			}
-
-		}
-		else
-		{
-			message = "You failed to upload " + name + " because the file was empty.";
-
-		}
-		modelAndView.addObject("message", message);
-
-		modelAndView.setViewName("result");
-		return modelAndView;
-
-	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView searchPost(String query)
+	public ModelAndView searchPost(String query, Integer pageSize)
 	{
 		ModelAndView modelAndView = new ModelAndView();
+
+		if (pageSize == null)
+		{
+			pageSize = new Integer(10);
+		}
+
+		PageRequest pageable = new PageRequest(0, pageSize);
+		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
+
+		PageWrapper<OrderRequest> page = new PageWrapper<OrderRequest>(paginated, "/orderRequest/paginated/listing");
+		modelAndView.addObject("products", page.getContent());
+		modelAndView.addObject("page", page);
+		modelAndView.addObject("newWorkerValue", paginated.getContent());
+		modelAndView.addObject("totalPages", page.getTotalPages());
+
+		modelAndView.addObject("psize", pageSize);
 		modelAndView.setViewName("header");
 		return modelAndView;
 	}
@@ -288,15 +300,26 @@ public class LoginController
 		return modelv;
 	}
 
-	@RequestMapping(value = "/orderRequest/listing", method = RequestMethod.GET)
-	public ModelAndView blog(Pageable pageable)
+	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
+	public ModelAndView fragment()
 	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("searchFragment");
+		return modelAndView;
+	}
 
-		ModelAndView m = new ModelAndView();
-		m.addObject("orderRequests", orderRequestService.findAllOrderRequest());
+	@RequestMapping(value = "/guests/{surname}", method = RequestMethod.GET)
+	public String showGuestList(Model model, @PathVariable("surname") String surname)
+	{
+		model.addAttribute("guests", orderRequestService.listByCustomerID(surname));
+		return "results :: resultsList";
+	}
 
-		m.setViewName("orderRequest");
-		return m;
+	@RequestMapping(value = "/guests", method = RequestMethod.GET)
+	public String showGuestList(Model model)
+	{
+		model.addAttribute("guests", orderRequestService.findAllOrderRequest());
+		return "results :: resultsList";
 	}
 
 	@RequestMapping(value = "/mergeForm", method = RequestMethod.GET)
@@ -315,6 +338,15 @@ public class LoginController
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;
 
+	}
+
+	@RequestMapping(value = "/orderRequest/paginated/listing", method = RequestMethod.GET)
+	public String list(Model model, int page, int size)
+	{
+		PageRequest pageable = new PageRequest(page, size);
+		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
+		model.addAttribute("orderRequests", paginated.getContent());
+		return "OrderRequestListing :: resultsList";
 	}
 
 }
