@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.example.bean.InputFormBean;
 import com.example.model.InputTxn;
@@ -45,6 +47,13 @@ public interface IInputTxnLevelMappingService {
   public List<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name, String level2Value);
   public List<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name, String level3Value);
 
+  public Page<InputTxnLevelMapping> findByLevel1NameAndLevel1Value(String level1Name, String level1Value, Pageable pageable);
+  public Page<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name, String level2Value, Pageable pageable);
+  public Page<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name, String level3Value, Pageable pageable);
+
+  public List<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue);
+  
+  public Page<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue, Pageable pageable);
   
   /******************** Excel Workbook parsing utility *****************/
   public InputTxnLevelMapping parseRowToModel(InputFormBean inputFormBean, Row row);

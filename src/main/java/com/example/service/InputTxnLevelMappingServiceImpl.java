@@ -15,6 +15,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
@@ -75,6 +77,18 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
   }
 
   @Override
+  public int markCorrespondingInputTxnsAsOut(
+      List<InputTxnLevelMapping> inputTxnLevelMappings) {
+    
+    List<Integer> inputTxnIds = new ArrayList<>();
+    for(InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings){
+      inputTxnIds.add(inputTxnLevelMapping.getInputTxn().getId());
+    }
+    
+    return inputTxnService.markInputTxnsAsOut(inputTxnIds);
+  }
+
+  @Override
   public List<InputTxnLevelMapping> findByCustomerID(String customerID) {
     
     return inputTxnLevelMappingRepository.findByCustomerID(customerID);
@@ -131,6 +145,65 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
     return inputTxnLevelMappingRepository.findByLevel3NameAndLevel3Value(level3Name, level3Value);
   }
 
+
+  @Override
+  public Page<InputTxnLevelMapping> findByLevel1NameAndLevel1Value(String level1Name,
+      String level1Value, Pageable pageable) {
+    
+    return inputTxnLevelMappingRepository.findByLevel1NameAndLevel1Value(level1Name, level1Value, pageable);
+  }
+
+
+
+  @Override
+  public Page<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name,
+      String level2Value, Pageable pageable) {
+    
+    return inputTxnLevelMappingRepository.findByLevel2NameAndLevel2Value(level2Name, level2Value, pageable);
+  }
+
+
+
+  @Override
+  public Page<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name,
+      String level3Value, Pageable pageable) {
+    
+    return inputTxnLevelMappingRepository.findByLevel3NameAndLevel3Value(level3Name, level3Value, pageable);
+  }
+
+
+
+
+  @Override
+  public List<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName,
+      String levelValue) {
+    
+    List<InputTxnLevelMapping> inputTxnLevelMappings = new ArrayList<>();
+    if(levelNo == 1){
+      inputTxnLevelMappings = findByLevel1NameAndLevel1Value(levelName, levelValue);
+    }else if (levelNo == 2){
+      inputTxnLevelMappings = findByLevel2NameAndLevel2Value(levelName, levelValue);
+    }else if (levelNo == 3){
+      inputTxnLevelMappings = findByLevel3NameAndLevel3Value(levelName, levelValue);
+    }
+    return inputTxnLevelMappings;
+  }
+  
+  @Override
+  public Page<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName,
+      String levelValue, Pageable pageable) {
+    
+    Page<InputTxnLevelMapping> inputTxnLevelMappings = null;
+    if(levelNo == 1){
+      inputTxnLevelMappings = findByLevel1NameAndLevel1Value(levelName, levelValue, pageable);
+    }else if (levelNo == 2){
+      inputTxnLevelMappings = findByLevel2NameAndLevel2Value(levelName, levelValue, pageable);
+    }else if (levelNo == 3){
+      inputTxnLevelMappings = findByLevel3NameAndLevel3Value(levelName, levelValue, pageable);
+    }
+    return inputTxnLevelMappings;
+  }
+  
   @Override
   public InputTxnLevelMapping parseRowToModel(InputFormBean inputFormBean, Row row) {
     InputTxnLevelMapping inputTxnLevelMapping = null;
@@ -236,9 +309,6 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
   }
 
 
-  /* (non-Javadoc)
-   * @see com.example.service.IInputTxnLevelMappingService#readFromExcelAndSaveToDb(com.example.bean.InputFormBean, java.lang.String, java.util.List)
-   */
   @Override
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath,
       List<InputTxn> inputTxns) {
@@ -294,19 +364,9 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
   }
 
 
-  /* (non-Javadoc)
-   * @see com.example.service.IInputTxnLevelMappingService#markCorrespondingInputTxnsAsOut(java.util.List)
-   */
-  @Override
-  public int markCorrespondingInputTxnsAsOut(
-      List<InputTxnLevelMapping> inputTxnLevelMappings) {
-    
-    List<Integer> inputTxnIds = new ArrayList<>();
-    for(InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings){
-      inputTxnIds.add(inputTxnLevelMapping.getInputTxn().getId());
-    }
-    
-    return inputTxnService.markInputTxnsAsOut(inputTxnIds);
-  }
+
+
+
+ 
 
 }

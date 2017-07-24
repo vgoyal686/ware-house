@@ -3,6 +3,8 @@ package com.example.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -34,5 +36,9 @@ public interface IInputTxnLevelMappingRepository extends JpaRepository<InputTxnL
   public List<InputTxnLevelMapping> findByLevel1NameAndLevel1Value(String level1Name, String level1Value);
   public List<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name, String level2Value);
   public List<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name, String level3Value);
+
+  public Page<InputTxnLevelMapping> findByLevel1NameAndLevel1Value(String level1Name, String level1Value, Pageable pageable);
+  public Page<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name, String level2Value, Pageable pageable);
+  public Page<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name, String level3Value, Pageable pageable);
 
 }
