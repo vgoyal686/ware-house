@@ -41,4 +41,5 @@ public interface IInputTxnService {
   public List<InputTxn> parseWorkbook(InputFormBean inputFormBean, Workbook workbook);
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath);
   public List<InputTxn> readFromExcelAndReturnAfterSaveToDb(InputFormBean inputFormBean, String excelFilePath);
+List<InputTxn> findInputTransactions();
 }

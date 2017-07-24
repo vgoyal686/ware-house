@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,13 +13,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.bean.InputFormBean;
 import com.example.model.InputTxn;
 import com.example.model.OrderRequest;
@@ -57,10 +54,9 @@ public class LoginController
 
 	@Autowired
 	private IInputTxnService inputTxnService;
-	
-    @Autowired
-    private IInputTxnLevelMappingService inputTxnLevelMappingService;
-	
+
+	@Autowired
+	private IInputTxnLevelMappingService inputTxnLevelMappingService;
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
@@ -268,7 +264,8 @@ public class LoginController
 				stream.write(bytes);
 				stream.close();
 
-				List<InputTxn> savedInputTxns = inputTxnService.readFromExcelAndReturnAfterSaveToDb(inputFormBean, fileAbsolutePath);
+				List<InputTxn> savedInputTxns = inputTxnService.readFromExcelAndReturnAfterSaveToDb(inputFormBean,
+						fileAbsolutePath);
 				inputTxnLevelMappingService.readFromExcelAndSaveToDb(inputFormBean, fileAbsolutePath, savedInputTxns);
 				// excelService.readFromExcelAndSaveToDb(fileAbsolutePath);
 				System.out.println("\n\n\n  DATA SAVED SUCCESSFULLY TO DB \n\n\n ");
@@ -348,5 +345,18 @@ public class LoginController
 		model.addAttribute("orderRequests", paginated.getContent());
 		return "OrderRequestListing :: resultsList";
 	}
+	
+	
+	@RequestMapping(value = "/inputTransactions/listing", method = RequestMethod.GET)
+	public ModelAndView inputTransactions()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		List<InputTxn> inputTransactions = inputTxnService.findInputTransactions();
+		modelAndView.addObject("users", inputTransactions);
+		modelAndView.setViewName("inputTransactionListing");
+		return modelAndView;
+	}
+	
+	
 
 }

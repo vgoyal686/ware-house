@@ -1,0 +1,39 @@
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/styles.css}"></link>
+</head>
+<body>
+
+
+
+	<h1>INPUT TRANSACTION Listing</h1>
+
+	<table>
+		<tr>
+			<th>customerID</th>
+			<th>warehouseID</th>
+			<th>orderID</th>
+			<th>invoiceNo</th>
+
+		</tr>
+		<tr th:each="user: ${users}">
+			<td th:text="${user.customerID}">..</td>
+			<td th:text="${user.warehouseID}">..</td>
+			<td th:text="${user.orderID}">..</td>
+			<td th:text="${user.invoiceNo}">..</td>
+
+
+		</tr>
+	</table>
+
+
+
+
+
+</body>
+</html>
