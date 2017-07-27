@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -398,24 +400,31 @@ public class LoginController
 		modelAndView.setViewName("inputTransactionListing");
 		return modelAndView;
 	}
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping(value = "/outDataRequest", method = RequestMethod.POST)
-	public String addNewPost(@Valid OutData outData, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
+	public String addNewPost(@Valid OutData outData, BindingResult bindingResult, Model model)
+	{
+		if (bindingResult.hasErrors())
+		{
 			return "outData";
 		}
-		
+
 		PageRequest pageable = new PageRequest(0, 1000);
 		List<InputTxn> paginated = inputTxnService.findInputTransactions();
 		model.addAttribute("users", paginated);
 		return "inputTransactionListing :: resultsList";
-		
-	
+
+	}
+
+	@RequestMapping(value = "/saveAndGetInputTxns", method = RequestMethod.POST)
+	public String saveAndGetInputTxns(@RequestParam(value = "myArray[]") Integer[] myArray)
+	{
+
+		PageRequest pageable = new PageRequest(0, 1000);
+		List<InputTxn> paginated = inputTxnService.findInputTransactions();
+
+		return "inputTransactionListing :: resultsList";
+
 	}
 
 }
