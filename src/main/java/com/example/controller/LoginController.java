@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.bean.InputFormBean;
+import com.example.bean.LEVEL;
+import com.example.bean.OutData;
 import com.example.model.InputTxn;
 import com.example.model.OrderRequest;
 import com.example.model.Role;
@@ -34,6 +36,7 @@ import com.example.service.WarehouseServiceImpl;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -157,11 +160,39 @@ public class LoginController
 	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
 	public String createNewWareHouse(@Valid OrderRequest orderRequest, BindingResult bindingResult)
 	{
-		ModelAndView modelAndView = new ModelAndView();
+
 		orderRequestService.saveOrderRequest(orderRequest);
-		modelAndView.setViewName("header");
+
 		return "redirect:/search";
 
+	}
+
+	@RequestMapping(value = "/out/data/request", method = RequestMethod.GET)
+	public ModelAndView createOutRequest(String query, Integer pageSize)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+
+		if (pageSize == null)
+		{
+			pageSize = new Integer(10);
+		}
+		List<String> levels = new ArrayList<String>();
+		levels.add(LEVEL.LEVEL1.name());
+		levels.add(LEVEL.LEVEL2.name());
+		levels.add(LEVEL.LEVEL3.name());
+		modelAndView.addObject("levelOptions", levels);
+		PageRequest pageable = new PageRequest(0, pageSize);
+		Page<InputTxn> paginated = inputTxnService.getAllWithPagination(pageable);
+
+		PageWrapper<InputTxn> page = new PageWrapper<InputTxn>(paginated, "/inputTxn/paginated/listing");
+		modelAndView.addObject("products", page.getContent());
+		modelAndView.addObject("page", page);
+		modelAndView.addObject("newWorkerValue", paginated.getContent());
+		modelAndView.addObject("totalPages", page.getTotalPages());
+		modelAndView.addObject("outData", new OutData());
+		modelAndView.addObject("psize", pageSize);
+		modelAndView.setViewName("outData");
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "warehouse/registration", method = RequestMethod.POST)
@@ -345,18 +376,46 @@ public class LoginController
 		model.addAttribute("orderRequests", paginated.getContent());
 		return "OrderRequestListing :: resultsList";
 	}
-	
-	
-	@RequestMapping(value = "/inputTransactions/listing", method = RequestMethod.GET)
-	public ModelAndView inputTransactions()
+
+	@RequestMapping(value = "/inputTxn/paginated/listing", method = RequestMethod.GET)
+	public String inputTxnListing(Model model, int page, int size)
 	{
+		PageRequest pageable = new PageRequest(page, size);
+		Page<InputTxn> paginated = inputTxnService.getAllWithPagination(pageable);
+		model.addAttribute("users", paginated.getContent());
+		return "inputTransactionListing :: resultsList";
+
+	}
+
+	@RequestMapping(value = "/inputTransactions/listing", method = RequestMethod.GET)
+	public ModelAndView inputTransactions(@RequestParam(value = "search", required = false) String search)
+	{
+
 		ModelAndView modelAndView = new ModelAndView();
 		List<InputTxn> inputTransactions = inputTxnService.findInputTransactions();
+
 		modelAndView.addObject("users", inputTransactions);
 		modelAndView.setViewName("inputTransactionListing");
 		return modelAndView;
 	}
 	
 	
+	
+	
+	
+	
+	@RequestMapping(value = "/outDataRequest", method = RequestMethod.POST)
+	public String addNewPost(@Valid OutData outData, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "outData";
+		}
+		
+		PageRequest pageable = new PageRequest(0, 1000);
+		List<InputTxn> paginated = inputTxnService.findInputTransactions();
+		model.addAttribute("users", paginated);
+		return "inputTransactionListing :: resultsList";
+		
+	
+	}
 
 }

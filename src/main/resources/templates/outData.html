@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<form action="#" th:action="@{/outDataRequest}" th:object="${outData}"
+		method="post">
+		<table>
+			<tr>
+				<td>Level:</td>
+			<td><select  th:field="*{levelCat}"
+					id="dropOperator">
+					
+					<option th:each="levelOption : ${levelOptions}" th:value="${levelOption}"
+						th:text="${levelOption}"></option>
+				</select></td>	
+				
+				<td th:if="${#fields.hasErrors('levelCat')}" th:errors="*{levelCat}">Title
+					error message</td>
+			</tr>
+			<tr>
+				<td>Level Name:</td>
+				<td><input type="text" th:field="*{levelName}" /></td>
+				<td th:if="${#fields.hasErrors('levelName')}"
+					th:errors="*{levelName}">Content error message</td>
+			</tr>
+			<tr>
+				<td>Level Value:</td>
+				<td><input type="text" th:field="*{levelValue}" /></td>
+				<td th:if="${#fields.hasErrors('levelValue')}"
+					th:errors="*{levelValue}">Content error message</td>
+			</tr>
+			
+
+			<tr>
+				<td><button type="submit">Submit post</button></td>
+			</tr>
+		</table>
+		
+	</form>
+
+
+
+
+
+
+
+
+	<!-- Results block -->
+	<div id="resultsBlock"></div>
+
+
+
+
+
+	<!-- Pagination Bar -->
+
+	<input type="hidden" id="jsonBom" th:value="${psize}" />
+
+
+
+
+
+
+
+
+	<span th:each='item : ${page.items}'>
+		<button id="searchButton" name="searchButton"
+			th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
+			type="button" th:text='${item.number}'></button>
+	</span>
+
+
+
+
+
+	<script>
+		function retrieveGuests(url, page, size) {
+			//	 url = '/th-spring-integration/spring/guests';
+			var k = url + "?page=" + page + "&size=" + size;
+			//	if ($('#searchSurname').val() != '') {
+			//		url = url + '/' + $('#searchSurname').val();
+			//	}
+
+			$("#resultsBlock").load(k);
+		}
+		var jsonBom = $('#jsonBom').val();
+		retrieveGuests('/inputTxn/paginated/listing', 0, jsonBom);
+	</script>
+	
+	
+
+</body>
+</html>
+
+
+

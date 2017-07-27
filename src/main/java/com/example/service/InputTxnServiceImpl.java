@@ -13,10 +13,13 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
 import com.example.model.InputTxn;
+import com.example.model.InputTxnLevelMapping;
 import com.example.model.TestReport;
 import com.example.repository.IInputTxnRepository;
 
@@ -100,6 +103,14 @@ public class InputTxnServiceImpl implements IInputTxnService
 		// return inputTxnRepository.findByOrderID(orderID);
 		return inputTxnRepository.findByOrderIDAndSoftDelete(orderID, false);
 	}
+	
+	@Override
+	public Page<InputTxn> getAllWithPagination(Pageable pageable)
+	{
+		Page<InputTxn> blogList = inputTxnRepository.findAll(pageable);
+		return blogList;
+	}
+	
 
 	@Override
 	public InputTxn parseRowToModel(InputFormBean inputFormBean, Row row)

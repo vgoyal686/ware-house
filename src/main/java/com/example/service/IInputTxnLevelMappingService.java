@@ -60,5 +60,6 @@ public interface IInputTxnLevelMappingService {
   public List<InputTxnLevelMapping> parseWorkbook(InputFormBean inputFormBean, Workbook workbook);
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath);
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath, List<InputTxn> inputTxns);
+Page<InputTxnLevelMapping> getAllWithPagination(Pageable pageable);
   
 }
