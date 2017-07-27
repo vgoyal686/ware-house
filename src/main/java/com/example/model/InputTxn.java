@@ -27,7 +27,7 @@ import com.example.model.Level1PK;
 @Entity
 @Table(name = "InputTxn")
 //@IdClass(Level1PK.class)
-public class InputTxn {
+public class InputTxn implements java.io.Serializable{
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

@@ -385,9 +385,12 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 		for (InputTxn inputTxn : inputTxns)
 		{
 			String primaryKey = inputTxn.getUom() + "~" + inputTxn.getIdentifierID();
-			if (!(primaryKey == null || primaryKey.isEmpty()))
+			String levelValue = inputTxn.getIdentifierID();
+			if (!(levelValue == null || levelValue.isEmpty()))
 			{
 				hashMapOfPKAndInputTxns.put(primaryKey, inputTxn);
+			}else {
+			  System.out.println("Some Level 1 Values are emply or Null in Input Txns");
 			}
 		}
 		return hashMapOfPKAndInputTxns;
@@ -403,11 +406,18 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 		for (InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings)
 		{
 			String primaryKey = inputTxnLevelMapping.getLevel1Name() + "~" + inputTxnLevelMapping.getLevel1Value();
-			if (!(primaryKey == null || primaryKey.isEmpty()))
+			String levelValue = inputTxnLevelMapping.getLevel1Value();
+			if (!(levelValue == null || levelValue.isEmpty()))
 			{
 				InputTxn inputTxn = hashMapOfPKAndInputTxns.get(primaryKey);
-				inputTxnLevelMapping.setInputTxn(inputTxn);
-				inputTxnLevelMappingsWithInputTxns.add(inputTxnLevelMapping);
+				if(inputTxn != null){
+	                inputTxnLevelMapping.setInputTxn(inputTxn);
+	                inputTxnLevelMappingsWithInputTxns.add(inputTxnLevelMapping);				  
+				}else {
+				  System.out.println("No Corresponding pair found in Input Txns");
+				}
+			}else {
+			  System.out.println("Some Level 1 Values are emply or Null in Input Txns Level Mapping");
 			}
 
 		}

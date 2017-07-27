@@ -22,6 +22,7 @@ import com.example.bean.InputFormBean;
 import com.example.bean.LEVEL;
 import com.example.bean.OutData;
 import com.example.model.InputTxn;
+import com.example.model.InputTxnLevelMapping;
 import com.example.model.OrderRequest;
 import com.example.model.Role;
 import com.example.model.User;
@@ -411,8 +412,23 @@ public class LoginController
 		}
 		
 		PageRequest pageable = new PageRequest(0, 1000);
+		
 		List<InputTxn> paginated = inputTxnService.findInputTransactions();
-		model.addAttribute("users", paginated);
+		String levelName = outData.getLevelName();
+		String levelValue = outData.getLevelValue();
+		int levelNo = 0;
+		if(outData.getLevelCat().equals(LEVEL.LEVEL1.name())){
+		  levelNo=1;
+		}else if(outData.getLevelCat().equals(LEVEL.LEVEL2.name())){
+		  levelNo=2;
+		}else if(outData.getLevelCat().equals(LEVEL.LEVEL3.name())){
+		  levelNo=3;
+		}
+		System.out.println(outData.getLevelCat());
+		System.out.println(levelNo);
+		List<InputTxnLevelMapping> inputTxnLevelMappings =  inputTxnLevelMappingService.findByLevelNameAndLevelValue(levelNo, levelName, levelValue);
+		System.out.println(inputTxnLevelMappings);
+		model.addAttribute("users", inputTxnLevelMappings);
 		return "inputTransactionListing :: resultsList";
 		
 	

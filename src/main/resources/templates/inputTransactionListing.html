@@ -18,14 +18,30 @@
 			<th>customerID-ITXN</th>
 			<th>warehouseID-ITXN</th>
 			<th>orderID-ITXN</th>
-			<th>invoiceNo-ITXN</th>
+			<th>product-ITXN</th>
+			<th>principalCompany-ITXN</th>
+			<th>uom-ITXN</th>
+			<th>identifierID-ITXN</th>
+			<th>model-ITXN</th>			
+			<th>level2Name-ITXN</th>
+			<th>level2Value-ITXN</th>
+			<th>level3Name-ITXN</th>
+			<th>level3Value-ITXN</th>
 
 		</tr>
 		<tr th:each="user: ${users}">
 			<td th:text="${user.customerID}">..</td>
 			<td th:text="${user.warehouseID}">..</td>
 			<td th:text="${user.orderID}">..</td>
-			<td th:text="${user.invoiceNo}">..</td>
+			<td th:text="${user.inputTxn.product}">..</td>
+			<td th:text="${user.inputTxn.principalCompany}">..</td>
+			<td th:text="${user.inputTxn.uom}">..</td>
+			<td th:text="${user.inputTxn.identifierID}">..</td>
+			<td th:text="${user.inputTxn.model}">..</td>
+			<td th:text="${user.level2Name}">..</td>
+			<td th:text="${user.level2Value}">..</td>
+			<td th:text="${user.level3Name}">..</td>
+			<td th:text="${user.level3Value}">..</td>
 
 
 		</tr>
