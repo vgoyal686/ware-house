@@ -1,4 +1,4 @@
-1
+
 
 
 
@@ -15,38 +15,43 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
-		var dataArrayToSend = [];
+		var levelTxnIdsArray = [];
+		var inputTxnIdsArray=[]
 
-		function retrieveGuests(  id) {
-			for (var i = dataArrayToSend.length - 1; i--;) {
-				if (dataArrayToSend[i] === id)
-					dataArrayToSend.splice(i, 1);
+		function retrieveGuests(levelMappingId,inputTxnId) {
+			for (var i = levelTxnIdsArray.length - 1; i--;) {
+				if (levelTxnIdsArray[i] === levelMappingId)
+					levelTxnIdsArray.splice(i, 1);
+			}
+			
+			for (var i = inputTxnIdsArray.length - 1; i--;) {
+				if (inputTxnIdsArray[i] === inputTxnId)
+					inputTxnIdsArray.splice(i, 1);
 			}
 
 		}
 
-		function addGuests(id) {
+		function addGuests(levelMappingId,inputTxnId) {
 
-			dataArrayToSend.push(id);
-			
+			levelTxnIdsArray.push(levelMappingId);
+			inputTxnIdsArray.push(inputTxnId);
 		}
 		
-		function submitCall(url){
+		function submitCall(){
 			var k='/saveAndGetInputTxns';
 			var data = {
-			        myArray: dataArrayToSend //notice that "myArray" matches the value for @RequestParam
-			                   //on the Java side
+					levelTxn: levelTxnIdsArray ,//notice that "myArray" matches the value for @RequestParam
+			         inputTxn: inputTxnIdsArray         //on the Java side
 			    }
 			$.post(k, data
 					  ,
 					    function(data, status){
-					        alert("Data: " + data + "\nStatus: " + status);
+					        alert( "Status: " + status);
 					    });
 		}
 
 			</script>
-		<form action="#" th:action="@{/saveAndGetInputTxns}"
-			th:object="${users}" method="post">
+	
 
 
 
@@ -55,34 +60,53 @@
 
 
 
+
 			<h1>INPUT TRANSACTION Listing</h1>
 
-<button id="saveData" name="save"
-							th:onclick="'submitCall(\''+'test'+ '\');'" type="button"
-							>Final SAve</button>
+	<table>
 
-			<table>
-				<tr>
-					<th>customerID-ITXN</th>
-					<th>warehouseID-ITXN</th>
-					<th>orderID-ITXN</th>
-					<th>invoiceNo-ITXN</th>
-					<th>mark as out</th>
-				</tr>
-				<tr th:each="user: ${users}">
-					<td th:text="${user.customerID}">..</td>
-					<td th:text="${user.warehouseID}">..</td>
-					<td th:text="${user.orderID}">..</td>
-					<td th:text="${user.invoiceNo}">..</td>
+			
+			<tr>
+			<th>customerID</th>
+			<th>warehouseID</th>
+			<th>orderID</th>
+			<th>product</th>
+			<th>principalCompany</th>
+			<th>uom</th>
+			<th>identifierID</th>
+			<th>model</th>			
+			<th>level2Name</th>
+			<th>level2Value</th>
+			<th>level3Name</th>
+			<th>level3Value</th>
+
+		</tr>
+		
+		
+		<tr th:each="user: ${users}">
+			<td th:text="${user.customerID}">..</td>
+			<td th:text="${user.warehouseID}">..</td>
+			<td th:text="${user.orderID}">..</td>
+			<td th:text="${user.inputTxn.product}">..</td>
+			<td th:text="${user.inputTxn.principalCompany}">..</td>
+			<td th:text="${user.inputTxn.uom}">..</td>
+			<td th:text="${user.inputTxn.identifierID}">..</td>
+			<td th:text="${user.inputTxn.model}">..</td>
+			<td th:text="${user.level2Name}">..</td>
+			<td th:text="${user.level2Value}">..</td>
+			<td th:text="${user.level3Name}">..</td>
+			<td th:text="${user.level3Value}">..</td>
+		
 					<td><button id="searchButton" name="MarkAsOut"
-							th:onclick="'addGuests(\''+${user.id}+ '\');'" type="button"
+							th:onclick="'addGuests(\''+${user.id}+ '\',\''+${user.inputTxn.id}+ '\');'" type="button"
 							th:text='${user.id}'></button></td>
 
 				</tr>
 			</table>
 
-			<button type="submit" value="submit" class="btn btn-success">Submit</button>
-		</form>
+		<button id="submitButton" name="MarkOut"
+							th:onclick="'submitCall();'" type="button"
+							>Submit</button>	
 	</div>
 
 	

@@ -9,6 +9,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedAttributeNode;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,6 +29,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "InputTxnLevelMapping")
+@NamedEntityGraph(name = "InputTxnLevelMapping.detail",
+attributeNodes = @NamedAttributeNode("inputTxn"))
 public class InputTxnLevelMapping {
 
   @Id
@@ -71,7 +76,7 @@ public class InputTxnLevelMapping {
   private String level1Value;
 
   //@MapsId
-  @OneToOne//(mappedBy = "inputTxnLevelMapping")
+  @OneToOne//(fetch=FetchType.EAGER)//(mappedBy = "inputTxnLevelMapping")
   @JoinColumns({
   @JoinColumn(name="inputTxnId", referencedColumnName="id"),
   @JoinColumn(name="identifierID", referencedColumnName="identifierID"),
@@ -272,17 +277,6 @@ public class InputTxnLevelMapping {
     this.level3Value = level3Value;
   }
 
-  /* (non-Javadoc)
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return "InputTxnLevelMapping [id=" + id + ", customerID=" + customerID + ", warehouseID="
-        + warehouseID + ", orderID=" + orderID + ", level1Name="  + ", level1Value="
-        + ", level2Name=" + level2Name + ", level2Value=" + level2Value
-        + ", level3Name=" + level3Name + ", level3Value=" + level3Value + "]";
-  }
-
   /**
    * @param customerID
    * @param warehouseID
@@ -307,6 +301,24 @@ public class InputTxnLevelMapping {
     this.level2Value = level2Value;
     this.level3Name = level3Name;
     this.level3Value = level3Value;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "InputTxnLevelMapping [id=" + id + ", customerID=" + customerID + ", warehouseID="
+        + warehouseID + ", orderID=" + orderID + ", level1Name=" + level1Name + ", level1Value="
+        + level1Value + ", inputTxn=" + inputTxn + ", level2Name=" + level2Name + ", level2Value="
+        + level2Value + ", level3Name=" + level3Name + ", level3Value=" + level3Value + "]";
+  }
+
+  /**
+   * 
+   */
+  public InputTxnLevelMapping() {
+    super();
   }
   
   
