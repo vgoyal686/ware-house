@@ -29,7 +29,11 @@ public interface IInputTxnLevelMappingService {
   public List<InputTxnLevelMapping> saveAndGetInputTxnLevelMappings(List<InputTxnLevelMapping> inputTxnLevelMappings);
 
   public int markCorrespondingInputTxnsAsOut(List<InputTxnLevelMapping> inputTxnLevelMappings);
+  public int markCorrespondingInputTxnLevelMappingsAsOut(List<InputTxnLevelMapping> inputTxnLevelMappings);
   
+  public int markCorrespondingInputTxnsAsOutFromIds(List<Integer> inputTxnIds);
+  public int markCorrespondingInputTxnLevelMappingsAsOutFromIds(List<Integer> inputTxnLevelMappingIds);
+
   /******************** Find/Search Api *****************************/
 //  public InputTxnLevelMapping findByCustomerID(String customerID);  
 //  public InputTxnLevelMapping findByWarehouseID(String warehouseID);
@@ -60,6 +64,6 @@ public interface IInputTxnLevelMappingService {
   public List<InputTxnLevelMapping> parseWorkbook(InputFormBean inputFormBean, Workbook workbook);
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath);
   public void readFromExcelAndSaveToDb(InputFormBean inputFormBean, String excelFilePath, List<InputTxn> inputTxns);
-Page<InputTxnLevelMapping> getAllWithPagination(Pageable pageable);
+  Page<InputTxnLevelMapping> getAllWithPagination(Pageable pageable);
   
 }

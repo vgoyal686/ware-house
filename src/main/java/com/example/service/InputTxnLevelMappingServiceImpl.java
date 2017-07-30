@@ -97,7 +97,31 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 
 		return inputTxnService.markInputTxnsAsOut(inputTxnIds);
 	}
+	@Override
+    public int markCorrespondingInputTxnLevelMappingsAsOut(List<InputTxnLevelMapping> inputTxnLevelMappings)
+    {
 
+        List<Integer> inputTxnLevelMappingIds = new ArrayList<>();
+        for (InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings)
+        {
+            inputTxnLevelMappingIds.add(inputTxnLevelMapping.getInputTxn().getId());
+        }
+
+        return inputTxnLevelMappingRepository.updateSoftDelete(inputTxnLevelMappingIds, true);
+    }
+
+	  @Override
+	  public int markCorrespondingInputTxnsAsOutFromIds(List<Integer> inputTxnIds) {
+
+	    return inputTxnService.markInputTxnsAsOut(inputTxnIds);
+	  }
+
+	  @Override
+	  public int markCorrespondingInputTxnLevelMappingsAsOutFromIds(
+	      List<Integer> inputTxnLevelMappingIds) {
+	    
+	    return inputTxnLevelMappingRepository.updateSoftDelete(inputTxnLevelMappingIds, true);
+	  }
 	@Override
 	public Page<InputTxnLevelMapping> getAllWithPagination(Pageable pageable)
 	{
@@ -151,21 +175,21 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 	public List<InputTxnLevelMapping> findByLevel1NameAndLevel1Value(String level1Name, String level1Value)
 	{
 
-		return inputTxnLevelMappingRepository.findByLevel1NameAndLevel1Value(level1Name, level1Value);
+		return inputTxnLevelMappingRepository.findByLevel1NameAndLevel1ValueAndSoftDelete(level1Name, level1Value, false);
 	}
 
 	@Override
 	public List<InputTxnLevelMapping> findByLevel2NameAndLevel2Value(String level2Name, String level2Value)
 	{
 
-		return inputTxnLevelMappingRepository.findByLevel2NameAndLevel2Value(level2Name, level2Value);
+		return inputTxnLevelMappingRepository.findByLevel2NameAndLevel2ValueAndSoftDelete(level2Name, level2Value, false);
 	}
 
 	@Override
 	public List<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name, String level3Value)
 	{
 
-		return inputTxnLevelMappingRepository.findByLevel3NameAndLevel3Value(level3Name, level3Value);
+		return inputTxnLevelMappingRepository.findByLevel3NameAndLevel3ValueAndSoftDelete(level3Name, level3Value, false);
 	}
 
 	@Override
@@ -423,5 +447,7 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 		}
 		return inputTxnLevelMappingsWithInputTxns;
 	}
+
+
 
 }

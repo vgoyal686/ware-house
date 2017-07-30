@@ -37,7 +37,10 @@ public class InputTxnLevelMapping {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
   private int id;
-   
+ 
+  @Column(name = "softDelete")
+  private boolean softDelete = false;
+
 //  @AttributeOverrides({
 //    @AttributeOverride(name="identifierID", column = @Column(name="level1Value")),
 //    @AttributeOverride(name="uom", column = @Column(name="level1Name"))
@@ -98,6 +101,23 @@ public class InputTxnLevelMapping {
   @Column(name ="level3Value")
   private String level3Value;
   
+  
+
+  /**
+   * @author Anurag
+   * @return the softDelete
+   */
+  public boolean isSoftDelete() {
+    return softDelete;
+  }
+
+  /**
+   * @author Anurag
+   * @param softDelete the softDelete to set
+   */
+  public void setSoftDelete(boolean softDelete) {
+    this.softDelete = softDelete;
+  }
 
   /**
    * @author Anurag
@@ -303,15 +323,17 @@ public class InputTxnLevelMapping {
     this.level3Value = level3Value;
   }
 
+
   /* (non-Javadoc)
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "InputTxnLevelMapping [id=" + id + ", customerID=" + customerID + ", warehouseID="
-        + warehouseID + ", orderID=" + orderID + ", level1Name=" + level1Name + ", level1Value="
-        + level1Value + ", inputTxn=" + inputTxn + ", level2Name=" + level2Name + ", level2Value="
-        + level2Value + ", level3Name=" + level3Name + ", level3Value=" + level3Value + "]";
+    return "InputTxnLevelMapping [id=" + id + ", softDelete=" + softDelete + ", customerID="
+        + customerID + ", warehouseID=" + warehouseID + ", orderID=" + orderID + ", level1Name="
+        + level1Name + ", level1Value=" + level1Value + ", inputTxn=" + inputTxn + ", level2Name="
+        + level2Name + ", level2Value=" + level2Value + ", level3Name=" + level3Name
+        + ", level3Value=" + level3Value + "]";
   }
 
   /**
