@@ -2,35 +2,197 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title >Order Request Listing</title>
+<title>Order Request Listing</title>
 <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
+
 	<h1>Details</h1>
 	<div th:fragment="resultsList" id="results-block">
-	
-	
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>CustomerID</th>
-			<th>OrderId</th>
-			<th>WAREHOUSEID</th>
-			<th>Create InData</th>
-		</tr>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<div>
+			<div class="navbar navbar-default navbar-fixed-top">
+				<div style="margin: 0 10px">
+					<div class="navbar-header">
+						<button class="navbar-toggle" type="button">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" style="margin: 0" href="/"><img
+							width="48"
+							src="http://www.intlwhsegrp.com/wp-content/uploads/2014/04/Image-Page-Home-Warehousing.png?x25684">
+							The WareHousing</a>
+					</div>
+					<div class="navbar-collapse collapse" id="navbar-main">
+						<ul class="nav navbar-nav"></ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="/warehouse/listing">WareHouses</a></li>
+							<li><a href="/users/listing">Users</a></li>
+
+							<!--  	<li href="/warehouse/view/registration"> <a>WAREHOUSE</a></li>
+							<li href="/registration"> <a>Users</a></li>
+							<li ><a  
+								type=hidden href="/create/orderRequest/form">ORDER REQUEST</a></li>
+							
+								
+										
+								
+								
+							<li ><a  
+								href="/bios">ORDER REQUESTS</a></li>
+						-->
+							<li><a href="/search">IN DATA ENTRY</a></li>
+							<!-- end ngRepeat: item in menu -->
+							<li><a href="/out/data/request">OUT DATA ENTRY</a></li>
+							<!-- end ngRepeat: item in menu -->
+							<li><a href="/contact">Contact Us</a></li>
+							<!-- end ngRepeat: item in menu -->
+							<li><a class="login btn btn-default hide" href="/login">Login</a></li>
+							<li><a class="login btn btn-default hide" href="/signup">Sign
+									Up</a></li>
+							<li class="dropdown hide"><a href="#"
+								class="dropdown-toggle" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">eee <span
+									class="caret"></span>
+							</a>
+								<ul class="dropdown-menu dropdown-menu-right"
+									aria-labelledby="dLabel">
+									<!-- ngRepeat: item in menu -->
+									<li href="/bios">Bios Data Request</a></li>
+									<!-- end ngRepeat: item in menu -->
+									<li><a class="ng-binding" href="/products">Products</a></li>
+									<!-- end ngRepeat: item in menu -->
+									<li><a href="/about">Why Us</a></li>
+									<!-- end ngRepeat: item in menu -->
+									<li href="/contact">Contact Us</a></li>
+									<!-- end ngRepeat: item in menu -->
+								</ul></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>CustomerID</th>
+				<th>OrderId</th>
+				<th>WAREHOUSEID</th>
+				<th>Create InData</th>
+			</tr>
 
 
-		<tr th:each=" orderRequest : ${orderRequests}">
-			<td th:text="${orderRequest.id}">Id</td>
-			<td th:text="${orderRequest.customerID}">CustomerID</td>
-			<td th:text="${orderRequest.orderID}">OrderId</td>
-			<td th:text="${orderRequest.warehouseID}">WAREHOUSEID</td>
-			<td><a
-				th:href="@{'/mergeForm?id=' + ${orderRequest.id}+'&customerId='+${orderRequest.customerID}+'&orderID='+${orderRequest.orderID}+'&warehouseID='+${orderRequest.warehouseID}}">view</a>
-			</td>
-		</tr>
-	</table>
-</div>
+			<tr th:each=" orderRequest : ${orderRequests}">
+				<td th:text="${orderRequest.id}">Id</td>
+				<td th:text="${orderRequest.customerID}">CustomerID</td>
+				<td th:text="${orderRequest.orderID}">OrderId</td>
+				<td th:text="${orderRequest.warehouseID}">WAREHOUSEID</td>
+				<td><a
+					th:href="@{'/mergeForm?id=' + ${orderRequest.id}+'&customerId='+${orderRequest.customerID}+'&orderID='+${orderRequest.orderID}+'&warehouseID='+${orderRequest.warehouseID}}">view</a>
+				</td>
+			</tr>
+		</table>
+		<div class="footerCont">
+			<div class="footer">
+				<div class="container">
+					<div class="row">
+						<br />
+						<br />
+						<div class="col-sm-3 col-md-3 ">
+							<div class="footer-block">
+								<p>
+									<strong>COMPANY</strong>
+								</p>
+								<!-- ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs">
+									<li><a c href="/about">About Us</a></li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+
+								<!-- end ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/team">Team</a></li>
+								</ul>
+
+								<!-- end ngRepeat: subLink in value.subLink -->
+							</div>
+						</div>
+						<!-- end ngRepeat: (key, value) in footerLink -->
+						<div class="col-sm-3 col-md-3">
+							<div class="footer-block">
+								<p>
+									<strong>CATEGORIES</strong>
+								</p>
+								<!-- ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/products">Products</a></li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/order">Orde</a>r</li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+							</div>
+						</div>
+						<!-- end ngRepeat: (key, value) in footerLink -->
+						<div class="col-sm-3 col-md-3 ">
+							<div class="footer-block">
+								<p>
+									<strong>OTHERS</strong>
+								</p>
+								<!-- ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/howItWork">How it Work</a></li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/blog">Blog</a></li>
+								</ul>
+
+								<!-- end ngRepeat: subLink in value.subLink -->
+							</div>
+						</div>
+						<!-- end ngRepeat: (key, value) in footerLink -->
+						<div class="col-sm-3 col-md-3 hidden-xs">
+							<div class="footer-block">
+								<p>
+									<strong>CONTACT US</strong>
+								</p>
+								<ul class="list-unstyled">
+									<li><a class="no-underline"
+										href="mailto:technosyshub@gmail.com">technosyshub@gmail.com</a></li>
+									<li><a class="no-underline"
+										href="mailto:anoop0gangwar@gmail.com">anoop0gangwar@gmail.com</a></li>
+								</ul>
+							</div>
+							<br />
+							<div class="footer-block hide">
+								<p>
+									<strong>Enter your email address here</strong>
+								</p>
+								<ul class="list-unstyled">
+									<li>
+										<div class="input-group">
+											<input class="form-control" type="text"
+												placeholder="Email address" /> <span
+												class="input-group-addon btn btn-orange">Submit</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="page-bottom">
+					<div class="container text-center">&copy; 2016 by The Ware
+						housing. All rights reserved.</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
