@@ -8,108 +8,149 @@
 <link rel="stylesheet" th:href="@{/css/styles.css}"></link>
 
 
+		
 </head>
 <body>
-	<div th:fragment="resultsList" id="results-block">
-
+	
+<div th:fragment="resultsList" id="results-block">
+	
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script>
-		var levelTxnIdsArray = [];
-		var inputTxnIdsArray=[]
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			var levelTxnIdsArray = [];
+			var inputTxnIdsArray = [];
 
-		function retrieveGuests(levelMappingId,inputTxnId) {
-			for (var i = levelTxnIdsArray.length - 1; i--;) {
-				if (levelTxnIdsArray[i] === levelMappingId)
-					levelTxnIdsArray.splice(i, 1);
+			function retrieveGuests(levelMappingId, inputTxnId) {
+				var exists = false;
+				for (var i = levelTxnIdsArray.length - 1;i>=0; i--) {
+					if (levelTxnIdsArray[i] === levelMappingId) {
+						levelTxnIdsArray.splice(i, 1);
+						exists = true;
+					}
+				}
+
+				for (var i = inputTxnIdsArray.length - 1;i>=0; i--) {
+					if (inputTxnIdsArray[i] === inputTxnId) {
+						inputTxnIdsArray.splice(i, 1);
+						exists = true;
+					}
+				}
+				return exists;
+			}
+
+			function addGuests(levelMappingId, inputTxnId) {
+
+				var doesExists = retrieveGuests(levelMappingId, inputTxnId);
+				if (doesExists === false) {
+					levelTxnIdsArray.push(levelMappingId);
+					inputTxnIdsArray.push(inputTxnId);
+				}
+
+			}
+
+			function submitCall() {
+				var k = '/saveAndGetInputTxns';
+				var data = {
+					levelTxn : levelTxnIdsArray,//notice that "myArray" matches the value for @RequestParam
+					inputTxn : inputTxnIdsArray
+				//on the Java side
+				}
+				$.post(k, data, function(data, status) {
+					alert("Status: " + status);
+				});
 			}
 			
-			for (var i = inputTxnIdsArray.length - 1; i--;) {
-				if (inputTxnIdsArray[i] === inputTxnId)
-					inputTxnIdsArray.splice(i, 1);
-			}
-
-		}
-
-		function addGuests(levelMappingId,inputTxnId) {
-
-			levelTxnIdsArray.push(levelMappingId);
-			inputTxnIdsArray.push(inputTxnId);
-		}
+			
 		
-		function submitCall(){
-			var k='/saveAndGetInputTxns';
-			var data = {
-					levelTxn: levelTxnIdsArray ,//notice that "myArray" matches the value for @RequestParam
-			         inputTxn: inputTxnIdsArray         //on the Java side
-			    }
-			$.post(k, data
-					  ,
-					    function(data, status){
-					        alert( "Status: " + status);
-					    });
-		}
-
+			function checkALL() {
+				var sub=$('#h1').val();
+				var jsonBom = $.parseJSON(sub);
+				
+				levelTxnIdsArray=[];
+				inputTxnIdsArray=[];
+				
+				for (var i = jsonBom.length - 1;i>=0; i--) {
+					var p=jsonBom[i];
+					levelTxnIdsArray.push(p.id);
+					inputTxnIdsArray.push(p.inputTxn.id);
+						
+					}
+				}
 			</script>
+			
+			
+			
+			
 	
 
 
-
-			<input type="hidden" id="jsonBom" th:value="${psize}" />
-
-
-
+		<input type="hidden" id="jsonBom" th:value="${psize}"></input> 
+		<input
+			type="hidden" id="h1" th:value="${users}"></input>
 
 
-			<h1>INPUT TRANSACTION Listing</h1>
 
-	<table>
+		<h1>INPUT TRANSACTION Listing</h1>
 
-			
+		<table>
+
+
 			<tr>
-			<th>customerID</th>
-			<th>warehouseID</th>
-			<th>orderID</th>
-			<th>product</th>
-			<th>principalCompany</th>
-			<th>uom</th>
-			<th>identifierID</th>
-			<th>model</th>			
-			<th>level2Name</th>
-			<th>level2Value</th>
-			<th>level3Name</th>
-			<th>level3Value</th>
+				<th>customerID</th>
+				<th>warehouseID</th>
+				<th>orderID</th>
+				<th>product</th>
+				<th>principalCompany</th>
+				<th>uom</th>
+				<th>identifierID</th>
+				<th>model</th>
+				<th>level2Name</th>
+				<th>level2Value</th>
+				<th>level3Name</th>
+				<th>level3Value</th>
 
-		</tr>
-		
-		
-		<tr th:each="user: ${users}">
-			<td th:text="${user.customerID}">..</td>
-			<td th:text="${user.warehouseID}">..</td>
-			<td th:text="${user.orderID}">..</td>
-			<td th:text="${user.inputTxn.product}">..</td>
-			<td th:text="${user.inputTxn.principalCompany}">..</td>
-			<td th:text="${user.inputTxn.uom}">..</td>
-			<td th:text="${user.inputTxn.identifierID}">..</td>
-			<td th:text="${user.inputTxn.model}">..</td>
-			<td th:text="${user.level2Name}">..</td>
-			<td th:text="${user.level2Value}">..</td>
-			<td th:text="${user.level3Name}">..</td>
-			<td th:text="${user.level3Value}">..</td>
-		
-					<td><button id="searchButton" name="MarkAsOut"
-							th:onclick="'addGuests(\''+${user.id}+ '\',\''+${user.inputTxn.id}+ '\');'" type="button"
-							th:text='${user.id}'></button></td>
+			</tr>
 
-				</tr>
-			</table>
 
-		<button id="submitButton" name="MarkOut"
-							th:onclick="'submitCall();'" type="button"
-							>Submit</button>	
+			<tr th:each="user: ${users}">
+
+				<td th:text="${user.customerID}">..</td>
+				<td th:text="${user.warehouseID}">..</td>
+				<td th:text="${user.orderID}">..</td>
+				<td th:text="${user.inputTxn.product}">..</td>
+				<td th:text="${user.inputTxn.principalCompany}">..</td>
+				<td th:text="${user.inputTxn.uom}">..</td>
+				<td th:text="${user.inputTxn.identifierID}">..</td>
+				<td th:text="${user.inputTxn.model}">..</td>
+				<td th:text="${user.level2Name}">..</td>
+				<td th:text="${user.level2Value}">..</td>
+				<td th:text="${user.level3Name}">..</td>
+				<td th:text="${user.level3Value}">..</td>
+				<td><input type="checkbox" id="checkboxid"
+					th:onclick="'addGuests(\''+${user.id}+ '\',\''+${user.inputTxn.id}+ '\');'"
+					th:value=true></input></td>
+
+
+
+			</tr>
+
+
+
+		</table>
+		<button id="
+					submitButton" name="MarkOut"
+			th:onclick="'submitCall();'" type="button">Submit</button>
+
+
+		<button id="
+					submitButton1" name="MarkOut1"
+			th:onclick="'checkALL();'" type="button">checkAll</button>
+
+
+
 	</div>
 
-	
+
 
 </body>
 </html>
