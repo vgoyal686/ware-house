@@ -65,7 +65,7 @@ public class LoginController
 	@Autowired
 	private IInputTxnLevelMappingService inputTxnLevelMappingService;
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = {  "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -238,7 +238,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/warehouse/listing", method = RequestMethod.GET)
+	@RequestMapping(value ={"/", "/warehouse/listing"}, method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
 		ModelAndView modelAndView = new ModelAndView();
