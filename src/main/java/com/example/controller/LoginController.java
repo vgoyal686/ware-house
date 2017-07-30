@@ -40,6 +40,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -438,7 +439,19 @@ public class LoginController
 
 		PageRequest pageable = new PageRequest(0, 1000);
 		List<InputTxn> paginated = inputTxnService.findInputTransactions();
-
+		
+		System.out.println(inputTxn + "\n" + levelTxn);
+		List<Integer> inputTxnIds = Arrays.asList(inputTxn);
+		for(Integer id : inputTxnIds){
+		  System.out.println(id);
+		}
+		List<Integer> inputTxnLevelMappingIds = Arrays.asList(levelTxn);
+        for(Integer id : inputTxnLevelMappingIds){
+          System.out.println(id);
+        }
+		
+		inputTxnLevelMappingService.markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
+		inputTxnLevelMappingService.markCorrespondingInputTxnsAsOutFromIds(inputTxnIds);
 		return "inputTransactionListing :: resultsList";
 
 	}
