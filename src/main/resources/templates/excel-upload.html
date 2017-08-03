@@ -6,6 +6,32 @@
 	<h1>Excel file upload example</h1>
 
 
+<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form jobsForm autocomplete="off" action="#"
+					th:action="@{/create/data/orderRequest}"
+					th:object="${orderRequest}" method="post" class="form-horizontal"
+					role="form">
+					<h2>Order Request Form</h2>
+					<div class="form-group form-inline">
+
+						<label th:if="${#fields.hasErrors('customerID')}"
+							th:errors="*{customerID}" class="validation-message"></label> <input
+							type="text" th:field="*{customerID}" placeholder="Customer Id"
+							class="form-control" /> <input type="text" th:field="*{orderID}"
+							placeholder="orderID" class="form-control" /> <label
+							th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
+							class="validation-message"></label> <input type="text"
+							th:field="*{orderDate}" placeholder="orderDate"
+							class="form-control" /> <label
+							th:if="${#fields.hasErrors('orderDate')}"
+							th:errors="*{orderDate}" class="validation-message"></label>
+					</div>
+
+
+
+
 
 
 
