@@ -2,6 +2,7 @@ package com.example.controller;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -452,6 +453,32 @@ public class LoginController
 		
 		inputTxnLevelMappingService.markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
 		inputTxnLevelMappingService.markCorrespondingInputTxnsAsOutFromIds(inputTxnIds);
+		return "inputTransactionListing :: resultsList";
+
+	}
+	
+	
+	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
+	public String saveAndGetInputTxns(@RequestParam(value="levelTxn[]") String levelTxn)
+	{  
+		JSONObject jsnobject = new JSONObject(levelTxn);
+		System.out.println(jsnobject.toString());
+		//TODO add corresponding api 
+	/*	PageRequest pageable = new PageRequest(0, 1000);
+		List<InputTxn> paginated = inputTxnService.findInputTransactions();
+		
+		System.out.println(inputTxn + "\n" + levelTxn);
+		List<Integer> inputTxnIds = Arrays.asList(inputTxn);
+		for(Integer id : inputTxnIds){
+		  System.out.println(id);
+		}
+		List<Integer> inputTxnLevelMappingIds = Arrays.asList(levelTxn);
+        for(Integer id : inputTxnLevelMappingIds){
+          System.out.println(id);
+        }
+		
+		inputTxnLevelMappingService.markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
+		inputTxnLevelMappingService.markCorrespondingInputTxnsAsOutFromIds(inputTxnIds);*/
 		return "inputTransactionListing :: resultsList";
 
 	}
