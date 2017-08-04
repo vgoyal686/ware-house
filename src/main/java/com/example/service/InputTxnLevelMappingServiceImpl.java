@@ -5,6 +5,7 @@
 package com.example.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
+import com.example.bean.InputTxnLevelMappingBean;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 import com.example.model.OrderRequest;
@@ -122,6 +124,27 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 	    
 	    return inputTxnLevelMappingRepository.updateSoftDelete(inputTxnLevelMappingIds, true);
 	  }
+	  
+	  @Override
+	  public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans){
+	    
+        List<Integer> inputTxnIds = new ArrayList<>();
+        List<Integer> inputTxnLevelMappingIds = new ArrayList<>();
+
+	    for(InputTxnLevelMappingBean inputTxnLevelMappingBean : inputTxnLevelMappingBeans){
+	      if (inputTxnLevelMappingBean != null){
+	        
+    	      inputTxnIds.add(inputTxnLevelMappingBean.getInputTxnId());
+    	      inputTxnLevelMappingIds.add(inputTxnLevelMappingBean.getId());
+	      }   
+	    }
+	    
+        markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
+        markCorrespondingInputTxnsAsOutFromIds(inputTxnIds);	    
+	    
+	    return 1;
+	  }
+	  
 	@Override
 	public Page<InputTxnLevelMapping> getAllWithPagination(Pageable pageable)
 	{
@@ -235,7 +258,23 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 		}
 		return inputTxnLevelMappings;
 	}
-
+	
+	@Override
+	public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue){
+	  
+	  List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans = new ArrayList<>();
+	  List<InputTxnLevelMapping> inputTxnLevelMappings = findByLevelNameAndLevelValue(levelNo, levelName, levelValue);
+	  for (InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings){
+	   
+	    InputTxnLevelMappingBean inputTxnLevelMappingBean = 
+	        new InputTxnLevelMappingBean(inputTxnLevelMapping.getId(),inputTxnLevelMapping.isSoftDelete(),inputTxnLevelMapping.getCustomerID(),inputTxnLevelMapping.getWarehouseID(),inputTxnLevelMapping.getOrderID(),inputTxnLevelMapping.getLevel1Name(),inputTxnLevelMapping.getLevel1Value(),inputTxnLevelMapping.getLevel2Name(),inputTxnLevelMapping.getLevel2Value(),inputTxnLevelMapping.getLevel3Name(),inputTxnLevelMapping.getLevel3Value(),inputTxnLevelMapping.getInputTxn().getId());
+	    inputTxnLevelMappingBeans.add(inputTxnLevelMappingBean);	    	    
+	  }
+	  
+	  
+	  return inputTxnLevelMappingBeans;
+	}
+	
 	@Override
 	public Page<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue,
 			Pageable pageable)
