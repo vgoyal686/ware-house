@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.bean.InputFormBean;
+import com.example.bean.InputTxnLevelMappingBean;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 
@@ -34,6 +35,8 @@ public interface IInputTxnLevelMappingService {
   public int markCorrespondingInputTxnsAsOutFromIds(List<Integer> inputTxnIds);
   public int markCorrespondingInputTxnLevelMappingsAsOutFromIds(List<Integer> inputTxnLevelMappingIds);
 
+  public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans);
+  
   /******************** Find/Search Api *****************************/
 //  public InputTxnLevelMapping findByCustomerID(String customerID);  
 //  public InputTxnLevelMapping findByWarehouseID(String warehouseID);
@@ -56,6 +59,8 @@ public interface IInputTxnLevelMappingService {
   public Page<InputTxnLevelMapping> findByLevel3NameAndLevel3Value(String level3Name, String level3Value, Pageable pageable);
 
   public List<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue);
+  
+  public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue);
   
   public Page<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue, Pageable pageable);
   

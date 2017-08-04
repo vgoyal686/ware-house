@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.bean.InputFormBean;
+import com.example.bean.InputTxnLevelMappingBean;
 import com.example.bean.LEVEL;
 import com.example.bean.OutData;
 import com.example.model.InputTxn;
@@ -457,6 +458,19 @@ public class LoginController
 
 	}
 	
+	/**
+	 * 
+	 * @Navneet
+	 * 
+	 * public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue)
+	 * is the service for fetching the results
+	 * 
+	 *     And
+	 *     
+	 *  public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans)
+	 *  is the service to mark those txns as out
+	 * 
+	 */
 	
 	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
 	public String saveAndGetInputTxns(@RequestParam(value="levelTxn[]") String levelTxn)
