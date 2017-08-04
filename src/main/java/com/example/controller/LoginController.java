@@ -2,11 +2,9 @@ package com.example.controller;
 
 import javax.validation.Valid;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -459,10 +457,10 @@ public class LoginController
 	
 	
 	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
-	public String saveAndGetInputTxns(@RequestParam(value="levelTxn[]") String levelTxn)
+	public String saveAndGetInputTxns(@RequestParam(value="levelTxn[]") List<InputTxnLevelMapping>levelTxn)
 	{  
-		JSONObject jsnobject = new JSONObject(levelTxn);
-		System.out.println(jsnobject.toString());
+		//JSONObject jsnobject = new JSONObject(levelTxn);
+		//System.out.println(jsnobject.toString());
 		//TODO add corresponding api 
 	/*	PageRequest pageable = new PageRequest(0, 1000);
 		List<InputTxn> paginated = inputTxnService.findInputTransactions();

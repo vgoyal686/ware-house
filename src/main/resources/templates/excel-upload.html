@@ -6,42 +6,13 @@
 	<h1>Excel file upload example</h1>
 
 
-<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form jobsForm autocomplete="off" action="#"
-					th:action="@{/create/data/orderRequest}"
-					th:object="${orderRequest}" method="post" class="form-horizontal"
-					role="form">
-					<h2>Order Request Form</h2>
-					<div class="form-group form-inline">
-
-						<label th:if="${#fields.hasErrors('customerID')}"
-							th:errors="*{customerID}" class="validation-message"></label> <input
-							type="text" th:field="*{customerID}" placeholder="Customer Id"
-							class="form-control" /> <input type="text" th:field="*{orderID}"
-							placeholder="orderID" class="form-control" /> <label
-							th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
-							class="validation-message"></label> <input type="text"
-							th:field="*{orderDate}" placeholder="orderDate"
-							class="form-control" /> <label
-							th:if="${#fields.hasErrors('orderDate')}"
-							th:errors="*{orderDate}" class="validation-message"></label>
-					</div>
 
 
 
 
 
 
-
-
-
-
-
-	<form name="jobsForm" id="jobsForm" novalidate="novalidate" action="#"
-		th:action="@{/addEmployee}" th:object="${inputFormBean}" method="post"
-		enctype="multipart/form-data">
+	
 		
 		
 		<div class="control-group form-group">
@@ -80,7 +51,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>invoiceNo:</label> <input type="text" class="form-control"
-					id="invoiceNo" th:field="*{invoiceNo}" required="required"
+					id="invoiceNo" th:field="*{invoiceNo}" 
 					data-validation-required-message="Please enter invoiceNo." />
 				<p class="help-block"></p>
 			</div>
@@ -91,7 +62,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>invoiceDate:</label> <input type="text" class="form-control"
-					id="invoiceDate" th:field="*{invoiceDate}" required="required"
+					id="invoiceDate" th:field="*{invoiceDate}" 
 					data-validation-required-message="Please enter invoiceDate" />
 				<p class="help-block"></p>
 			</div>
@@ -102,7 +73,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>lCNo:</label> <input type="text" class="form-control"
-					id="lCNo" th:field="*{lCNo}" required="required"
+					id="lCNo" th:field="*{lCNo}" 
 					data-validation-required-message="Please enterlCNo" />
 				<p class="help-block"></p>
 			</div>
@@ -112,7 +83,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>dateOfIssue:</label> <input type="text" class="form-control"
-					id="dateOfIssue" th:field="*{dateOfIssue}" required="required"
+					id="dateOfIssue" th:field="*{dateOfIssue}" 
 					data-validation-required-message="Please enter dateOfIssue" />
 				<p class="help-block"></p>
 			</div>
@@ -122,7 +93,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>customer:</label> <input type="text" class="form-control"
-					id="customer" th:field="*{customer}" required="required"
+					id="customer" th:field="*{customer}" 
 					data-validation-required-message="Please enter customer" />
 				<p class="help-block"></p>
 			</div>
@@ -133,7 +104,7 @@
 			<div class="controls">
 				<label>deliveryTerms:</label> <input type="text"
 					class="form-control" id="deliveryTerms" th:field="*{deliveryTerms}"
-					required="required"
+					
 					data-validation-required-message="Please enter deliveryTerms" />
 				<p class="help-block"></p>
 			</div>
@@ -143,7 +114,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>portOfImport:</label> <input type="text" class="form-control"
-					id="portOfImport" th:field="*{portOfImport}" required="required"
+					id="portOfImport" th:field="*{portOfImport}" 
 					data-validation-required-message="Please enter portOfImport" />
 				<p class="help-block"></p>
 			</div>
@@ -153,7 +124,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>bLNo:</label> <input type="text" class="form-control"
-					id="bLNo" th:field="*{bLNo}" required="required"
+					id="bLNo" th:field="*{bLNo}" 
 					data-validation-required-message="Please enter bLNo" />
 				<p class="help-block"></p>
 			</div>
@@ -163,7 +134,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>pONo:</label> <input type="text" class="form-control"
-					id="pONo" th:field="*{pONo}" required="required"
+					id="pONo" th:field="*{pONo}"
 					data-validation-required-message="Please enter pONo" />
 				<p class="help-block"></p>
 			</div>
@@ -173,7 +144,7 @@
 		<div class="control-group form-group">
 			<div class="controls">
 				<label>comments:</label> <input type="text" class="form-control"
-					id="comments" th:field="*{comments}" required="required"
+					id="comments" th:field="*{comments}" 
 					data-validation-required-message="Please enter comments" />
 				<p class="help-block"></p>
 			</div>
@@ -184,7 +155,7 @@
 
 		<div class=" control-group form-group">
 			<span class="btn btn-primary btn-file"> Upload Excel File <input
-				type="file" name="file" id="file" required="required" />
+				type="file" name="file" id="file"  />
 			</span>
 		</div>
 		<div id="success"></div>
@@ -192,6 +163,93 @@
 		<button type="submit" class="btn btn-primary">Apply!</button>
 	</form>
 
+</div></div></div>
+
+
+
+	
+
+<div class="container ">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" 
+					th:action="@{/addEmployee}" th:object="${inputFormBean}"
+					method="post" class="form-horizontal" role="form" name="jobsForm" id="jobsForm" enctype="multipart/form-data">
+					<h2>WareHouse Registration Form</h2>
+					<div class="form-inline">
+
+
+			
+				
+				<input readonly type="text" class="form-control"
+					id="orderID" th:field="*{orderID}" required="required"
+					data-validation-required-message="Please enter  customerID" />
+			  	 <p class="help-block"></p>
+				
+				
+				
+			
+						
+					</div>
+
+
+					<div class="form-inline">
+
+						<input type="text" th:field="*{phone1}" placeholder="phone1"
+							class="form-control" /> <label
+							th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}"
+							class="validation-message"></label> <input type="text"
+							th:field="*{phone2}" placeholder="phone2" class="form-control" />
+						<label th:if="${#fields.hasErrors('phone1')}"
+							th:errors="*{phone2}" class="validation-message"></label>
+					</div>
+
+					<div class="form-inline">
+
+
+						<input type="text" th:field="*{totalspace}"
+							placeholder="totalspace" class="form-control" /> <label
+							th:if="${#fields.hasErrors('totalspace')}"
+							th:errors="*{totalspace}" class="validation-message"></label> <input
+							type="text" th:field="*{availablespace}"
+							placeholder="availablespace" class="form-control" /> <label
+							th:if="${#fields.hasErrors('availablespace')}"
+							th:errors="*{availablespace}" class="validation-message"></label>
+
+
+					</div>
+					<div class="form-inline">
+
+
+
+						<input type="text" th:field="*{state}" placeholder="state"
+							class="form-control" /> <label
+							th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+							class="validation-message"></label> <input type="text"
+							th:field="*{city}" placeholder="city" class="form-control" /> <label
+							th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+							class="validation-message"></label>
+
+					</div>
+
+					<div class="form-inline">
+						<input type="text" th:field="*{pincode}" placeholder="pincode"
+							class="form-control" /> <label
+							th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}"
+							class="validation-message"></label>
+
+<button type="submit" class="btn btn-primary ">Register
+							WareHouse</button>
+					</div>
+					
+
+					<span th:utext="${successMessage}"></span>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
 
 
 
