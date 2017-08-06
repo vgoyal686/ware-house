@@ -18,14 +18,14 @@
 		<link rel="stylesheet" th:href="@{/css/main.css}" />
 
 		<script>
-			var levelTxnIdsArray = [];
+			var InputTxnLevelMappingBean = [];
 			var inputTxnIdsArray = [];
 
 			function retrieveGuests(levelMappingId, inputTxnId) {
 				var exists = false;
-				for (var i = levelTxnIdsArray.length - 1; i >= 0; i--) {
-					if (levelTxnIdsArray[i] === levelMappingId) {
-						levelTxnIdsArray.splice(i, 1);
+				for (var i = InputTxnLevelMappingBean.length - 1; i >= 0; i--) {
+					if (InputTxnLevelMappingBean[i] === levelMappingId) {
+						InputTxnLevelMappingBean.splice(i, 1);
 						exists = true;
 					}
 				}
@@ -47,85 +47,78 @@
 
 			function submitCall(ids) {
 				var k = '/saveAndGetInputTxns/final';
+
+				/* $.post(k, ids, function(data, status) {
+				alert("Status: " + status);
+				});  */
+
 				var data = {
-					levelTxn : ids//notice that "myArray" matches the value for @RequestParam
-					
-				//on the Java side
+					data : ids
 				}
-				$.post(k, data, function(data, status) {
-					alert("Status: " + status);
+
+				$.ajax({
+					type : "POST",
+					url : k,
+					data : data
+
 				});
-			}
-
-			function checkALL() {
-				
-				
-				
-				/* var sub = $('#h1');
-				var b = JSON.parse(JSON.stringify(sub));
-				var array = JSON.parse(sub);
-				var jsonBom = $.parseJSON(sub);
-
-				levelTxnIdsArray = [];
-				inputTxnIdsArray = [];
-
-				for (var i = jsonBom.length - 1; i >= 0; i--) {
-					var p = jsonBom[i];
-					levelTxnIdsArray.push(p.id);
-					inputTxnIdsArray.push(p.inputTxn.id);
-
-				} */
+				window.location = "/out/data/request";
 			}
 		</script>
 
 
-<script>
-function all(){}
-$('#tableid').find('input').each(function () {
-    alert(this.value);
-});
+		<script>
+			function all() {
+			}
+			$('#tableid').find('input').each(function() {
+				alert(this.value);
+			});
+		</script>
 
+		<script>
+			$(function() {
+				$("#submitButton")
+						.click(
+								function() {
+									var IDs = [];
+									var de = "[id=15, softDelete=false, customerID=9, warehouseID=9, orderID=9, level1Name=Pallet, level1Value=1.70420102712E11, level2Name=Container, level2Value=1.7010400336E10, level3Name=null, level3Value=null, inputTxnId=18]";
+									IDs.push(de);
+									$(".table-condensed input:checked").each(
+											function() {
+												var a = $(this).parent().attr(
+														"id");
+												console.log(a);
 
-</script>
+												IDs.push(a);
+											});
+									submitCall(IDs);
+								});
+			});
+		</script>
 
-<script>
-$(function() {
-    $("#submitButton").click(function() {
-        var IDs = [];
-        $(".table-condensed input:checked").each(function(){ IDs.push($(this).parent().attr("id")); });
-        alert(IDs);
-        submitCall(IDs)
-    });
-});
-	</script>
-	
-	<script>
-	$(function() {
-	$('#checkAll').click(function() {
-		
-		 $(".table-condensed input:checkbox").each(function(){
-			 this.checked = true;   
-		 });
-		    
-		});
-	});
-	
-	
-	</script>
-	
-	<script>
-	$(function() {
-	$('#uncheckAll').click(function() {
-		
-		 $(".table-condensed input:checkbox").each(function(){
-			 this.checked = false;   
-		 });
-		    
-		});
-	});
-	
-	
-	</script>
+		<script>
+			$(function() {
+				$('#checkAll').click(function() {
+
+					$(".table-condensed input:checkbox").each(function() {
+						this.checked = true;
+					});
+
+				});
+			});
+		</script>
+
+		<script>
+			$(function() {
+				$('#uncheckAll').click(function() {
+
+					$(".table-condensed input:checkbox").each(function() {
+						this.checked = false;
+					});
+
+				});
+			});
+		</script>
 
 
 		<div>
@@ -137,9 +130,11 @@ $(function() {
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" style="margin: 0" href="/">
-						<img width="48" src="http://www.intlwhsegrp.com/wp-content/uploads/2014/04/Image-Page-Home-Warehousing.png?x25684">
-							The WareHousing</a>
+						<a class="navbar-brand" style="margin: 0" href="/"> <img
+							width="48"
+							src="http://www.intlwhsegrp.com/wp-content/uploads/2014/04/Image-Page-Home-Warehousing.png?x25684">
+							The WareHousing
+						</a>
 					</div>
 					<div class="navbar-collapse collapse" id="navbar-main">
 						<ul class="nav navbar-nav"></ul>
@@ -204,18 +199,42 @@ $(function() {
 
 		<h1>INPUT TRANSACTION Listing</h1>
 
+
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="text-right">
+					<button class="btn btn-default" th:id="submitButton" name="MarkOut"
+						type="button">Submit</button>
+
+
+					<button class="btn btn-default" th:id="checkAll" name="MarkOut1"
+						type="button">checkAll</button>
+
+					<button class="btn btn-default" th:id="uncheckAll" name="MarkOut1"
+						type="button">uncheckAll</button>
+				</div>
+			</div>
+		</div>
+
+
 		<table class="table-condensed" th:id="tableid">
 
 
+
+
 			<tr>
+				<th>ID</th>
 				<th>customerID</th>
 				<th>warehouseID</th>
 				<th>orderID</th>
-				<th>product</th>
+				<!--  <th>product</th>
 				<th>principalCompany</th>
 				<th>uom</th>
 				<th>identifierID</th>
-				<th>model</th>
+				<th>model</th>-->
+				<th>level1Name</th>
+				<th>level1Value</th>
 				<th>level2Name</th>
 				<th>level2Value</th>
 				<th>level3Name</th>
@@ -225,131 +244,125 @@ $(function() {
 
 
 			<tr th:each="user: ${users}">
-
+				<td th:text="${user.id}">..</td>
 				<td th:text="${user.customerID}">..</td>
 				<td th:text="${user.warehouseID}">..</td>
 				<td th:text="${user.orderID}">..</td>
-				<td th:text="${user.inputTxn.product}">..</td>
+				<!--  <td th:text="${user.inputTxn.product}">..</td>
 				<td th:text="${user.inputTxn.principalCompany}">..</td>
 				<td th:text="${user.inputTxn.uom}">..</td>
 				<td th:text="${user.inputTxn.identifierID}">..</td>
-				<td th:text="${user.inputTxn.model}">..</td>
+				<td th:text="${user.inputTxn.model}">..</td>-->
+				<td th:text="${user.level1Name}">..</td>
+				<td th:text="${user.level1Value}">..</td>
 				<td th:text="${user.level2Name}">..</td>
 				<td th:text="${user.level2Value}">..</td>
 				<td th:text="${user.level3Name}">..</td>
 				<td th:text="${user.level3Value}">..</td>
-				<td th:id="${user}">	
-				<input type="checkbox" th:name="foo"
-					th:value="${user.softDelete}"></input> 
-				</td>
+				<td th:id="${user}"><input type="checkbox" th:name="foo"
+					th:value="${user.softDelete}"></input></td>
 			</tr>
 
 
 
 		</table>
-		<button class="btn btn-default" th:id="submitButton" name="MarkOut" type="button">Submit</button>
-
-
-		<button class="btn btn-default" th:id="checkAll"
-			name="MarkOut1" type="button">checkAll</button>
-			
-				<button class="btn btn-default" th:id="uncheckAll"
-			name="MarkOut1" type="button">uncheckAll</button>
 
 
 
-<div class="footerCont">
-<div class="footer">
-<div class="container">
-<div class="row">
-						<br /><br />
-<div class="col-sm-3 col-md-3 ">
-<div class="footer-block">
-<p>
+		<div class="footerCont">
+			<div class="footer">
+				<div class="container">
+					<div class="row">
+						<br /> <br />
+						<div class="col-sm-3 col-md-3 ">
+							<div class="footer-block">
+								<p>
 									<strong>COMPANY</strong>
 								</p>
-<!-- ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs">
-					<li><a c href="/about">About Us</a></li>
-</ul>
-<!-- end ngRepeat: subLink in value.subLink -->
+								<!-- ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs">
+									<li><a c href="/about">About Us</a></li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
 
-<!-- end ngRepeat: subLink in value.subLink -->
-<ul class="list-unstyled hidden-xs ">
-<li><a href="/team">Team</a></li>
-</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/team">Team</a></li>
+								</ul>
 
-<!-- end ngRepeat: subLink in value.subLink -->
+								<!-- end ngRepeat: subLink in value.subLink -->
+							</div>
+						</div>
+						<!-- end ngRepeat: (key, value) in footerLink -->
+						<div class="col-sm-3 col-md-3">
+							<div class="footer-block">
+								<p>
+									<strong>CATEGORIES</strong>
+								</p>
+								<!-- ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/products">Products</a></li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/order">Orde</a>r</li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+							</div>
+						</div>
+						<!-- end ngRepeat: (key, value) in footerLink -->
+						<div class="col-sm-3 col-md-3 ">
+							<div class="footer-block">
+								<p>
+									<strong>OTHERS</strong>
+								</p>
+								<!-- ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/howItWork">How it Work</a></li>
+								</ul>
+								<!-- end ngRepeat: subLink in value.subLink -->
+								<ul class="list-unstyled hidden-xs ">
+									<li><a href="/blog">Blog</a></li>
+								</ul>
+
+								<!-- end ngRepeat: subLink in value.subLink -->
+							</div>
+						</div>
+						<!-- end ngRepeat: (key, value) in footerLink -->
+						<div class="col-sm-3 col-md-3 hidden-xs">
+							<div class="footer-block">
+								<p>
+									<strong>CONTACT US</strong>
+								</p>
+								<ul class="list-unstyled">
+									<li><a class="no-underline"
+										href="mailto:technosyshub@gmail.com">technosyshub@gmail.com</a></li>
+									<li><a class="no-underline"
+										href="mailto:anoop0gangwar@gmail.com">anoop0gangwar@gmail.com</a></li>
+								</ul>
+							</div>
+							<br />
+							<div class="footer-block hide">
+								<p>
+									<strong>Enter your email address here</strong>
+								</p>
+								<ul class="list-unstyled">
+									<li>
+										<div class="input-group">
+											<input class="form-control" type="text"
+												placeholder="Email address" /> <span
+												class="input-group-addon btn btn-orange">Submit</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
-</div>
-<!-- end ngRepeat: (key, value) in footerLink -->
-<div class="col-sm-3 col-md-3">
-<div class="footer-block">
-<p>
-							<strong>CATEGORIES</strong>
-						</p>
-<!-- ngRepeat: subLink in value.subLink -->
-<ul class="list-unstyled hidden-xs ">
-<li><a href="/products">Products</a></li>
-</ul>
-<!-- end ngRepeat: subLink in value.subLink -->
-<ul class="list-unstyled hidden-xs ">
-<li><a href="/order">Orde</a>r</li>
-</ul>
-<!-- end ngRepeat: subLink in value.subLink -->
-					</div>
-</div>
-<!-- end ngRepeat: (key, value) in footerLink -->
-<div class="col-sm-3 col-md-3 ">
-<div class="footer-block">
-<p>
-							<strong>OTHERS</strong>
-						</p>
-<!-- ngRepeat: subLink in value.subLink -->
-<ul class="list-unstyled hidden-xs ">
-<li><a href="/howItWork">How it Work</a></li>
-</ul>
-<!-- end ngRepeat: subLink in value.subLink -->
-<ul class="list-unstyled hidden-xs ">
-<li><a href="/blog">Blog</a></li>
-</ul>
+			</div>
+		</div>
 
-<!-- end ngRepeat: subLink in value.subLink -->
-					</div>
-</div>
-<!-- end ngRepeat: (key, value) in footerLink -->
-<div class="col-sm-3 col-md-3 hidden-xs">
-<div class="footer-block">
-<p>
-							<strong>CONTACT US</strong>
-						</p>
-<ul class="list-unstyled">
-<li><a class="no-underline" href="mailto:technosyshub@gmail.com">technosyshub@gmail.com</a></li>
-<li><a class="no-underline" href="mailto:anoop0gangwar@gmail.com">anoop0gangwar@gmail.com</a></li>
-</ul>
-</div>
-<br />
-<div class="footer-block hide">
-<p>
-							<strong>Enter your email address here</strong>
-						</p>
-<ul class="list-unstyled">
-<li>
-<div class="input-group">
-									<input class="form-control" type="text"
-										placeholder="Email address" /> <span
-										class="input-group-addon btn btn-orange">Submit</span>
-								</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</div>	
+	</div>
 
 </body>
 </html>

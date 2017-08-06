@@ -2,6 +2,8 @@ package com.example.controller;
 
 import javax.validation.Valid;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +41,17 @@ import com.example.service.IOrderRequestService;
 import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.beans.PropertyEditorSupport;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -65,7 +78,9 @@ public class LoginController
 	@Autowired
 	private IInputTxnLevelMappingService inputTxnLevelMappingService;
 
-	@RequestMapping(value = {  "/login" }, method = RequestMethod.GET)
+	private Gson gson = new Gson();
+
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public ModelAndView login()
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -172,29 +187,16 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/out/data/request", method = RequestMethod.GET)
-	public ModelAndView createOutRequest(String query, Integer pageSize)
+	public ModelAndView createOutRequest()
 	{
 		ModelAndView modelAndView = new ModelAndView();
 
-		if (pageSize == null)
-		{
-			pageSize = new Integer(10);
-		}
 		List<String> levels = new ArrayList<String>();
 		levels.add(LEVEL.LEVEL1.name());
 		levels.add(LEVEL.LEVEL2.name());
 		levels.add(LEVEL.LEVEL3.name());
 		modelAndView.addObject("levelOptions", levels);
-		PageRequest pageable = new PageRequest(0, pageSize);
-		Page<InputTxn> paginated = inputTxnService.getAllWithPagination(pageable);
-
-		PageWrapper<InputTxn> page = new PageWrapper<InputTxn>(paginated, "/inputTxn/paginated/listing");
-		modelAndView.addObject("products", page.getContent());
-		modelAndView.addObject("page", page);
-		modelAndView.addObject("newWorkerValue", paginated.getContent());
-		modelAndView.addObject("totalPages", page.getTotalPages());
 		modelAndView.addObject("outData", new OutData());
-		modelAndView.addObject("psize", pageSize);
 		modelAndView.setViewName("outData");
 		return modelAndView;
 	}
@@ -238,7 +240,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value ={"/", "/warehouse/listing"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/warehouse/listing" }, method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -411,88 +413,101 @@ public class LoginController
 			return "outData";
 		}
 
-		PageRequest pageable = new PageRequest(0, 1000);
-		
-		List<InputTxn> paginated = inputTxnService.findInputTransactions();
 		String levelName = outData.getLevelName();
 		String levelValue = outData.getLevelValue();
 		int levelNo = 0;
-		if(outData.getLevelCat().equals(LEVEL.LEVEL1.name())){
-		  levelNo=1;
-		}else if(outData.getLevelCat().equals(LEVEL.LEVEL2.name())){
-		  levelNo=2;
-		}else if(outData.getLevelCat().equals(LEVEL.LEVEL3.name())){
-		  levelNo=3;
+		if (outData.getLevelCat().equals(LEVEL.LEVEL1.name()))
+		{
+			levelNo = 1;
 		}
-		System.out.println(outData.getLevelCat());
-		System.out.println(levelNo);
-		List<InputTxnLevelMapping> inputTxnLevelMappings =  inputTxnLevelMappingService.findByLevelNameAndLevelValue(levelNo, levelName, levelValue);
-		System.out.println(inputTxnLevelMappings);
+		else if (outData.getLevelCat().equals(LEVEL.LEVEL2.name()))
+		{
+			levelNo = 2;
+		}
+		else if (outData.getLevelCat().equals(LEVEL.LEVEL3.name()))
+		{
+			levelNo = 3;
+		}
+		// System.out.println(outData.getLevelCat());
+		// System.out.println(levelNo);
+		List<InputTxnLevelMappingBean> inputTxnLevelMappings = inputTxnLevelMappingService
+				.findByLevelNameAndLevelValueAndGetBean(levelNo, levelName, levelValue);
+		// List<InputTxnLevelMappingBean>
+		// findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String
+		// levelName, String levelValue)
+		// System.out.println(inputTxnLevelMappings);
+
 		model.addAttribute("users", inputTxnLevelMappings);
 		return "inputTransactionListing :: resultsList";
 
 	}
 
 	@RequestMapping(value = "/saveAndGetInputTxns", method = RequestMethod.POST)
-	public String saveAndGetInputTxns(@RequestParam(value = "levelTxn[]") Integer[] levelTxn,@RequestParam(value = "inputTxn[]") Integer[] inputTxn)
+	public String saveAndGetInputTxns(@RequestParam(value = "levelTxn[]") Integer[] levelTxn,
+			@RequestParam(value = "inputTxn[]") Integer[] inputTxn)
 	{
 
 		PageRequest pageable = new PageRequest(0, 1000);
 		List<InputTxn> paginated = inputTxnService.findInputTransactions();
-		
+
 		System.out.println(inputTxn + "\n" + levelTxn);
 		List<Integer> inputTxnIds = Arrays.asList(inputTxn);
-		for(Integer id : inputTxnIds){
-		  System.out.println(id);
+		for (Integer id : inputTxnIds)
+		{
+			System.out.println(id);
 		}
 		List<Integer> inputTxnLevelMappingIds = Arrays.asList(levelTxn);
-        for(Integer id : inputTxnLevelMappingIds){
-          System.out.println(id);
-        }
-		
+		for (Integer id : inputTxnLevelMappingIds)
+		{
+			System.out.println(id);
+		}
+
 		inputTxnLevelMappingService.markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
 		inputTxnLevelMappingService.markCorrespondingInputTxnsAsOutFromIds(inputTxnIds);
 		return "inputTransactionListing :: resultsList";
 
 	}
-	
+
 	/**
 	 * 
 	 * @Navneet
 	 * 
-	 * public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue)
-	 * is the service for fetching the results
+	 * 			public List<InputTxnLevelMappingBean>
+	 *          findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String
+	 *          levelName, String levelValue) is the service for fetching the
+	 *          results
 	 * 
-	 *     And
-	 *     
-	 *  public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans)
-	 *  is the service to mark those txns as out
+	 *          And
+	 * 
+	 *          public int
+	 *          markCorrespondingBothInputTxnAndLevelMappingsAsOut(List
+	 *          <InputTxnLevelMappingBean> inputTxnLevelMappingBeans) is the
+	 *          service to mark those txns as out
 	 * 
 	 */
-	
-	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
-	public String saveAndGetInputTxns(@RequestParam(value="levelTxn[]") List<InputTxnLevelMapping>levelTxn)
-	{  
-		//JSONObject jsnobject = new JSONObject(levelTxn);
-		//System.out.println(jsnobject.toString());
-		//TODO add corresponding api 
-	/*	PageRequest pageable = new PageRequest(0, 1000);
-		List<InputTxn> paginated = inputTxnService.findInputTransactions();
-		
-		System.out.println(inputTxn + "\n" + levelTxn);
-		List<Integer> inputTxnIds = Arrays.asList(inputTxn);
-		for(Integer id : inputTxnIds){
-		  System.out.println(id);
-		}
-		List<Integer> inputTxnLevelMappingIds = Arrays.asList(levelTxn);
-        for(Integer id : inputTxnLevelMappingIds){
-          System.out.println(id);
-        }
-		
-		inputTxnLevelMappingService.markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
-		inputTxnLevelMappingService.markCorrespondingInputTxnsAsOutFromIds(inputTxnIds);*/
-		return "inputTransactionListing :: resultsList";
 
+	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
+	public String saveAndGetInputTxns(@RequestParam(value = "data[]") String[] inputTxnLevelMappingBeans)
+	{
+
+		List<InputTxnLevelMappingBean> beans = new ArrayList<>();
+		if (inputTxnLevelMappingBeans != null && inputTxnLevelMappingBeans.length > 1)
+		{
+			for (int i = 1; i < inputTxnLevelMappingBeans.length; i++)
+			{
+
+				String itl = inputTxnLevelMappingBeans[i];
+				itl = itl.replace("[", "{");
+				itl = itl.replace("]", "}");
+				InputTxnLevelMappingBean InputTxnLevelMappingBea = gson.fromJson(itl, InputTxnLevelMappingBean.class);
+				beans.add(InputTxnLevelMappingBea);
+			}
+
+			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans);
+
+		}
+		return "redirect:/out/data/reques";
+		
 	}
 
 }
