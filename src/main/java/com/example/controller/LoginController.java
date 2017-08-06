@@ -273,7 +273,7 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
-	public ModelAndView submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
+	public String submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
 	{
 
@@ -315,9 +315,7 @@ public class LoginController
 
 		}
 
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("successFormSubmission");
-		return modelAndView;
+		return "redirect:/search";
 
 	}
 
@@ -335,7 +333,7 @@ public class LoginController
 	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
 	public ModelAndView fragment()
 	{
-		ModelAndView modelAndView = new ModelAndView();
+		ModelndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("searchFragment");
 		return modelAndView;
 	}
@@ -504,7 +502,7 @@ public class LoginController
 			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans);
 
 		}
-		return "redirect:/out/data/reques";
+		return "redirect:/out/data/request";
 		
 	}
 
