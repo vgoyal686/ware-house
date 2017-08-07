@@ -10,13 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +23,6 @@ import com.example.bean.InputTxnLevelMappingBean;
 import com.example.bean.LEVEL;
 import com.example.bean.OutData;
 import com.example.model.InputTxn;
-import com.example.model.InputTxnLevelMapping;
 import com.example.model.OrderRequest;
 import com.example.model.Role;
 import com.example.model.User;
@@ -39,17 +34,10 @@ import com.example.service.IOrderRequestService;
 import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
 import com.example.service.WarehouseServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import java.beans.PropertyEditorSupport;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -333,7 +321,7 @@ public class LoginController
 	@RequestMapping(value = "/searchFragment", method = RequestMethod.GET)
 	public ModelAndView fragment()
 	{
-		ModelndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("searchFragment");
 		return modelAndView;
 	}
