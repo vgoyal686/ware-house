@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.bean.InventoryLeftInWarehouses;
 import com.example.model.InputTxn;
 
 /**
@@ -32,4 +33,8 @@ public interface IInputTxnRepository extends JpaRepository<InputTxn, Long> {
   @Transactional
   @Query("UPDATE InputTxn inputTxn SET inputTxn.softDelete = :softDelete WHERE inputTxn.id in :inputTxnIds")
   int updateSoftDelete(@Param("inputTxnIds") List<Integer> inputTxnIds, @Param("softDelete") boolean softdelete);
+  
+  @Query("select new com.example.bean.InventoryLeftInWarehouses(inputTxn.customerID, inputTxn.uom) from InputTxn inputTxn where inputTxn.customerID = :customerID AND group by inputTxn.uom ")
+  List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(String customerID);
+  
 }

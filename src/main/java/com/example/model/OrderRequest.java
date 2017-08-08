@@ -4,11 +4,15 @@
  */
 package com.example.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 
@@ -24,6 +28,19 @@ public class OrderRequest {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private int id;
+
+	  private Date created;
+	  private Date updated;
+
+	  @PrePersist
+	  protected void onCreate() {
+	    created = new Date();
+	  }
+
+	  @PreUpdate
+	  protected void onUpdate() {
+	    updated = new Date();
+	  } 
 	
   @Column(name = "customerID")
   //@NotEmpty(message = "Please provide your customerID")

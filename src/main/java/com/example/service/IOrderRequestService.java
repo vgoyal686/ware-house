@@ -31,4 +31,7 @@ public interface IOrderRequestService
 
 	boolean findById(Long id);
 
+	public List<OrderRequest> findByCustomerIDOrderByCreatedDesc(String customerID);
+	public Page<OrderRequest> findByCustomerIDOrderByCreatedDesc(String customerID, Pageable pageable);
+
 }
