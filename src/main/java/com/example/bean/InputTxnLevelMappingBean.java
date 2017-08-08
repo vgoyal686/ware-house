@@ -4,12 +4,6 @@
  */
 package com.example.bean;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.OneToOne;
-
-import com.example.model.InputTxn;
 
 /**
  * @author Anurag
@@ -245,15 +239,7 @@ public class InputTxnLevelMappingBean {
   /* (non-Javadoc)
    * @see java.lang.Object#toString()
    */
-  @Override
-  public String toString() {
-    return "InputTxnLevelMappingBean [id=" + id + ", softDelete=" + softDelete + ", customerID="
-        + customerID + ", warehouseID=" + warehouseID + ", orderID=" + orderID + ", level1Name="
-        + level1Name + ", level1Value=" + level1Value + ", level2Name=" + level2Name
-        + ", level2Value=" + level2Value + ", level3Name=" + level3Name + ", level3Value="
-        + level3Value + ", inputTxnId=" + inputTxnId + "]";
-  }
-
+ 
   /**
    * @param id
    * @param softDelete
@@ -271,7 +257,7 @@ public class InputTxnLevelMappingBean {
   public InputTxnLevelMappingBean(int id, boolean softDelete, String customerID, String warehouseID,
       String orderID, String level1Name, String level1Value, String level2Name, String level2Value,
       String level3Name, String level3Value, int inputTxnId) {
-    super();
+  
     this.id = id;
     this.softDelete = softDelete;
     this.customerID = customerID;
@@ -285,6 +271,15 @@ public class InputTxnLevelMappingBean {
     this.level3Value = level3Value;
     this.inputTxnId = inputTxnId;
   }
+
+@Override
+public String toString()
+{
+	return "[id=" + id + ", softDelete=" + softDelete + ", customerID=" + customerID
+			+ ", warehouseID=" + warehouseID + ", orderID=" + orderID + ", level1Name=" + level1Name + ", level1Value="
+			+ level1Value + ", level2Name=" + level2Name + ", level2Value=" + level2Value + ", level3Name=" + level3Name
+			+ ", level3Value=" + level3Value + ", inputTxnId=" + inputTxnId + "]";
+}
   
     
 }
