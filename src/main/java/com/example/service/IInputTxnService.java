@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.bean.InputFormBean;
+import com.example.bean.InventoryLeftInWarehouses;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 
@@ -43,6 +44,7 @@ public interface IInputTxnService
 
 	public InputTxn findByOrderID(String orderID);
 
+	
 	/******************** Excel Workbook parsing utility *****************/
 	public InputTxn parseRowToModel(InputFormBean inputFormBean, Row row);
 
@@ -55,4 +57,7 @@ public interface IInputTxnService
 	List<InputTxn> findInputTransactions();
 
 	Page<InputTxn> getAllWithPagination(Pageable pageable);
+	
+	/******************** Aggregate Api *****************************/
+	public List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(String customerID);
 }

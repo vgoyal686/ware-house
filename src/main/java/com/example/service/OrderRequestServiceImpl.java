@@ -86,4 +86,17 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 		return blogList;
 	}
 
+  @Override
+  public List<OrderRequest> findByCustomerIDOrderByCreatedDesc(String customerID) {
+    
+    return orderRequestRepository.findByCustomerIDOrderByCreatedDesc(customerID);
+  }
+
+  @Override
+  public Page<OrderRequest> findByCustomerIDOrderByCreatedDesc(String customerID,
+      Pageable pageable) {
+
+    return orderRequestRepository.findByCustomerIDOrderByCreatedDesc(customerID, pageable);
+  }
+
 }
