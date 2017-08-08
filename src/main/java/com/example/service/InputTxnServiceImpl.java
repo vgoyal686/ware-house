@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
+import com.example.bean.InventoryLeftInWarehouses;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 import com.example.model.TestReport;
@@ -245,5 +246,12 @@ public class InputTxnServiceImpl implements IInputTxnService
 	{
 		return inputTxnRepository.findAll();
 	}
+
+  @Override
+  public List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(
+      String customerID) {
+    
+    return inputTxnRepository.findInventoryLeftInWarehousesByCustomerID(customerID);
+  }
 
 }
