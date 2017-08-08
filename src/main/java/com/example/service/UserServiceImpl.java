@@ -31,18 +31,22 @@ public class UserServiceImpl implements IUserService
 	}
 
 	@Override
+	public HashSet<Role> findAllRoles()
+	{
+		return new HashSet<Role>(roleRepository.findAll());
+	}
+
+	@Override
 	public List<User> findAllUsers()
 	{
 		return userRepository.findAll();
+
 	}
 
 	@Override
 	public void saveUser(User user)
 	{
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setActive(1);
-		Role userRole = roleRepository.findByRole("ADMIN");
-		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
 

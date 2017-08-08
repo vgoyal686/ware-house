@@ -33,6 +33,7 @@ import com.example.service.IInputTxnLevelMappingService;
 import com.example.service.IOrderRequestService;
 import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
+import com.example.service.UserServiceImpl;
 import com.example.service.WarehouseServiceImpl;
 import com.google.gson.Gson;
 import java.io.BufferedOutputStream;
@@ -41,6 +42,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -89,6 +91,9 @@ public class LoginController
 		ModelAndView modelAndView = new ModelAndView();
 		User user = new User();
 		modelAndView.addObject("user", user);
+		// user.setRoles(userService.findAllRoles());
+
+		modelAndView.addObject("roleAdd", userService.findAllRoles());
 		modelAndView.setViewName("registration");
 		return modelAndView;
 	}
@@ -109,13 +114,6 @@ public class LoginController
 		}
 		else
 		{
-			Role role = new Role();
-			role.setRole("ADMIN");
-			role.setId(1);
-			Set<Role> roleSet = new HashSet<Role>();
-			roleSet.add(role);
-
-			user.setRoles(roleSet);
 			userService.saveUser(user);
 			return "redirect:/users/listing";
 		}
@@ -491,7 +489,7 @@ public class LoginController
 
 		}
 		return "redirect:/out/data/request";
-		
+
 	}
 
 }
