@@ -9,6 +9,7 @@ import com.example.model.TestReport;
 import com.example.repository.TestReportRepository;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExcelService implements IExcelService
 {
+    private static DataFormatter dataFormatter = new DataFormatter();
 	@Autowired
 	private TestReportRepository testReportRepository;
 
@@ -171,6 +173,7 @@ public class ExcelService implements IExcelService
 	public static String parseCellValueToString(Cell cell)
 	{
 		String value = null;
+		
 		switch (cell.getCellType())
 		{
 		case Cell.CELL_TYPE_BOOLEAN:
@@ -179,7 +182,20 @@ public class ExcelService implements IExcelService
 			break;
 		case Cell.CELL_TYPE_NUMERIC:
 			System.out.print("NUMERIC:" + cell.getNumericCellValue() + "\t\t");
-			value = String.valueOf(cell.getNumericCellValue());
+//			String old_value = String.valueOf(cell.getNumericCellValue());
+//			System.out.print(" Old Value " + old_value);
+//			String  value1 = dataFormatter.formatCellValue(cell);
+//			System.out.print(", New Formatted Value " + value1);
+			value = new BigDecimal(cell.getNumericCellValue()).toPlainString();
+//			System.out.println(", New Formatted Value " + value);
+//			Float float_value =  Float.parseFloat(value);
+//			System.out.println(" , Float Formatted Value " + float_value);
+			Double double_value =  Double.parseDouble(value);
+//			System.out.println(" , Double Formatted Value " + double_value);
+			if(value.length() >= 25){
+			  value = double_value.toString();
+			}
+			System.out.print(" , Final Formatted Value " + value);
 			break;
 		case Cell.CELL_TYPE_STRING:
 			System.out.print("STRING:" + cell.getStringCellValue() + "\t\t");
