@@ -35,6 +35,7 @@ public interface IInputTxnRepository extends JpaRepository<InputTxn, Long> {
   int updateSoftDelete(@Param("inputTxnIds") List<Integer> inputTxnIds, @Param("softDelete") boolean softdelete);
   
   @Query(value = "select new com.example.bean.InventoryLeftInWarehouses(inputTxn.customerID, inputTxn.uom, count(inputTxn)) from InputTxn inputTxn WHERE inputTxn.customerID = :customerID group by inputTxn.customerID, inputTxn.uom")
-  List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(String customerID);
-  
+  List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(@Param("customerID")  String customerID);
+
+ 
 }
