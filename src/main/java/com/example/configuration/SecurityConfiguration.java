@@ -30,6 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
 
+	
+	
+	
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception
 	{
@@ -50,13 +54,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 				.antMatchers("/saveFileAndForm").permitAll().antMatchers("/mergeForm").permitAll()
 				.antMatchers("/orderRequest/paginated/listing").permitAll().antMatchers("/guests/**", "/searchFragment")
 				.permitAll().antMatchers("/create/orderRequest/form", "/create/data/orderRequest", "/users/listing",
-						"/inputTransactions/listing","/out/data/request","/inputTxn/paginated/listing","/outDataRequest","/saveAndGetInputTxns","/saveAndGetInputTxns/final")
+						"/inputTransactions/listing","/out/data/request","/inputTxn/paginated/listing","/outDataRequest","/saveAndGetInputTxns","/saveAndGetInputTxns/final","/inventoryby/customer")
 				.permitAll()
 
 				.antMatchers("/upload").permitAll().antMatchers("/warehouse/view/registration").permitAll()
 				.antMatchers("/warehouse/registration").permitAll().antMatchers("/admin/**").hasAuthority("ADMIN")
 				.anyRequest().authenticated().and().csrf().disable().formLogin().loginPage("/login")
-				.failureUrl("/login?error=true").defaultSuccessUrl("/admin/home").usernameParameter("email")
+				.failureUrl("/login?error=true").defaultSuccessUrl("/").usernameParameter("email")
 				.passwordParameter("password").and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/").and().exceptionHandling().accessDeniedPage("/access-denied");
 	}

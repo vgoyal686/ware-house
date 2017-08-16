@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.bean.InputFormBean;
 import com.example.bean.InputTxnLevelMappingBean;
+import com.example.bean.InventoryLeftInWarehouses;
 import com.example.bean.LEVEL;
 import com.example.bean.OutData;
 import com.example.model.InputTxn;
@@ -39,6 +41,7 @@ import com.google.gson.Gson;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -185,10 +188,9 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "warehouse/registration", method = RequestMethod.POST)
-	public ModelAndView createNewWareHouse(@Valid Warehouse user, BindingResult bindingResult)
+	@RequestMapping(value = "warehouse/view/registration", method = RequestMethod.POST)
+	public String createNewWareHouse(@Valid Warehouse user, BindingResult bindingResult)
 	{
-		ModelAndView modelAndView = new ModelAndView();
 		Warehouse userExists = warehouseService.findWarehouseByEmail(user.getEmail());
 		if (userExists != null)
 		{
@@ -197,7 +199,9 @@ public class LoginController
 		}
 		if (bindingResult.hasErrors())
 		{
-			modelAndView.setViewName("registration");
+
+			return "warehouse :: for1";
+
 		}
 		else
 		{
@@ -205,10 +209,7 @@ public class LoginController
 
 		}
 
-		List<Warehouse> wareHouses = warehouseService.findWarehouses();
-		modelAndView.addObject("wareHouses", wareHouses);
-		modelAndView.setViewName("warehouseListing");
-		return modelAndView;
+		return "redirect:/warehouse/listing";
 	}
 
 	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
@@ -322,20 +323,6 @@ public class LoginController
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("searchFragment");
 		return modelAndView;
-	}
-
-	@RequestMapping(value = "/guests/{surname}", method = RequestMethod.GET)
-	public String showGuestList(Model model, @PathVariable("surname") String surname)
-	{
-		model.addAttribute("guests", orderRequestService.listByCustomerID(surname));
-		return "results :: resultsList";
-	}
-
-	@RequestMapping(value = "/guests", method = RequestMethod.GET)
-	public String showGuestList(Model model)
-	{
-		model.addAttribute("guests", orderRequestService.findAllOrderRequest());
-		return "results :: resultsList";
 	}
 
 	@RequestMapping(value = "/mergeForm", method = RequestMethod.GET)
@@ -490,6 +477,22 @@ public class LoginController
 		}
 		return "redirect:/out/data/request";
 
+	}
+
+	@RequestMapping(value = "/inventoryby/customer", method = RequestMethod.GET)
+	public ModelAndView findInventoryLeftInWarehousesByCustomerID()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		// auth.getAuthorities()
+		ModelAndView modelAndView = new ModelAndView();
+		User user = userService.findUserByEmail(email);
+
+		List<InventoryLeftInWarehouses> inventories = inputTxnService
+				.findInventoryLeftInWarehousesByCustomerID("" + user.getId());
+		modelAndView.addObject("inventories", inventories);
+		modelAndView.setViewName("WarehouseInventoriesCustomer");
+		return modelAndView;
 	}
 
 }
