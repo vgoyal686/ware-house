@@ -21,7 +21,7 @@ public interface IOrderRequestService
 
 	public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest);
 
-	public OrderRequest findByCustomerID(String customerID);
+	public List<OrderRequest> findByCustomerID(String customerID);
 
 	public List<OrderRequest> listByCustomerID(String customerID);
 

@@ -49,12 +49,9 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 	}
 
 	@Override
-	public OrderRequest findByCustomerID(String customerID)
+	public List<OrderRequest> findByCustomerID(String customerID)
 	{
-
-		
-
-		return new OrderRequest();
+	   return orderRequestRepository.findByCustomerID(customerID);
 	}
 
 	@Override

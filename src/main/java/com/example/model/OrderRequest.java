@@ -4,6 +4,7 @@
  */
 package com.example.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Anurag
@@ -29,86 +34,68 @@ public class OrderRequest
 	@Column(name = "id")
 	private int id;
 
-	  private Date created;
-	  private Date updated;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date created;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updated;
 
-	  @PrePersist
-	  protected void onCreate() {
+	@PrePersist
+	protected void onCreate() {
 	    created = new Date();
-	  }
+	}
 
-	  @PreUpdate
-	  protected void onUpdate() {
+	@PreUpdate
+	protected void onUpdate() {
 	    updated = new Date();
-	  } 
+	} 
 
-	@Column(name = "customerID")
-	// @NotEmpty(message = "Please provide your customerID")
-	private String customerID;
 
-	@Column(name = "orderID")
-	// @NotEmpty(message = "Please provide your orderID")
-	private String orderID;
+//	@Column(name = "orderID")
+//	// @NotEmpty(message = "Please provide your orderID")
+//	private String orderID;
 
 	@Column(name = "orderDate")
-	// @NotEmpty(message = "Please provide your orderDate")
-	private String orderDate;
+	@NotEmpty(message = "Please provide your orderDate")
+	@Temporal(TemporalType.DATE)
+	private Date orderDate;
 
+	@Column(name = "orderType")
+    @NotEmpty(message = "Please provide your orderDate")
+    private String orderType;
+
+    @Column(name = "customerID")
+    @NotEmpty(message = "Please provide your customerID")
+    private String customerID;
+	
 	@Column(name = "warehouseID")
-	// @NotEmpty(message = "Please provide your warehouseID")
+	@NotEmpty(message = "Please provide your warehouseID")
 	private String warehouseID;
 
-	@Column(name = "currentUnit")
-	// @NotEmpty(message = "Please provide your currentUnit")
-	private String currentUnit;
-
-	@Column(name = "currentStock")
-	// @NotEmpty(message = "Please provide your currentStock")
-	private String currentStock;
-
-	@Column(name = "details")
-	// @NotEmpty(message = "Please provide your details")
-	private String details;
 
 	@Column(name = "requestRaisedBy")
-	// @NotEmpty(message = "Please provide your requestRaisedBy")
+	@NotEmpty(message = "Please provide your requestRaisedBy")
 	private String requestRaisedBy;
 
 	@Column(name = "managerApproval")
-	// @NotEmpty(message = "Please provide your managerApproval")
-	private String managerApproval;
+	@NotEmpty(message = "Please provide your managerApproval")
+	private boolean managerApproval = false;
 
 	@Column(name = "documentReceived ")
-	// @NotEmpty(message = "Please provide your documentReceived ")
-	private String documentReceived;
+	@NotEmpty(message = "Please provide your documentReceived ")
+	private boolean documentReceived = false;
 
 	@Column(name = "wareConfirmation ")
-	// @NotEmpty(message = "Please provide your wareConfirmation ")
-	private String wareConfirmation;
+	@NotEmpty(message = "Please provide your wareConfirmation ")
+	private boolean wareConfirmation = false;
 
-	@Column(name = "openingBalance")
-	// @NotEmpty(message = "Please provide your openingBalance")
-	private String openingBalance;
 
-	@Column(name = "input")
-	// @NotEmpty(message = "Please provide your in")
-	private String input;
-
-	@Column(name = "output")
-	// @NotEmpty(message = "Please provide your out")
-	private String output;
-
-	@Column(name = "closingBalance")
-	// @NotEmpty(message = "Please provide your closingBalance")
-	private String closingBalance;
+	@Column(name = "uom")
+	@NotEmpty(message = "Please provide your in")
+	private String uom;
 
 	@Column(name = "ratePerUnitPerDay")
-	// @NotEmpty(message = "Please provide your ratePerUnitPerDay")
-	private String ratePerUnitPerDay;
-
-	@Column(name = "spaceCharge")
-	// @NotEmpty(message = "Please provide your spaceCharge")
-	private String spaceCharge;
+	@NotEmpty(message = "Please provide your ratePerUnitPerDay")
+	private BigDecimal ratePerUnitPerDay;
 
 	@Column(name = "loadingCharge")
 	// @NotEmpty(message = "Please provide your loadingCharge")
@@ -122,284 +109,576 @@ public class OrderRequest
 	// @NotEmpty(message = "Please provide your otherCharge")
 	private String otherCharge;
 
-	@Column(name = "discount")
+	/********************************  OUT Form ***************************/
+	
+    @Column(name = "buyerName")
+    // @NotEmpty(message = "Please provide your out")
+    private String buyerName;
+
+	@Column(name = "buyerPhoneNumber")
 	// @NotEmpty(message = "Please provide your discount")
-	private String discount;
+	private String buyerPhoneNumber;
 
-	@Column(name = "tax")
+	@Column(name = "buyerEmail")
 	// @NotEmpty(message = "Please provide your tax")
-	private String tax;
+	private String buyerEmail;
 
-	@Column(name = "total")
+	@Column(name = "consigneeAddress")
 	// @NotEmpty(message = "Please provide your total")
-	private String total;
+	private String consigneeAddress;
 
-	@Column(name = "status")
+	@Column(name = "pinCode")
 	// @NotEmpty(message = "Please provide your status")
-	private String status;
+	private String pinCode;
 
-	public int getId()
-	{
-		return id;
-	}
+    @Column(name = "modeOfTransfer")
+    // @NotEmpty(message = "Please provide your status")
+    private String modeOfTransfer;
 
-	public void setId(int id)
-	{
-		this.id = id;
-	}
+    @Column(name = "invoiceNumber")
+    // @NotEmpty(message = "Please provide your status")
+    private String invoiceNumber;
 
-	public String getCustomerID()
-	{
-		return customerID;
-	}
+    @Column(name = "truckNumber")
+    // @NotEmpty(message = "Please provide your status")
+    private String truckNumber;
 
-	public void setCustomerID(String customerID)
-	{
-		this.customerID = customerID;
-	}
+    @Column(name = "transportationCost")
+    // @NotEmpty(message = "Please provide your status")
+    private String transportationCost;
 
-	public String getOrderID()
-	{
-		return orderID;
-	}
+    @Column(name = "trackingID")
+    // @NotEmpty(message = "Please provide your status")
+    private String trackingID;
 
-	public void setOrderID(String orderID)
-	{
-		this.orderID = orderID;
-	}
+    @Column(name = "comment")
+    // @NotEmpty(message = "Please provide your status")
+    private String comment;
 
-	public String getOrderDate()
-	{
-		return orderDate;
-	}
+    /**
+     * @author Anurag
+     * @return the id
+     */
+    public int getId() {
+      return id;
+    }
 
-	public void setOrderDate(String orderDate)
-	{
-		this.orderDate = orderDate;
-	}
+    /**
+     * @author Anurag
+     * @param id the id to set
+     */
+    public void setId(int id) {
+      this.id = id;
+    }
 
-	public String getWarehouseID()
-	{
-		return warehouseID;
-	}
+    /**
+     * @author Anurag
+     * @return the created
+     */
+    public Date getCreated() {
+      return created;
+    }
 
-	public void setWarehouseID(String warehouseID)
-	{
-		this.warehouseID = warehouseID;
-	}
+    /**
+     * @author Anurag
+     * @param created the created to set
+     */
+    public void setCreated(Date created) {
+      this.created = created;
+    }
 
-	public String getCurrentUnit()
-	{
-		return currentUnit;
-	}
+    /**
+     * @author Anurag
+     * @return the updated
+     */
+    public Date getUpdated() {
+      return updated;
+    }
 
-	public void setCurrentUnit(String currentUnit)
-	{
-		this.currentUnit = currentUnit;
-	}
+    /**
+     * @author Anurag
+     * @param updated the updated to set
+     */
+    public void setUpdated(Date updated) {
+      this.updated = updated;
+    }
 
-	public String getCurrentStock()
-	{
-		return currentStock;
-	}
+    /**
+     * @author Anurag
+     * @return the orderDate
+     */
+    public Date getOrderDate() {
+      return orderDate;
+    }
 
-	public void setCurrentStock(String currentStock)
-	{
-		this.currentStock = currentStock;
-	}
+    /**
+     * @author Anurag
+     * @param orderDate the orderDate to set
+     */
+    public void setOrderDate(Date orderDate) {
+      this.orderDate = orderDate;
+    }
 
-	public String getDetails()
-	{
-		return details;
-	}
+    /**
+     * @author Anurag
+     * @return the orderType
+     */
+    public String getOrderType() {
+      return orderType;
+    }
 
-	public void setDetails(String details)
-	{
-		this.details = details;
-	}
+    /**
+     * @author Anurag
+     * @param orderType the orderType to set
+     */
+    public void setOrderType(String orderType) {
+      this.orderType = orderType;
+    }
 
-	public String getRequestRaisedBy()
-	{
-		return requestRaisedBy;
-	}
+    /**
+     * @author Anurag
+     * @return the customerID
+     */
+    public String getCustomerID() {
+      return customerID;
+    }
 
-	public void setRequestRaisedBy(String requestRaisedBy)
-	{
-		this.requestRaisedBy = requestRaisedBy;
-	}
+    /**
+     * @author Anurag
+     * @param customerID the customerID to set
+     */
+    public void setCustomerID(String customerID) {
+      this.customerID = customerID;
+    }
 
-	public String getManagerApproval()
-	{
-		return managerApproval;
-	}
+    /**
+     * @author Anurag
+     * @return the warehouseID
+     */
+    public String getWarehouseID() {
+      return warehouseID;
+    }
 
-	public void setManagerApproval(String managerApproval)
-	{
-		this.managerApproval = managerApproval;
-	}
+    /**
+     * @author Anurag
+     * @param warehouseID the warehouseID to set
+     */
+    public void setWarehouseID(String warehouseID) {
+      this.warehouseID = warehouseID;
+    }
 
-	public String getDocumentReceived()
-	{
-		return documentReceived;
-	}
+    /**
+     * @author Anurag
+     * @return the requestRaisedBy
+     */
+    public String getRequestRaisedBy() {
+      return requestRaisedBy;
+    }
 
-	public void setDocumentReceived(String documentReceived)
-	{
-		this.documentReceived = documentReceived;
-	}
+    /**
+     * @author Anurag
+     * @param requestRaisedBy the requestRaisedBy to set
+     */
+    public void setRequestRaisedBy(String requestRaisedBy) {
+      this.requestRaisedBy = requestRaisedBy;
+    }
 
-	public String getWareConfirmation()
-	{
-		return wareConfirmation;
-	}
+    /**
+     * @author Anurag
+     * @return the managerApproval
+     */
+    public boolean isManagerApproval() {
+      return managerApproval;
+    }
 
-	public void setWareConfirmation(String wareConfirmation)
-	{
-		this.wareConfirmation = wareConfirmation;
-	}
+    /**
+     * @author Anurag
+     * @param managerApproval the managerApproval to set
+     */
+    public void setManagerApproval(boolean managerApproval) {
+      this.managerApproval = managerApproval;
+    }
 
-	public String getOpeningBalance()
-	{
-		return openingBalance;
-	}
+    /**
+     * @author Anurag
+     * @return the documentReceived
+     */
+    public boolean isDocumentReceived() {
+      return documentReceived;
+    }
 
-	public void setOpeningBalance(String openingBalance)
-	{
-		this.openingBalance = openingBalance;
-	}
+    /**
+     * @author Anurag
+     * @param documentReceived the documentReceived to set
+     */
+    public void setDocumentReceived(boolean documentReceived) {
+      this.documentReceived = documentReceived;
+    }
 
-	public String getInput()
-	{
-		return input;
-	}
+    /**
+     * @author Anurag
+     * @return the wareConfirmation
+     */
+    public boolean isWareConfirmation() {
+      return wareConfirmation;
+    }
 
-	public void setInput(String input)
-	{
-		this.input = input;
-	}
+    /**
+     * @author Anurag
+     * @param wareConfirmation the wareConfirmation to set
+     */
+    public void setWareConfirmation(boolean wareConfirmation) {
+      this.wareConfirmation = wareConfirmation;
+    }
 
-	public String getOutput()
-	{
-		return output;
-	}
+    /**
+     * @author Anurag
+     * @return the uom
+     */
+    public String getUom() {
+      return uom;
+    }
 
-	public void setOutput(String output)
-	{
-		this.output = output;
-	}
+    /**
+     * @author Anurag
+     * @param uom the uom to set
+     */
+    public void setUom(String uom) {
+      this.uom = uom;
+    }
 
-	public String getClosingBalance()
-	{
-		return closingBalance;
-	}
+    /**
+     * @author Anurag
+     * @return the ratePerUnitPerDay
+     */
+    public BigDecimal getRatePerUnitPerDay() {
+      return ratePerUnitPerDay;
+    }
 
-	public void setClosingBalance(String closingBalance)
-	{
-		this.closingBalance = closingBalance;
-	}
+    /**
+     * @author Anurag
+     * @param ratePerUnitPerDay the ratePerUnitPerDay to set
+     */
+    public void setRatePerUnitPerDay(BigDecimal ratePerUnitPerDay) {
+      this.ratePerUnitPerDay = ratePerUnitPerDay;
+    }
 
-	public String getRatePerUnitPerDay()
-	{
-		return ratePerUnitPerDay;
-	}
+    /**
+     * @author Anurag
+     * @return the loadingCharge
+     */
+    public String getLoadingCharge() {
+      return loadingCharge;
+    }
 
-	public void setRatePerUnitPerDay(String ratePerUnitPerDay)
-	{
-		this.ratePerUnitPerDay = ratePerUnitPerDay;
-	}
+    /**
+     * @author Anurag
+     * @param loadingCharge the loadingCharge to set
+     */
+    public void setLoadingCharge(String loadingCharge) {
+      this.loadingCharge = loadingCharge;
+    }
 
-	public String getSpaceCharge()
-	{
-		return spaceCharge;
-	}
+    /**
+     * @author Anurag
+     * @return the unloadingCharge
+     */
+    public String getUnloadingCharge() {
+      return unloadingCharge;
+    }
 
-	public void setSpaceCharge(String spaceCharge)
-	{
-		this.spaceCharge = spaceCharge;
-	}
+    /**
+     * @author Anurag
+     * @param unloadingCharge the unloadingCharge to set
+     */
+    public void setUnloadingCharge(String unloadingCharge) {
+      this.unloadingCharge = unloadingCharge;
+    }
 
-	public String getLoadingCharge()
-	{
-		return loadingCharge;
-	}
+    /**
+     * @author Anurag
+     * @return the otherCharge
+     */
+    public String getOtherCharge() {
+      return otherCharge;
+    }
 
-	public void setLoadingCharge(String loadingCharge)
-	{
-		this.loadingCharge = loadingCharge;
-	}
+    /**
+     * @author Anurag
+     * @param otherCharge the otherCharge to set
+     */
+    public void setOtherCharge(String otherCharge) {
+      this.otherCharge = otherCharge;
+    }
 
-	public String getUnloadingCharge()
-	{
-		return unloadingCharge;
-	}
+    /**
+     * @author Anurag
+     * @return the buyerName
+     */
+    public String getBuyerName() {
+      return buyerName;
+    }
 
-	public void setUnloadingCharge(String unloadingCharge)
-	{
-		this.unloadingCharge = unloadingCharge;
-	}
+    /**
+     * @author Anurag
+     * @param buyerName the buyerName to set
+     */
+    public void setBuyerName(String buyerName) {
+      this.buyerName = buyerName;
+    }
 
-	public String getOtherCharge()
-	{
-		return otherCharge;
-	}
+    /**
+     * @author Anurag
+     * @return the buyerPhoneNumber
+     */
+    public String getBuyerPhoneNumber() {
+      return buyerPhoneNumber;
+    }
 
-	public void setOtherCharge(String otherCharge)
-	{
-		this.otherCharge = otherCharge;
-	}
+    /**
+     * @author Anurag
+     * @param buyerPhoneNumber the buyerPhoneNumber to set
+     */
+    public void setBuyerPhoneNumber(String buyerPhoneNumber) {
+      this.buyerPhoneNumber = buyerPhoneNumber;
+    }
 
-	public String getDiscount()
-	{
-		return discount;
-	}
+    /**
+     * @author Anurag
+     * @return the buyerEmail
+     */
+    public String getBuyerEmail() {
+      return buyerEmail;
+    }
 
-	public void setDiscount(String discount)
-	{
-		this.discount = discount;
-	}
+    /**
+     * @author Anurag
+     * @param buyerEmail the buyerEmail to set
+     */
+    public void setBuyerEmail(String buyerEmail) {
+      this.buyerEmail = buyerEmail;
+    }
 
-	public String getTax()
-	{
-		return tax;
-	}
+    /**
+     * @author Anurag
+     * @return the consigneeAddress
+     */
+    public String getConsigneeAddress() {
+      return consigneeAddress;
+    }
 
-	public void setTax(String tax)
-	{
-		this.tax = tax;
-	}
+    /**
+     * @author Anurag
+     * @param consigneeAddress the consigneeAddress to set
+     */
+    public void setConsigneeAddress(String consigneeAddress) {
+      this.consigneeAddress = consigneeAddress;
+    }
 
-	public String getTotal()
-	{
-		return total;
-	}
+    /**
+     * @author Anurag
+     * @return the pinCode
+     */
+    public String getPinCode() {
+      return pinCode;
+    }
 
-	public void setTotal(String total)
-	{
-		this.total = total;
-	}
+    /**
+     * @author Anurag
+     * @param pinCode the pinCode to set
+     */
+    public void setPinCode(String pinCode) {
+      this.pinCode = pinCode;
+    }
 
-	public String getStatus()
-	{
-		return status;
-	}
+    /**
+     * @author Anurag
+     * @return the modeOfTransfer
+     */
+    public String getModeOfTransfer() {
+      return modeOfTransfer;
+    }
 
-	public void setStatus(String status)
-	{
-		this.status = status;
-	}
+    /**
+     * @author Anurag
+     * @param modeOfTransfer the modeOfTransfer to set
+     */
+    public void setModeOfTransfer(String modeOfTransfer) {
+      this.modeOfTransfer = modeOfTransfer;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "OrderRequest [id=" + id + ", customerID=" + customerID + ", orderID=" + orderID + ", orderDate="
-				+ orderDate + ", warehouseID=" + warehouseID + ", currentUnit=" + currentUnit + ", currentStock="
-				+ currentStock + ", details=" + details + ", requestRaisedBy=" + requestRaisedBy + ", managerApproval="
-				+ managerApproval + ", documentReceived=" + documentReceived + ", wareConfirmation=" + wareConfirmation
-				+ ", openingBalance=" + openingBalance + ", input=" + input + ", output=" + output + ", closingBalance="
-				+ closingBalance + ", ratePerUnitPerDay=" + ratePerUnitPerDay + ", spaceCharge=" + spaceCharge
-				+ ", loadingCharge=" + loadingCharge + ", unloadingCharge=" + unloadingCharge + ", otherCharge="
-				+ otherCharge + ", discount=" + discount + ", tax=" + tax + ", total=" + total + ", status=" + status
-				+ "]";
-	}
+    /**
+     * @author Anurag
+     * @return the invoiceNumber
+     */
+    public String getInvoiceNumber() {
+      return invoiceNumber;
+    }
+
+    /**
+     * @author Anurag
+     * @param invoiceNumber the invoiceNumber to set
+     */
+    public void setInvoiceNumber(String invoiceNumber) {
+      this.invoiceNumber = invoiceNumber;
+    }
+
+    /**
+     * @author Anurag
+     * @return the truckNumber
+     */
+    public String getTruckNumber() {
+      return truckNumber;
+    }
+
+    /**
+     * @author Anurag
+     * @param truckNumber the truckNumber to set
+     */
+    public void setTruckNumber(String truckNumber) {
+      this.truckNumber = truckNumber;
+    }
+
+    /**
+     * @author Anurag
+     * @return the transportationCost
+     */
+    public String getTransportationCost() {
+      return transportationCost;
+    }
+
+    /**
+     * @author Anurag
+     * @param transportationCost the transportationCost to set
+     */
+    public void setTransportationCost(String transportationCost) {
+      this.transportationCost = transportationCost;
+    }
+
+    /**
+     * @author Anurag
+     * @return the trackingID
+     */
+    public String getTrackingID() {
+      return trackingID;
+    }
+
+    /**
+     * @author Anurag
+     * @param trackingID the trackingID to set
+     */
+    public void setTrackingID(String trackingID) {
+      this.trackingID = trackingID;
+    }
+
+    /**
+     * @author Anurag
+     * @return the comment
+     */
+    public String getComment() {
+      return comment;
+    }
+
+    /**
+     * @author Anurag
+     * @param comment the comment to set
+     */
+    public void setComment(String comment) {
+      this.comment = comment;
+    }
+
+    /**
+     * @param id
+     * @param created
+     * @param updated
+     * @param orderDate
+     * @param orderType
+     * @param customerID
+     * @param warehouseID
+     * @param requestRaisedBy
+     * @param managerApproval
+     * @param documentReceived
+     * @param wareConfirmation
+     * @param uom
+     * @param ratePerUnitPerDay
+     * @param loadingCharge
+     * @param unloadingCharge
+     * @param otherCharge
+     * @param buyerName
+     * @param buyerPhoneNumber
+     * @param buyerEmail
+     * @param consigneeAddress
+     * @param pinCode
+     * @param modeOfTransfer
+     * @param invoiceNumber
+     * @param truckNumber
+     * @param transportationCost
+     * @param trackingID
+     * @param comment
+     */
+    public OrderRequest(int id, Date created, Date updated, Date orderDate, String orderType,
+        String customerID, String warehouseID, String requestRaisedBy, boolean managerApproval,
+        boolean documentReceived, boolean wareConfirmation, String uom,
+        BigDecimal ratePerUnitPerDay, String loadingCharge, String unloadingCharge,
+        String otherCharge, String buyerName, String buyerPhoneNumber, String buyerEmail,
+        String consigneeAddress, String pinCode, String modeOfTransfer, String invoiceNumber,
+        String truckNumber, String transportationCost, String trackingID, String comment) {
+      super();
+      this.id = id;
+      this.created = created;
+      this.updated = updated;
+      this.orderDate = orderDate;
+      this.orderType = orderType;
+      this.customerID = customerID;
+      this.warehouseID = warehouseID;
+      this.requestRaisedBy = requestRaisedBy;
+      this.managerApproval = managerApproval;
+      this.documentReceived = documentReceived;
+      this.wareConfirmation = wareConfirmation;
+      this.uom = uom;
+      this.ratePerUnitPerDay = ratePerUnitPerDay;
+      this.loadingCharge = loadingCharge;
+      this.unloadingCharge = unloadingCharge;
+      this.otherCharge = otherCharge;
+      this.buyerName = buyerName;
+      this.buyerPhoneNumber = buyerPhoneNumber;
+      this.buyerEmail = buyerEmail;
+      this.consigneeAddress = consigneeAddress;
+      this.pinCode = pinCode;
+      this.modeOfTransfer = modeOfTransfer;
+      this.invoiceNumber = invoiceNumber;
+      this.truckNumber = truckNumber;
+      this.transportationCost = transportationCost;
+      this.trackingID = trackingID;
+      this.comment = comment;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+      return "OrderRequest [id=" + id + ", created=" + created + ", updated=" + updated
+          + ", orderDate=" + orderDate + ", orderType=" + orderType + ", customerID=" + customerID
+          + ", warehouseID=" + warehouseID + ", requestRaisedBy=" + requestRaisedBy
+          + ", managerApproval=" + managerApproval + ", documentReceived=" + documentReceived
+          + ", wareConfirmation=" + wareConfirmation + ", uom=" + uom + ", ratePerUnitPerDay="
+          + ratePerUnitPerDay + ", loadingCharge=" + loadingCharge + ", unloadingCharge="
+          + unloadingCharge + ", otherCharge=" + otherCharge + ", buyerName=" + buyerName
+          + ", buyerPhoneNumber=" + buyerPhoneNumber + ", buyerEmail=" + buyerEmail
+          + ", consigneeAddress=" + consigneeAddress + ", pinCode=" + pinCode + ", modeOfTransfer="
+          + modeOfTransfer + ", invoiceNumber=" + invoiceNumber + ", truckNumber=" + truckNumber
+          + ", transportationCost=" + transportationCost + ", trackingID=" + trackingID
+          + ", comment=" + comment + "]";
+    }
+
+    /**
+     * 
+     */
+    public OrderRequest() {
+      super();
+    }
+    
+    
 
 }
