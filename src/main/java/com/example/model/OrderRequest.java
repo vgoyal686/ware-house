@@ -31,8 +31,8 @@ public class OrderRequest
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private int id;
+	@Column(name = "orderID")//@Column(name = "id")
+	private int orderID;//private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
@@ -160,7 +160,7 @@ public class OrderRequest
      * @return the id
      */
     public int getId() {
-      return id;
+      return orderID;
     }
 
     /**
@@ -168,7 +168,24 @@ public class OrderRequest
      * @param id the id to set
      */
     public void setId(int id) {
-      this.id = id;
+      this.orderID = id;
+    }
+
+    
+    /**
+     * @author Anurag
+     * @return the orderID
+     */
+    public int getOrderID() {
+      return orderID;
+    }
+
+    /**
+     * @author Anurag
+     * @param orderID the orderID to set
+     */
+    public void setOrderID(int orderID) {
+      this.orderID = orderID;
     }
 
     /**
@@ -587,8 +604,10 @@ public class OrderRequest
       this.comment = comment;
     }
 
+    
+
     /**
-     * @param id
+     * @param orderID
      * @param created
      * @param updated
      * @param orderDate
@@ -616,7 +635,7 @@ public class OrderRequest
      * @param trackingID
      * @param comment
      */
-    public OrderRequest(int id, Date created, Date updated, Date orderDate, String orderType,
+    public OrderRequest(int orderID, Date created, Date updated, Date orderDate, String orderType,
         String customerID, String warehouseID, String requestRaisedBy, boolean managerApproval,
         boolean documentReceived, boolean wareConfirmation, String uom,
         BigDecimal ratePerUnitPerDay, String loadingCharge, String unloadingCharge,
@@ -624,7 +643,7 @@ public class OrderRequest
         String consigneeAddress, String pinCode, String modeOfTransfer, String invoiceNumber,
         String truckNumber, String transportationCost, String trackingID, String comment) {
       super();
-      this.id = id;
+      this.orderID = orderID;
       this.created = created;
       this.updated = updated;
       this.orderDate = orderDate;
@@ -658,7 +677,7 @@ public class OrderRequest
      */
     @Override
     public String toString() {
-      return "OrderRequest [id=" + id + ", created=" + created + ", updated=" + updated
+      return "OrderRequest [orderID=" + orderID + ", created=" + created + ", updated=" + updated
           + ", orderDate=" + orderDate + ", orderType=" + orderType + ", customerID=" + customerID
           + ", warehouseID=" + warehouseID + ", requestRaisedBy=" + requestRaisedBy
           + ", managerApproval=" + managerApproval + ", documentReceived=" + documentReceived

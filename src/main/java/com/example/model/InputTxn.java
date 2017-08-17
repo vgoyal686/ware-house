@@ -4,6 +4,8 @@
  */
 package com.example.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +16,12 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.example.model.Level1PK;
 
@@ -29,6 +34,7 @@ import com.example.model.Level1PK;
 //@IdClass(Level1PK.class)
 public class InputTxn implements java.io.Serializable{
 
+  
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
@@ -36,7 +42,22 @@ public class InputTxn implements java.io.Serializable{
   
   @Column(name = "softDelete")
   private boolean softDelete = false;
-  
+ 
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date inDateTime;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date outDateTime;
+
+  @PrePersist
+  protected void onCreate() {
+      inDateTime = new Date();
+  }
+
+  @PreUpdate
+  protected void onUpdate() {
+      outDateTime = new Date();
+  } 
+
   //@OneToOne(optional=true)//(cascade = CascadeType.ALL)
   //@PrimaryKeyJoinColumn
 
