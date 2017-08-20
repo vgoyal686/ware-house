@@ -487,9 +487,13 @@ public class LoginController
 		// auth.getAuthorities()
 		ModelAndView modelAndView = new ModelAndView();
 		User user = userService.findUserByEmail(email);
-		String customerID = "1"; //"" + user.getId()
-		List<InventoryLeftInWarehouses> inventories = inputTxnService
-				.findInventoryLeftInWarehousesByCustomerID(customerID);
+		List<InventoryLeftInWarehouses> inventories = new ArrayList<>();
+		if (user != null)
+		{
+			String customerID = "" + user.getId();
+			inventories = inputTxnService.findInventoryLeftInWarehousesByCustomerID(customerID);
+		}
+
 		modelAndView.addObject("inventories", inventories);
 		modelAndView.setViewName("WarehouseInventoriesCustomer");
 		return modelAndView;
