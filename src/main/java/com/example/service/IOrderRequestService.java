@@ -22,7 +22,11 @@ public interface IOrderRequestService
 	public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest);
 
 	public List<OrderRequest> findByCustomerID(String customerID);
-
+	
+	List<OrderRequest> findByCustomerIDAndInOrderType(String customerID);
+	
+	List<OrderRequest> findByCustomerIDAndOutOrderType(String customerID);
+	
 	public List<OrderRequest> listByCustomerID(String customerID);
 
 	public List<OrderRequest> findAllOrderRequest();

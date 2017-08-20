@@ -54,12 +54,23 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 	   return orderRequestRepository.findByCustomerID(customerID);
 	}
 
+	  @Override
+	  public List<OrderRequest> findByCustomerIDAndInOrderType(String customerID) {
+	    
+	    return orderRequestRepository.findByCustomerIDAndOrderType(customerID, "in");
+	  }
+
+	  @Override
+	  public List<OrderRequest> findByCustomerIDAndOutOrderType(String customerID) {
+
+	    return orderRequestRepository.findByCustomerIDAndOrderType(customerID, "out");
+	  }
+	
 	@Override
 	public boolean findById(Long id)
 	{
 
 		return orderRequestRepository.exists(id);
-
 	}
 
 	@Override
@@ -95,5 +106,6 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 
     return orderRequestRepository.findByCustomerIDOrderByCreatedDesc(customerID, pageable);
   }
+
 
 }
