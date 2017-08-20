@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Anurag
@@ -55,8 +56,8 @@ public class OrderRequest
 	// private String orderID;
 
 	@Column(name = "orderDate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotEmpty(message = "Please provide your orderDate")
-	@Temporal(TemporalType.DATE)
 	private Date orderDate;
 
 	@Column(name = "orderType")
@@ -749,6 +750,15 @@ public class OrderRequest
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	
+	/**
+	 * 
+	 */
+	public OrderRequest()
+	{
+		super();
+	}
+
 	@Override
 	public String toString()
 	{
@@ -762,14 +772,6 @@ public class OrderRequest
 				+ ", pinCode=" + pinCode + ", modeOfTransfer=" + modeOfTransfer + ", invoiceNumber=" + invoiceNumber
 				+ ", truckNumber=" + truckNumber + ", transportationCost=" + transportationCost + ", trackingID="
 				+ trackingID + ", comment=" + comment + "]";
-	}
-
-	/**
-	 * 
-	 */
-	public OrderRequest()
-	{
-		super();
 	}
 
 }

@@ -44,6 +44,7 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -158,6 +159,7 @@ public class LoginController
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		OrderRequest orderRequest = new OrderRequest();
+		//orderRequest.setOrderDate(new Date());
 		modelAndView.addObject("orderRequest", orderRequest);
 		modelAndView.setViewName("orderRequest");
 		return modelAndView;
