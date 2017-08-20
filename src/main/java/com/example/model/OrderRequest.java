@@ -16,6 +16,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -55,7 +56,7 @@ public class OrderRequest
 	// private String orderID;
 
 	@Column(name = "orderDate")
-	@NotEmpty(message = "Please provide your orderDate")
+	//@NotNull(message = "Please provide your orderDate")
 	@Temporal(TemporalType.DATE)
 	private Date orderDate;
 
@@ -76,15 +77,15 @@ public class OrderRequest
 	private String requestRaisedBy;
 
 	@Column(name = "managerApproval")
-	@NotEmpty(message = "Please provide your managerApproval")
+	@NotNull(message = "Please provide your managerApproval")
 	private int managerApproval = 0;
 
 	@Column(name = "documentReceived")
-	@NotEmpty(message = "Please provide your documentReceived ")
+	@NotNull(message = "Please provide your documentReceived ")
 	private int documentReceived = 0;
 
 	@Column(name = "wareConfirmation")
-	@NotEmpty(message = "Please provide your wareConfirmation ")
+	@NotNull(message = "Please provide your wareConfirmation ")
 	private int wareConfirmation = 0;
 
 	@Column(name = "uom")
