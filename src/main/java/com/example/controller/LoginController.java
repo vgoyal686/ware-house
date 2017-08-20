@@ -164,7 +164,7 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
-	public String createNewWareHouse(@Valid OrderRequest orderRequest, BindingResult bindingResult)
+	public String createNewWareHouse( OrderRequest orderRequest, BindingResult bindingResult)
 	{
 
 		orderRequestService.saveOrderRequest(orderRequest);
