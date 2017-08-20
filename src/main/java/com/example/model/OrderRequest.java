@@ -4,7 +4,6 @@
  */
 package com.example.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -78,15 +77,15 @@ public class OrderRequest
 
 	@Column(name = "managerApproval")
 	@NotEmpty(message = "Please provide your managerApproval")
-	private boolean managerApproval = false;
+	private int managerApproval = 0;
 
 	@Column(name = "documentReceived")
 	@NotEmpty(message = "Please provide your documentReceived ")
-	private boolean documentReceived = false;
+	private int documentReceived = 0;
 
 	@Column(name = "wareConfirmation")
 	@NotEmpty(message = "Please provide your wareConfirmation ")
-	private boolean wareConfirmation = false;
+	private int wareConfirmation = 0;
 
 	@Column(name = "uom")
 	@NotEmpty(message = "Please provide your in")
@@ -324,65 +323,57 @@ public class OrderRequest
 	{
 		this.requestRaisedBy = requestRaisedBy;
 	}
-
+	
+	
 	/**
-	 * @author Anurag
-	 * @return the managerApproval
-	 */
-	public boolean isManagerApproval()
-	{
-		return managerApproval;
-	}
+   * @author Anurag
+   * @return the managerApproval
+   */
+  public int getManagerApproval() {
+    return managerApproval;
+  }
 
-	/**
-	 * @author Anurag
-	 * @param managerApproval
-	 *            the managerApproval to set
-	 */
-	public void setManagerApproval(boolean managerApproval)
-	{
-		this.managerApproval = managerApproval;
-	}
+  /**
+   * @author Anurag
+   * @param managerApproval the managerApproval to set
+   */
+  public void setManagerApproval(int managerApproval) {
+    this.managerApproval = managerApproval;
+  }
 
-	/**
-	 * @author Anurag
-	 * @return the documentReceived
-	 */
-	public boolean isDocumentReceived()
-	{
-		return documentReceived;
-	}
+  /**
+   * @author Anurag
+   * @return the documentReceived
+   */
+  public int getDocumentReceived() {
+    return documentReceived;
+  }
 
-	/**
-	 * @author Anurag
-	 * @param documentReceived
-	 *            the documentReceived to set
-	 */
-	public void setDocumentReceived(boolean documentReceived)
-	{
-		this.documentReceived = documentReceived;
-	}
+  /**
+   * @author Anurag
+   * @param documentReceived the documentReceived to set
+   */
+  public void setDocumentReceived(int documentReceived) {
+    this.documentReceived = documentReceived;
+  }
 
-	/**
-	 * @author Anurag
-	 * @return the wareConfirmation
-	 */
-	public boolean isWareConfirmation()
-	{
-		return wareConfirmation;
-	}
+  /**
+   * @author Anurag
+   * @return the wareConfirmation
+   */
+  public int getWareConfirmation() {
+    return wareConfirmation;
+  }
 
-	/**
-	 * @author Anurag
-	 * @param wareConfirmation
-	 *            the wareConfirmation to set
-	 */
-	public void setWareConfirmation(boolean wareConfirmation)
-	{
-		this.wareConfirmation = wareConfirmation;
-	}
+  /**
+   * @author Anurag
+   * @param wareConfirmation the wareConfirmation to set
+   */
+  public void setWareConfirmation(int wareConfirmation) {
+    this.wareConfirmation = wareConfirmation;
+  }
 
-	/**
+  /**
 	 * @author Anurag
 	 * @return the uom
 	 */
@@ -686,73 +677,74 @@ public class OrderRequest
 		this.comment = comment;
 	}
 
-	/**
-	 * @param orderID
-	 * @param created
-	 * @param updated
-	 * @param orderDate
-	 * @param orderType
-	 * @param customerID
-	 * @param warehouseID
-	 * @param requestRaisedBy
-	 * @param managerApproval
-	 * @param documentReceived
-	 * @param wareConfirmation
-	 * @param uom
-	 * @param ratePerUnitPerDay
-	 * @param loadingCharge
-	 * @param unloadingCharge
-	 * @param otherCharge
-	 * @param buyerName
-	 * @param buyerPhoneNumber
-	 * @param buyerEmail
-	 * @param consigneeAddress
-	 * @param pinCode
-	 * @param modeOfTransfer
-	 * @param invoiceNumber
-	 * @param truckNumber
-	 * @param transportationCost
-	 * @param trackingID
-	 * @param comment
-	 */
-	public OrderRequest(int orderID, Date created, Date updated, Date orderDate, String orderType, String customerID,
-			String warehouseID, String requestRaisedBy, boolean managerApproval, boolean documentReceived,
-			boolean wareConfirmation, String uom, String ratePerUnitPerDay, String loadingCharge,
-			String unloadingCharge, String otherCharge, String buyerName, String buyerPhoneNumber, String buyerEmail,
-			String consigneeAddress, String pinCode, String modeOfTransfer, String invoiceNumber, String truckNumber,
-			String transportationCost, String trackingID, String comment)
-	{
-		super();
-		this.orderID = orderID;
-		this.created = created;
-		this.updated = updated;
-		this.orderDate = orderDate;
-		this.orderType = orderType;
-		this.customerID = customerID;
-		this.warehouseID = warehouseID;
-		this.requestRaisedBy = requestRaisedBy;
-		this.managerApproval = managerApproval;
-		this.documentReceived = documentReceived;
-		this.wareConfirmation = wareConfirmation;
-		this.uom = uom;
-		this.ratePerUnitPerDay = ratePerUnitPerDay;
-		this.loadingCharge = loadingCharge;
-		this.unloadingCharge = unloadingCharge;
-		this.otherCharge = otherCharge;
-		this.buyerName = buyerName;
-		this.buyerPhoneNumber = buyerPhoneNumber;
-		this.buyerEmail = buyerEmail;
-		this.consigneeAddress = consigneeAddress;
-		this.pinCode = pinCode;
-		this.modeOfTransfer = modeOfTransfer;
-		this.invoiceNumber = invoiceNumber;
-		this.truckNumber = truckNumber;
-		this.transportationCost = transportationCost;
-		this.trackingID = trackingID;
-		this.comment = comment;
-	}
 
-	/*
+	/**
+   * @param orderID
+   * @param created
+   * @param updated
+   * @param orderDate
+   * @param orderType
+   * @param customerID
+   * @param warehouseID
+   * @param requestRaisedBy
+   * @param managerApproval
+   * @param documentReceived
+   * @param wareConfirmation
+   * @param uom
+   * @param ratePerUnitPerDay
+   * @param loadingCharge
+   * @param unloadingCharge
+   * @param otherCharge
+   * @param buyerName
+   * @param buyerPhoneNumber
+   * @param buyerEmail
+   * @param consigneeAddress
+   * @param pinCode
+   * @param modeOfTransfer
+   * @param invoiceNumber
+   * @param truckNumber
+   * @param transportationCost
+   * @param trackingID
+   * @param comment
+   */
+  public OrderRequest(int orderID, Date created, Date updated, Date orderDate, String orderType,
+      String customerID, String warehouseID, String requestRaisedBy, int managerApproval,
+      int documentReceived, int wareConfirmation, String uom, String ratePerUnitPerDay,
+      String loadingCharge, String unloadingCharge, String otherCharge, String buyerName,
+      String buyerPhoneNumber, String buyerEmail, String consigneeAddress, String pinCode,
+      String modeOfTransfer, String invoiceNumber, String truckNumber, String transportationCost,
+      String trackingID, String comment) {
+    super();
+    this.orderID = orderID;
+    this.created = created;
+    this.updated = updated;
+    this.orderDate = orderDate;
+    this.orderType = orderType;
+    this.customerID = customerID;
+    this.warehouseID = warehouseID;
+    this.requestRaisedBy = requestRaisedBy;
+    this.managerApproval = managerApproval;
+    this.documentReceived = documentReceived;
+    this.wareConfirmation = wareConfirmation;
+    this.uom = uom;
+    this.ratePerUnitPerDay = ratePerUnitPerDay;
+    this.loadingCharge = loadingCharge;
+    this.unloadingCharge = unloadingCharge;
+    this.otherCharge = otherCharge;
+    this.buyerName = buyerName;
+    this.buyerPhoneNumber = buyerPhoneNumber;
+    this.buyerEmail = buyerEmail;
+    this.consigneeAddress = consigneeAddress;
+    this.pinCode = pinCode;
+    this.modeOfTransfer = modeOfTransfer;
+    this.invoiceNumber = invoiceNumber;
+    this.truckNumber = truckNumber;
+    this.transportationCost = transportationCost;
+    this.trackingID = trackingID;
+    this.comment = comment;
+  }
+
+  /*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
