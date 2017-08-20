@@ -58,7 +58,8 @@ public class OrderRequest
 
 	@Column(name = "orderDate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotEmpty(message = "Please provide your orderDate")
+	@NotNull(message = "Please provide your orderDate")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
 
 	@Column(name = "orderType")
@@ -79,15 +80,15 @@ public class OrderRequest
 
 	@Column(name = "managerApproval")
 	@NotNull(message = "Please provide your managerApproval")
-	private int managerApproval = 0;
+	private boolean managerApproval = false;
 
 	@Column(name = "documentReceived")
 	@NotNull(message = "Please provide your documentReceived ")
-	private int documentReceived = 0;
+	private boolean documentReceived = false;
 
 	@Column(name = "wareConfirmation")
-	@NotNull(message = "Please provide your wareConfirmation ")
-	private int wareConfirmation = 0;
+	//@NotNull(message = "Please provide your wareConfirmation ")
+	private boolean wareConfirmation = false;
 
 	@Column(name = "uom")
 	@NotEmpty(message = "Please provide your in")
@@ -326,40 +327,24 @@ public class OrderRequest
 		this.requestRaisedBy = requestRaisedBy;
 	}
 
-	/**
-	 * @author Anurag
-	 * @return the managerApproval
-	 */
-	public int getManagerApproval()
+
+	
+	public boolean isManagerApproval()
 	{
 		return managerApproval;
 	}
 
-	/**
-	 * @author Anurag
-	 * @param managerApproval
-	 *            the managerApproval to set
-	 */
-	public void setManagerApproval(int managerApproval)
+	public void setManagerApproval(boolean managerApproval)
 	{
 		this.managerApproval = managerApproval;
 	}
 
-	/**
-	 * @author Anurag
-	 * @return the documentReceived
-	 */
-	public int getDocumentReceived()
+	public boolean isDocumentReceived()
 	{
 		return documentReceived;
 	}
 
-	/**
-	 * @author Anurag
-	 * @param documentReceived
-	 *            the documentReceived to set
-	 */
-	public void setDocumentReceived(int documentReceived)
+	public void setDocumentReceived(boolean documentReceived)
 	{
 		this.documentReceived = documentReceived;
 	}
@@ -368,7 +353,7 @@ public class OrderRequest
 	 * @author Anurag
 	 * @return the wareConfirmation
 	 */
-	public int getWareConfirmation()
+	public boolean getWareConfirmation()
 	{
 		return wareConfirmation;
 	}
@@ -378,7 +363,7 @@ public class OrderRequest
 	 * @param wareConfirmation
 	 *            the wareConfirmation to set
 	 */
-	public void setWareConfirmation(int wareConfirmation)
+	public void setWareConfirmation(boolean wareConfirmation)
 	{
 		this.wareConfirmation = wareConfirmation;
 	}
@@ -687,41 +672,14 @@ public class OrderRequest
 		this.comment = comment;
 	}
 
-	/**
-	 * @param orderID
-	 * @param created
-	 * @param updated
-	 * @param orderDate
-	 * @param orderType
-	 * @param customerID
-	 * @param warehouseID
-	 * @param requestRaisedBy
-	 * @param managerApproval
-	 * @param documentReceived
-	 * @param wareConfirmation
-	 * @param uom
-	 * @param ratePerUnitPerDay
-	 * @param loadingCharge
-	 * @param unloadingCharge
-	 * @param otherCharge
-	 * @param buyerName
-	 * @param buyerPhoneNumber
-	 * @param buyerEmail
-	 * @param consigneeAddress
-	 * @param pinCode
-	 * @param modeOfTransfer
-	 * @param invoiceNumber
-	 * @param truckNumber
-	 * @param transportationCost
-	 * @param trackingID
-	 * @param comment
-	 */
+
+
 	public OrderRequest(int orderID, Date created, Date updated, Date orderDate, String orderType, String customerID,
-			String warehouseID, String requestRaisedBy, int managerApproval, int documentReceived, int wareConfirmation,
-			String uom, String ratePerUnitPerDay, String loadingCharge, String unloadingCharge, String otherCharge,
-			String buyerName, String buyerPhoneNumber, String buyerEmail, String consigneeAddress, String pinCode,
-			String modeOfTransfer, String invoiceNumber, String truckNumber, String transportationCost,
-			String trackingID, String comment)
+			String warehouseID, String requestRaisedBy, boolean managerApproval, boolean documentReceived,
+			boolean wareConfirmation, String uom, String ratePerUnitPerDay, String loadingCharge,
+			String unloadingCharge, String otherCharge, String buyerName, String buyerPhoneNumber, String buyerEmail,
+			String consigneeAddress, String pinCode, String modeOfTransfer, String invoiceNumber, String truckNumber,
+			String transportationCost, String trackingID, String comment)
 	{
 		super();
 		this.orderID = orderID;
