@@ -24,7 +24,9 @@ public interface IOrderRequestRepository extends JpaRepository<OrderRequest, Lon
   //Iterable<OrderRequest> findByCustomerID(String customerID);  
   List<OrderRequest> findAll();
   Page<OrderRequest> findAll(Pageable pageable);
-  List<OrderRequest> findByCustomerID(String customerID);  
+  List<OrderRequest> findByCustomerID(String customerID);
+  
+  List<OrderRequest> findByCustomerIDAndOrderType(String customerID, String orderType);
   
   List<OrderRequest> findByCustomerIDOrderByCreatedDesc(String customerID);
   Page<OrderRequest> findByCustomerIDOrderByCreatedDesc(String customerID, Pageable pageable);
