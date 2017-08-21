@@ -5,13 +5,17 @@
 package com.example.service;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +23,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
 import com.example.bean.InventoryLeftInWarehouses;
+import com.example.bean.InventoryStorageDaysForMonth;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
+import com.example.model.OrderRequest;
 import com.example.model.TestReport;
 import com.example.repository.IInputTxnRepository;
 
@@ -34,6 +40,9 @@ public class InputTxnServiceImpl implements IInputTxnService
 
 	@Autowired
 	private IInputTxnRepository inputTxnRepository;
+
+	@Autowired
+    private IOrderRequestService orderRequestService;
 
 	@Override
 	public Boolean saveInputTxn(InputTxn inputTxn)
@@ -80,10 +89,25 @@ public class InputTxnServiceImpl implements IInputTxnService
 	@Override
 	public int markInputTxnsAsOut(List<Integer> inputTxnIds)
 	{
-
-		return inputTxnRepository.updateSoftDelete(inputTxnIds, true);
+	  return inputTxnRepository.updateSoftDeleteAndOutOrderIDAndDate(inputTxnIds, true, "1", new Date());
+	  //TODO  comment above & uncomment below
+		//return inputTxnRepository.updateSoftDelete(inputTxnIds, true);
+	  
 	}
 
+	  @Override
+	  public int markInputTxnsAsOutAndUpdateOutOrderID(List<Integer> inputTxnIds, String outOrderID) {
+	    
+	    return inputTxnRepository.updateSoftDeleteAndOutOrderID(inputTxnIds, true, outOrderID);
+	  }
+	  
+	  @Override
+	  public int markInputTxnsAsOutAndUpdateOutOrderIDAndDate(List<Integer> inputTxnIds,
+	      String outOrderID, Date outDate) {
+	    
+	    return inputTxnRepository.updateSoftDeleteAndOutOrderIDAndDate(inputTxnIds, true, outOrderID, new Date());
+	  }
+	  
 	@Override
 	public InputTxn findByCustomerID(String customerID)
 	{
@@ -252,6 +276,83 @@ public class InputTxnServiceImpl implements IInputTxnService
       String customerID) {
     
     return inputTxnRepository.findInventoryLeftInWarehousesByCustomerID(customerID);
+  }
+
+
+  @Override
+  public List<InventoryStorageDaysForMonth> findInventoryStorageDaysForMonthByCustomerID(
+      String customerID, Date monthStartDateTime, Date monthEndDateTime) {
+    
+    return inputTxnRepository.findInventoryStorageDaysForMonthByCustomerID(customerID, monthStartDateTime, monthEndDateTime);
+  }
+
+  @Override
+  public List<InventoryStorageDaysForMonth> findInventoryStorageDaysForMonthByCustomerID(
+      String customerID, Date someDateOfAMonth) {
+    // TODO Auto-generated method stub
+    DateTime monthStartDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMinimumValue();
+    DateTime monthEndDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMaximumValue();
+    
+    return inputTxnRepository.findInventoryStorageDaysForMonthByCustomerID(customerID, monthStartDateTime.toDate(), monthEndDateTime.toDate());
+  }
+  
+  /******************** Utility ***************************/
+  public DateTime getMonthStartDate(Date date){
+    
+    DateTime monthStartDateTime = new DateTime(date).dayOfMonth().withMinimumValue();
+    System.out.println("Given date "+ date + " monthStartDateTime "+ monthStartDateTime);
+    
+    return monthStartDateTime;
+  }
+
+  public DateTime getMonthEndDate(Date date){
+    
+    DateTime monthEndDateTime = new DateTime(date).dayOfMonth().withMaximumValue();
+    System.out.println("Given date "+ date + " monthEndDateTime "+ monthEndDateTime);
+    
+    return monthEndDateTime;
+  }
+
+  /* (non-Javadoc)
+   * @see com.example.service.IInputTxnService#findInventoryStorageChargesForMonthByCustomerID(java.lang.String, java.util.Date)
+   */
+  @Override
+  public List<InventoryStorageDaysForMonth> findInventoryStorageChargesForMonthByCustomerID(
+      String customerID, Date someDateOfAMonth) {
+    
+    List<InventoryStorageDaysForMonth> listOfInventoryStorageDaysForMonth = findInventoryStorageDaysForMonthByCustomerID(customerID, new Date());
+    
+    System.out.println("listOfInventoryStorageDaysForMonth \n"+listOfInventoryStorageDaysForMonth);
+    List<Integer> orderIds = new ArrayList<>();
+    for (InventoryStorageDaysForMonth inventoryStorageDaysForMonth : listOfInventoryStorageDaysForMonth){
+      if(inventoryStorageDaysForMonth != null 
+          && inventoryStorageDaysForMonth.getOrderID() != null){
+        orderIds.add(Integer.parseInt(inventoryStorageDaysForMonth.getOrderID()));
+      }
+    }
+    
+    List<OrderRequest> orderRequests = orderRequestService.findByOrderIDIn(orderIds);
+    System.out.println("orderRequests \n"+ orderRequests);
+    Map<Integer, OrderRequest> orderRequestsMap = new HashMap<>();
+    for(OrderRequest orderRequest : orderRequests){
+      orderRequestsMap.put(orderRequest.getOrderID(), orderRequest);
+    }
+    
+    for (InventoryStorageDaysForMonth inventoryStorageDaysForMonth : listOfInventoryStorageDaysForMonth){
+      if(inventoryStorageDaysForMonth != null 
+          && inventoryStorageDaysForMonth.getOrderID() != null){
+        
+        Integer orderID = Integer.parseInt(inventoryStorageDaysForMonth.getOrderID());
+        OrderRequest orderRequest = orderRequestsMap.get(orderID);
+        Double ratePerUnitPerDay = Double.parseDouble(orderRequest.getRatePerUnitPerDay());
+        Double storageCharge =  ratePerUnitPerDay * inventoryStorageDaysForMonth.getDaysPresent();
+        
+        inventoryStorageDaysForMonth.setRatePerUnitPerDay(ratePerUnitPerDay);
+        inventoryStorageDaysForMonth.setStorageCharges(storageCharge);
+      }
+    }
+    
+    return listOfInventoryStorageDaysForMonth;
   }
 
 }

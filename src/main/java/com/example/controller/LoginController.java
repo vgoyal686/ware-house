@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.bean.InputFormBean;
 import com.example.bean.InputTxnLevelMappingBean;
 import com.example.bean.InventoryLeftInWarehouses;
+import com.example.bean.InventoryStorageDaysForMonth;
 import com.example.bean.LEVEL;
 import com.example.bean.OutData;
 import com.example.model.InputTxn;
@@ -500,5 +503,26 @@ public class LoginController
 		modelAndView.setViewName("WarehouseInventoriesCustomer");
 		return modelAndView;
 	}
+
+	
+    @RequestMapping(value = "/inventorydtoragedays/customer", method = RequestMethod.GET)
+    public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageDaysForMonthByCustomerID()
+    {
+      String customerID = "1";
+      List<InventoryStorageDaysForMonth> results = inputTxnService.findInventoryStorageDaysForMonthByCustomerID(customerID, new Date());
+      ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
+          HttpStatus.OK);
+      return responseEntity;
+    }
+
+    @RequestMapping(value = "/inventorydtoragecharges/customer", method = RequestMethod.GET)
+    public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID()
+    {
+      String customerID = "1";
+      List<InventoryStorageDaysForMonth> results = inputTxnService.findInventoryStorageChargesForMonthByCustomerID(customerID, new Date());
+      ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
+          HttpStatus.OK);
+      return responseEntity;
+    }
 
 }

@@ -49,11 +49,22 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 	}
 
 	@Override
+    public List<OrderRequest> findByOrderID(int orderID){
+      return orderRequestRepository.findByOrderID(orderID);
+    }
+	
+	@Override
+    public List<OrderRequest> findByOrderIDIn(List<Integer> orderID){
+	  return orderRequestRepository.findByOrderIDIn(orderID);
+	}
+	
+	@Override
 	public List<OrderRequest> findByCustomerID(String customerID)
 	{
 	   return orderRequestRepository.findByCustomerID(customerID);
 	}
 
+	
 	  @Override
 	  public List<OrderRequest> findByCustomerIDAndInOrderType(String customerID) {
 	    

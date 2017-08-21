@@ -22,6 +22,9 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.model.Level1PK;
 
@@ -48,6 +51,12 @@ public class InputTxn implements java.io.Serializable{
   @Temporal(TemporalType.TIMESTAMP)
   private Date outDateTime;
 
+  @Column(name = "outDate")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date outDate;
+  
+  
   @PrePersist
   protected void onCreate() {
       inDateTime = new Date();
@@ -81,6 +90,9 @@ public class InputTxn implements java.io.Serializable{
 
   @Column(name = "orderID")
   private String orderID;
+
+  @Column(name = "outOrderID")
+  private String outOrderID;
   
   @Column(name = "invoiceNo")
   private String invoiceNo;
@@ -923,5 +935,87 @@ public class InputTxn implements java.io.Serializable{
   }
  
   public InputTxn() {}
+
+  /**
+   * @author Anurag
+   * @return the outOrderID
+   */
+  public String getOutOrderID() {
+    return outOrderID;
+  }
+
+  /**
+   * @author Anurag
+   * @param outOrderID the outOrderID to set
+   */
+  public void setOutOrderID(String outOrderID) {
+    this.outOrderID = outOrderID;
+  }
+
+  /**
+   * @author Anurag
+   * @return the outDate
+   */
+  public Date getOutDate() {
+    return outDate;
+  }
+
+  /**
+   * @author Anurag
+   * @param outDate the outDate to set
+   */
+  public void setOutDate(Date outDate) {
+    this.outDate = outDate;
+  }
+
+
+  public InputTxn(int id, boolean softDelete, Date outDate, String customerID, String warehouseID,
+      String orderID, String outOrderID, String invoiceNo, String invoiceDate, String lCNo,
+      String dateOfIssue, String customer, String deliveryTerms, String portOfImport, String bLNo,
+      String bLDate, String pONo, String comments, String category, String subCategory,
+      String product, String principalCompany, String model, String identifierID, String uom,
+      String quantity, String attribute1Name, String attribute1Value, String attribute2Name,
+      String attribute2Value, String attribute3Name, String attribute3Value, String attribute4Name,
+      String attribute4Value, String attribute5Name, String attribute5Value, String description) {
+    super();
+    this.id = id;
+    this.softDelete = softDelete;
+    this.outDate = outDate;
+    this.customerID = customerID;
+    this.warehouseID = warehouseID;
+    this.orderID = orderID;
+    this.outOrderID = outOrderID;
+    this.invoiceNo = invoiceNo;
+    this.invoiceDate = invoiceDate;
+    this.lCNo = lCNo;
+    this.dateOfIssue = dateOfIssue;
+    this.customer = customer;
+    this.deliveryTerms = deliveryTerms;
+    this.portOfImport = portOfImport;
+    this.bLNo = bLNo;
+    this.bLDate = bLDate;
+    this.pONo = pONo;
+    this.comments = comments;
+    this.category = category;
+    this.subCategory = subCategory;
+    this.product = product;
+    this.principalCompany = principalCompany;
+    this.model = model;
+    this.identifierID = identifierID;
+    this.uom = uom;
+    this.quantity = quantity;
+    this.attribute1Name = attribute1Name;
+    this.attribute1Value = attribute1Value;
+    this.attribute2Name = attribute2Name;
+    this.attribute2Value = attribute2Value;
+    this.attribute3Name = attribute3Name;
+    this.attribute3Value = attribute3Value;
+    this.attribute4Name = attribute4Name;
+    this.attribute4Value = attribute4Value;
+    this.attribute5Name = attribute5Name;
+    this.attribute5Value = attribute5Value;
+    this.description = description;
+  }
+
   
 }
