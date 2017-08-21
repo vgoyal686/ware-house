@@ -21,7 +21,11 @@ public interface IOrderRequestService
 
 	public OrderRequest saveAndGetOrderRequest(OrderRequest orderRequest);
 
+    List<OrderRequest> findByOrderID(int orderID);
+    List<OrderRequest> findByOrderIDIn(List<Integer> orderID);
+
 	public List<OrderRequest> findByCustomerID(String customerID);
+	
 	
 	List<OrderRequest> findByCustomerIDAndInOrderType(String customerID);
 	
