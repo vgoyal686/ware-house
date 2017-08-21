@@ -1,13 +1,17 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/css/main.css}" /></head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order Request Listing</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body data-spy="scroll">
 
-<div>
+	<h1>Details</h1>
+	<div th:fragment="resultsList" id="results-block">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<div>
 			<div class="navbar navbar-default navbar-fixed-top">
 				<div style="margin: 0 10px">
 					<div class="navbar-header">
@@ -16,11 +20,10 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" style="margin: 0" href="/"> <img
+						<a class="navbar-brand" style="margin: 0" href="/"><img
 							width="48"
 							src="http://www.intlwhsegrp.com/wp-content/uploads/2014/04/Image-Page-Home-Warehousing.png?x25684">
-							The WareHousing
-						</a>
+							The WareHousing</a>
 					</div>
 					<div class="navbar-collapse collapse" id="navbar-main">
 						<ul class="nav navbar-nav"></ul>
@@ -52,7 +55,8 @@
 							<li class="dropdown hide"><a href="#"
 								class="dropdown-toggle" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">eee <span
-									class="caret"></span></a>
+									class="caret"></span>
+							</a>
 								<ul class="dropdown-menu dropdown-menu-right"
 									aria-labelledby="dLabel">
 									<!-- ngRepeat: item in menu -->
@@ -69,133 +73,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="breadcrumb">
-				<marquee>Book now get 20% off, while booking the slot
-					online</marquee>
-				<button class="close hide">×</button>
-			</div>
-
 		</div>
-
-<form name="jobsForm" id="jobsForm" novalidate="novalidate" action="#"
-		th:action="@{/addEmployee}" th:object="${inputFormBean}" method="post"
-		enctype="multipart/form-data">
-
-		<div class="container ">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<form autocomplete="off" action="#" th:action="@{/addEmployee}"
-						th:object="${inputFormBean}" method="post"
-						enctype="multipart/form-data" class="form-horizontal" role="form">
-						<h2>In Data Form</h2>
-						<div class="form-inline">
+		<div class="table-responsive">
+			<table class="table">
+				<tr>
+					<th>ID</th>
+					<th>CustomerID</th>
+					<th>OrderId</th>
+					<th>WAREHOUSEID</th>
+					<th>Create OutData</th>
+				</tr>
 
 
-							<input readonly type="text" th:field="*{orderID}" placeholder="OrderId"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
-								class="validation-message"></label> <input readonly type="text"
-								th:field="*{customerID}" placeholder="customerID"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('customerID')}"
-								th:errors="*{customerID}" class="validation-message"></label>
-
-						</div>
-
-
-						<div class="form-inline">
-
-							<input readonly type="text" th:field="*{warehouseID}"
-								placeholder="warehouseID" class="form-control" /> <label
-								th:if="${#fields.hasErrors('warehouseID')}"
-								th:errors="*{warehouseID}" class="validation-message"></label> <input
-								type="text" th:field="*{invoiceNo}" placeholder="invoiceNo"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('invoiceNo')}"
-								th:errors="*{invoiceNo}" class="validation-message"></label>
-						</div>
-
-						<div class="form-inline">
-
-
-							<input type="text" th:field="*{invoiceDate}"
-								placeholder="invoiceDate" class="form-control" /> <label
-								th:if="${#fields.hasErrors('invoiceDate')}"
-								th:errors="*{invoiceDate}" class="validation-message"></label> <input
-								type="text" th:field="*{lCNo}" placeholder="lCNo"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('lCNo')}" th:errors="*{lCNo}"
-								class="validation-message"></label>
-
-
-						</div>
-
-						<div class="form-inline">
-
-
-
-							<input type="text" th:field="*{dateOfIssue}"
-								placeholder="dateOfIssue" class="form-control" /> <label
-								th:if="${#fields.hasErrors('dateOfIssue')}"
-								th:errors="*{dateOfIssue}" class="validation-message"></label> <input
-								type="text" th:field="*{customer}" placeholder="customer"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"
-								class="validation-message"></label>
-
-						</div>
-						<div class="form-inline">
-
-
-
-							<input type="text" th:field="*{bLDate}" placeholder="bLDate"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('bLDate')}" th:errors="*{bLDate}"
-								class="validation-message"></label> <input type="text"
-								th:field="*{pONo}" placeholder="pONo" class="form-control" /> <label
-								th:if="${#fields.hasErrors('pONo')}" th:errors="*{pONo}"
-								class="validation-message"></label>
-
-						</div>
-
-						<div class="form-inline">
-
-
-
-							<input type="text" th:field="*{bLNo}" placeholder="bLNo"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('bLNo')}" th:errors="*{bLNo}"
-								class="validation-message"></label> <input type="text"
-								th:field="*{comments}" placeholder="comments"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}"
-								class="validation-message"></label>
-
-						</div>
-
-
-
-
-
-
-						<div class="form-inline">
-
-							<span class="btn  btn-file"> Upload Excel File
-								<input type="file" name="file" id="file" required="required" />
-							</span>
-						</div>
-						<div class="form-inline">
-							<button type="submit" class="btn btn-primary ">Register
-								WareHouse</button>
-						</div>
-
-
-						<span th:utext="${successMessage}"></span>
-
-
-					</form>
-				</div>
-			</div>
+				<tr th:each=" orderRequest : ${orderRequests}">
+					<td th:text="${orderRequest.id}">Id</td>
+					<td th:text="${orderRequest.customerID}">CustomerID</td>
+					<td th:text="${orderRequest.orderID}">OrderId</td>
+					<td th:text="${orderRequest.warehouseID}">WAREHOUSEID</td>
+					<td><a
+						th:href="@{'/out/data/request?id=' + ${orderRequest.id}+'&customerId='+${orderRequest.customerID}+'&orderID='+${orderRequest.orderID}+'&warehouseID='+${orderRequest.warehouseID}}">view</a>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div class="footerCont">
 			<div class="footer">
@@ -287,12 +186,11 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
+	</div>
 </body>
 </html>
-
-
-
 
 

@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 				.antMatchers("/saveFileAndForm").permitAll().antMatchers("/mergeForm").permitAll()
 				.antMatchers("/orderRequest/paginated/listing").permitAll().antMatchers("/guests/**", "/searchFragment")
 				.permitAll().antMatchers("/create/orderRequest/form", "/create/data/orderRequest", "/users/listing",
-						"/inputTransactions/listing","/out/data/request","/inputTxn/paginated/listing","/outDataRequest","/saveAndGetInputTxns","/saveAndGetInputTxns/final","/inventoryby/customer")
+						"/inputTransactions/listing","/out/data/request","/inputTxn/paginated/listing","/outDataRequest","/saveAndGetInputTxns","/saveAndGetInputTxns/final","/inventoryby/customer","/outOrderRequest","/outRequest","/create/out/orderRequest/form")
 				.permitAll()
 
 				.antMatchers("/upload").permitAll().antMatchers("/warehouse/view/registration").permitAll()

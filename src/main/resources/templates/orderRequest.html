@@ -56,7 +56,7 @@
 						-->
 						<li><a href="/search">IN DATA ENTRY</a></li>
 						<!-- end ngRepeat: item in menu -->
-						<li><a href="/out/data/request">OUT DATA ENTRY</a></li>
+						<li><a href="/outRequest">OUT DATA ENTRY</a></li>
 						<!-- end ngRepeat: item in menu -->
 						<li><a href="/contact">Contact Us</a></li>
 						<!-- end ngRepeat: item in menu -->
@@ -133,7 +133,7 @@
 					</div>
 					<div class="form-inline">
 
-						<input type="text" th:field="*{orderType}" placeholder="orderType"
+						<input type="text" th:field="*{orderType}" placeholder="orderType"  readonly="readonly"
 							class="form-control" /> <label
 							th:if="${#fields.hasErrors('orderType')}"
 							th:errors="*{orderType}" class="validation-message"></label> <input
