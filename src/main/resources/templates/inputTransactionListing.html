@@ -45,15 +45,23 @@
 
 			}
 
+			
 			function submitCall(ids) {
 				var k = '/saveAndGetInputTxns/final';
-
-				/* $.post(k, ids, function(data, status) {
-				alert("Status: " + status);
-				});  */
-
+				var id = $('#id').val();
+				var customerId = $('#customerId').val();
+				var warehouseID = $('#warehouseID').val();
+				var orderID = $('#orderID').val();
+				
+				
+				
+				
+				
 				var data = {
-					data : ids
+					data : ids,
+					customerId:customerId,
+					warehouseID:warehouseID,
+					orderID:orderID
 				}
 
 				$.ajax({
@@ -156,7 +164,7 @@
 						-->
 							<li><a href="/search">IN DATA ENTRY</a></li>
 							<!-- end ngRepeat: item in menu -->
-							<li><a href="/out/data/request">OUT DATA ENTRY</a></li>
+							<li><a href="/outRequest">OUT DATA ENTRY</a></li>
 							<!-- end ngRepeat: item in menu -->
 							<li><a href="/contact">Contact Us</a></li>
 							<!-- end ngRepeat: item in menu -->
@@ -192,9 +200,20 @@
 		</div>
 
 
-		
+
 
 		<h1>INPUT TRANSACTION Listing</h1>
+
+
+
+
+
+		<input type="hidden" id="id" th:value="${outData.id}" /> <input
+			type="hidden" id="customerId" th:value="${outData.customerId}" /> <input
+			type="hidden" id="warehouseID" th:value="${outData.warehouseID}" />
+		<input type="hidden" id="orderID" th:value="${outData.orderID}" />
+
+
 
 
 

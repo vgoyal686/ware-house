@@ -158,28 +158,52 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "create/orderRequest/form", method = RequestMethod.GET)
-	public ModelAndView creatOrderRequest()
+	public ModelAndView creatInOrderRequestFormView()
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		OrderRequest orderRequest = new OrderRequest();
-		//orderRequest.setOrderDate(new Date());
+		orderRequest.setOrderType("in");
+		// orderRequest.setOrderDate(new Date());
 		modelAndView.addObject("orderRequest", orderRequest);
 		modelAndView.setViewName("orderRequest");
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "create/out/orderRequest/form", method = RequestMethod.GET)
+	public ModelAndView creatOutOrderRequestFormView()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		OrderRequest orderRequest = new OrderRequest();
+		orderRequest.setOrderType("out");
+		// orderRequest.setOrderDate(new Date());
+		modelAndView.addObject("orderRequest", orderRequest);
+		modelAndView.setViewName("outOrderRequestForm");
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "create/data/orderRequest", method = RequestMethod.POST)
-	public String createNewWareHouse( OrderRequest orderRequest, BindingResult bindingResult)
+	public String createNewWareHouse(OrderRequest orderRequest, BindingResult bindingResult)
 	{
 
 		orderRequestService.saveOrderRequest(orderRequest);
+		if (orderRequest.getOrderType().equals("in"))
+		{
+			return "redirect:/search";
+		}
 
-		return "redirect:/search";
+		else
+		{
+			return "redirect:/outRequest";
+
+		}
 
 	}
 
 	@RequestMapping(value = "/out/data/request", method = RequestMethod.GET)
-	public ModelAndView createOutRequest()
+	public ModelAndView createOutRequest(@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "customerId", required = true) String customerId,
+			@RequestParam(value = "warehouseID", required = true) String warehouseID,
+			@RequestParam(value = "orderID", required = true) String orderID)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -188,7 +212,14 @@ public class LoginController
 		levels.add(LEVEL.LEVEL2.name());
 		levels.add(LEVEL.LEVEL3.name());
 		modelAndView.addObject("levelOptions", levels);
-		modelAndView.addObject("outData", new OutData());
+
+		OutData outData = new OutData();
+		outData.setId(orderID);
+		outData.setOrderID(orderID);
+		outData.setCustomerId(customerId);
+		outData.setWarehouseID(warehouseID);
+
+		modelAndView.addObject("outData", outData);
 		modelAndView.setViewName("outData");
 		return modelAndView;
 	}
@@ -264,6 +295,15 @@ public class LoginController
 		return modelAndView;
 	}
 
+	@RequestMapping(value = "/outRequest", method = RequestMethod.GET)
+	public ModelAndView outRequest(String query)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.setViewName("outOrderRequest");
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
 	public String submit(@ModelAttribute("inputFormBean") InputFormBean inputFormBean, BindingResult result,
 			ModelMap model, final @RequestParam("file") MultipartFile file)
@@ -312,13 +352,24 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "students", method = RequestMethod.GET)
-	public ModelAndView showStudentBySurname(@RequestParam(value = "search", required = false) String search,
+	public ModelAndView inOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
 			Model model)
 	{
 		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
 		model.addAttribute("orderRequests", orderRequests);
 		ModelAndView modelv = new ModelAndView();
 		modelv.setViewName("OrderRequestListing");
+		return modelv;
+	}
+
+	@RequestMapping(value = "outOrderRequest", method = RequestMethod.GET)
+	public ModelAndView outOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
+			Model model)
+	{
+		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		model.addAttribute("orderRequests", orderRequests);
+		ModelAndView modelv = new ModelAndView();
+		modelv.setViewName("OutOrderRequestListing");
 		return modelv;
 	}
 
@@ -412,6 +463,7 @@ public class LoginController
 		// System.out.println(inputTxnLevelMappings);
 
 		model.addAttribute("users", inputTxnLevelMappings);
+		model.addAttribute("outData", outData);
 		return "inputTransactionListing :: resultsList";
 
 	}
@@ -461,7 +513,10 @@ public class LoginController
 	 */
 
 	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
-	public String saveAndGetInputTxns(@RequestParam(value = "data[]") String[] inputTxnLevelMappingBeans)
+	public String saveAndGetInputTxns(@RequestParam(value = "data[]") String[] inputTxnLevelMappingBeans,@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "customerId", required = true) String customerId,
+			@RequestParam(value = "warehouseID", required = true) String warehouseID,
+			@RequestParam(value = "orderID", required = true) String orderID)
 	{
 
 		List<InputTxnLevelMappingBean> beans = new ArrayList<>();
@@ -480,7 +535,7 @@ public class LoginController
 			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans);
 
 		}
-		return "redirect:/out/data/request";
+		return "redirect: /outRequest";
 
 	}
 
