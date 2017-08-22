@@ -61,16 +61,24 @@
 					data : ids,
 					customerId:customerId,
 					warehouseID:warehouseID,
-					orderID:orderID
+					orderID:orderID,
+					id:id
 				}
 
 				$.ajax({
 					type : "POST",
 					url : k,
-					data : data
-
+					data : data,
+					 success: function(){  
+					   
+						 window.location="/outRequest";
+						 console.log(data);  
+					    },
+					    error: function(XMLHttpRequest, errorThrown) { 
+					        alert("Error: " + errorThrown); 
+					    }  
 				});
-				window.location = "/out/data/request";
+				
 			}
 		</script>
 
