@@ -6,6 +6,7 @@ package com.example.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.bean.InputFormBean;
 import com.example.bean.InputTxnLevelMappingBean;
+import com.example.bean.OutData;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 import com.example.model.OrderRequest;
@@ -118,6 +120,15 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 	    return inputTxnService.markInputTxnsAsOut(inputTxnIds);
 	  }
 
+      @Override
+      public int markCorrespondingInputTxnsAsOutFromIds(List<Integer> inputTxnIds, OutData outData) {
+
+        //return inputTxnService.markInputTxnsAsOut(inputTxnIds);
+        //TODO Date fix
+        return inputTxnService.markInputTxnsAsOutAndUpdateOutOrderIDAndDate(inputTxnIds, outData.getOrderID(), new Date());
+      }
+	  
+
 	  @Override
 	  public int markCorrespondingInputTxnLevelMappingsAsOutFromIds(
 	      List<Integer> inputTxnLevelMappingIds) {
@@ -144,7 +155,26 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 	    
 	    return 1;
 	  }
-	  
+
+      @Override
+      public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans, OutData outData){
+        
+        List<Integer> inputTxnIds = new ArrayList<>();
+        List<Integer> inputTxnLevelMappingIds = new ArrayList<>();
+
+        for(InputTxnLevelMappingBean inputTxnLevelMappingBean : inputTxnLevelMappingBeans){
+          if (inputTxnLevelMappingBean != null){
+            
+              inputTxnIds.add(inputTxnLevelMappingBean.getInputTxnId());
+              inputTxnLevelMappingIds.add(inputTxnLevelMappingBean.getId());
+          }   
+        }
+        
+        markCorrespondingInputTxnLevelMappingsAsOutFromIds(inputTxnLevelMappingIds);
+        markCorrespondingInputTxnsAsOutFromIds(inputTxnIds, outData);        
+        
+        return 1;
+      }	  
 	@Override
 	public Page<InputTxnLevelMapping> getAllWithPagination(Pageable pageable)
 	{

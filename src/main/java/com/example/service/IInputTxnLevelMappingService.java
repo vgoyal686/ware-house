@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.example.bean.InputFormBean;
 import com.example.bean.InputTxnLevelMappingBean;
+import com.example.bean.OutData;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 
@@ -33,9 +34,12 @@ public interface IInputTxnLevelMappingService {
   public int markCorrespondingInputTxnLevelMappingsAsOut(List<InputTxnLevelMapping> inputTxnLevelMappings);
   
   public int markCorrespondingInputTxnsAsOutFromIds(List<Integer> inputTxnIds);
+  public int markCorrespondingInputTxnsAsOutFromIds(List<Integer> inputTxnIds, OutData outData);
   public int markCorrespondingInputTxnLevelMappingsAsOutFromIds(List<Integer> inputTxnLevelMappingIds);
 
   public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans);
+  
+  public int markCorrespondingBothInputTxnAndLevelMappingsAsOut(List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans, OutData outData);
   
   /******************** Find/Search Api *****************************/
 //  public InputTxnLevelMapping findByCustomerID(String customerID);  

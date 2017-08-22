@@ -355,7 +355,8 @@ public class LoginController
 	public ModelAndView inOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
 			Model model)
 	{
-		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		//Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		Iterable<OrderRequest> orderRequests = orderRequestService.findByCustomerIDAndInOrderType(search);
 		model.addAttribute("orderRequests", orderRequests);
 		ModelAndView modelv = new ModelAndView();
 		modelv.setViewName("OrderRequestListing");
@@ -366,7 +367,8 @@ public class LoginController
 	public ModelAndView outOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
 			Model model)
 	{
-		Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		//Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);findByCustomerIDAndOutOrderType
+		Iterable<OrderRequest> orderRequests = orderRequestService.findByCustomerIDAndOutOrderType(search);
 		model.addAttribute("orderRequests", orderRequests);
 		ModelAndView modelv = new ModelAndView();
 		modelv.setViewName("OutOrderRequestListing");
@@ -531,8 +533,9 @@ public class LoginController
 				InputTxnLevelMappingBean InputTxnLevelMappingBea = gson.fromJson(itl, InputTxnLevelMappingBean.class);
 				beans.add(InputTxnLevelMappingBea);
 			}
-
-			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans);
+			OutData outData = new OutData();
+			outData.setCustomerId(customerId); outData.setOrderID(orderID); outData.setWarehouseID(warehouseID);
+			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans,outData);
 
 		}
 		return "redirect: /outRequest";
