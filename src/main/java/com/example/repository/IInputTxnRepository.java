@@ -62,9 +62,16 @@ public interface IInputTxnRepository extends JpaRepository<InputTxn, Long> {
   
   @Query(value = 
   "select new com.example.bean.InventoryStorageDaysForMonth( inputTxn.customerID, inputTxn.orderID, inputTxn.uom, inputTxn.identifierID, inputTxn.inDateTime, "+  
-  "COALESCE(inputTxn.outDate, :monthEndDateTime) , DATEDIFF( COALESCE(inputTxn.outDate, :monthEndDateTime), inputTxn.inDateTime) ) " + 
+  "COALESCE(inputTxn.outDate, :monthEndDateTime) , "
+  + " DATEDIFF(  "
+  + " (CASE WHEN COALESCE(inputTxn.outDate, :monthEndDateTime) >= :monthEndDateTime THEN :monthEndDateTime ELSE COALESCE(inputTxn.outDate, :monthEndDateTime) END) , "
+  + " (CASE WHEN inputTxn.inDateTime <= :monthStartDateTime THEN :monthStartDateTime ELSE inputTxn.inDateTime END )"
+  + " ) ) " + 
   "from InputTxn inputTxn " +
-  "where COALESCE(inputTxn.outDate, :monthEndDateTime) <= :monthEndDateTime AND inputTxn.inDateTime >= :monthStartDateTime AND inputTxn.customerID = :customerID")
+  "where inputTxn.customerID = :customerID AND ( "
+  + "( inputTxn.inDateTime >= :monthStartDateTime AND inputTxn.inDateTime <= :monthEndDateTime  )  OR "
+  + "( inputTxn.inDateTime <= :monthStartDateTime AND COALESCE(inputTxn.outDate, :monthEndDateTime) >= :monthStartDateTime  )   "
+  + " )")
   List<InventoryStorageDaysForMonth> findInventoryStorageDaysForMonthByCustomerID2(@Param("customerID")  String customerID,
                                                                                   @Param("monthStartDateTime") Date monthStartDateTime,
                                                                                   @Param("monthEndDateTime") Date monthEndDateTime);

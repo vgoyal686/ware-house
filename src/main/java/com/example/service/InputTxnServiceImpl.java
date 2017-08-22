@@ -292,8 +292,8 @@ public class InputTxnServiceImpl implements IInputTxnService
     // TODO Auto-generated method stub
     DateTime monthStartDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMinimumValue();
     DateTime monthEndDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMaximumValue();
-    
-    return inputTxnRepository.findInventoryStorageDaysForMonthByCustomerID(customerID, monthStartDateTime.toDate(), monthEndDateTime.toDate());
+    //TODO 
+    return inputTxnRepository.findInventoryStorageDaysForMonthByCustomerID2(customerID, monthStartDateTime.toDate(), monthEndDateTime.toDate());
   }
   
   /******************** Utility ***************************/
