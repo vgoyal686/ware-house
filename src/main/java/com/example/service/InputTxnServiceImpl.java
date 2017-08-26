@@ -24,6 +24,9 @@ import org.springframework.stereotype.Service;
 import com.example.bean.InputFormBean;
 import com.example.bean.InventoryLeftInWarehouses;
 import com.example.bean.InventoryStorageDaysForMonth;
+import com.example.bean.SumInventoryLoadingChargesForMonth;
+import com.example.bean.SumInventoryStorageAndLoadingChargesForMonth;
+import com.example.bean.SumInventoryStorageChargesForMonth;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 import com.example.model.OrderRequest;
@@ -353,6 +356,43 @@ public class InputTxnServiceImpl implements IInputTxnService
     }
     
     return listOfInventoryStorageDaysForMonth;
+  }
+
+  @Override
+  public SumInventoryStorageChargesForMonth findSumInventoryStorageChargesForMonthByCustomerID(
+      String customerID, Date someDateOfAMonth) {
+
+    List<InventoryStorageDaysForMonth> listInventoryStorageDaysForMonth = findInventoryStorageChargesForMonthByCustomerID(customerID, someDateOfAMonth);
+    Double storageCharges = 0.0;
+    
+    for(InventoryStorageDaysForMonth inventoryStorageDaysForMonth : listInventoryStorageDaysForMonth){
+      storageCharges += inventoryStorageDaysForMonth.getStorageCharges();
+    }
+    
+    SumInventoryStorageChargesForMonth  sumInventoryStorageChargesForMonth = new SumInventoryStorageChargesForMonth();
+    sumInventoryStorageChargesForMonth.setCustomerID(customerID);
+    sumInventoryStorageChargesForMonth.setStorageCharges(storageCharges);
+    
+    return sumInventoryStorageChargesForMonth;
+  }
+
+  @Override
+  public SumInventoryStorageAndLoadingChargesForMonth findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(
+      String customerID, Date someDateOfAMonth) {
+
+    SumInventoryStorageChargesForMonth sumInventoryStorageChargesForMonth = findSumInventoryStorageChargesForMonthByCustomerID(customerID, someDateOfAMonth);
+    
+    SumInventoryLoadingChargesForMonth sumInventoryLoadingChargesForMonth = orderRequestService.findSumInventoryLoadingChargesMonthByCustomerID(customerID, someDateOfAMonth);
+    
+    SumInventoryStorageAndLoadingChargesForMonth sumInventoryStorageAndLoadingChargesForMonth= new SumInventoryStorageAndLoadingChargesForMonth();
+    
+    sumInventoryStorageAndLoadingChargesForMonth.setCustomerID(customerID);
+    sumInventoryStorageAndLoadingChargesForMonth.setLoadingCharge(sumInventoryLoadingChargesForMonth.getLoadingCharge());
+    sumInventoryStorageAndLoadingChargesForMonth.setOtherCharge(sumInventoryLoadingChargesForMonth.getOtherCharge());
+    sumInventoryStorageAndLoadingChargesForMonth.setStorageCharges(sumInventoryStorageChargesForMonth.getStorageCharges());
+    sumInventoryStorageAndLoadingChargesForMonth.setUnloadingCharge(sumInventoryLoadingChargesForMonth.getUnloadingCharge());
+    
+    return sumInventoryStorageAndLoadingChargesForMonth;
   }
 
 }
