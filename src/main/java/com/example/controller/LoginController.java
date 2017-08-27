@@ -8,14 +8,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.bean.InputFormBean;
 import com.example.bean.InputTxnLevelMappingBean;
 import com.example.bean.InventoryLeftInWarehouses;
+import com.example.bean.InventoryLoadingChargesForMonth;
 import com.example.bean.InventoryStorageDaysForMonth;
 import com.example.bean.LEVEL;
 import com.example.bean.OutData;
+import com.example.bean.SumInventoryLoadingChargesForMonth;
+import com.example.bean.SumInventoryStorageAndLoadingChargesForMonth;
+import com.example.bean.SumInventoryStorageChargesForMonth;
 import com.example.model.InputTxn;
 import com.example.model.OrderRequest;
 import com.example.model.Role;
@@ -36,11 +38,12 @@ import com.example.repository.PageWrapper;
 import com.example.service.IExcelService;
 import com.example.service.IInputTxnLevelMappingService;
 import com.example.service.IOrderRequestService;
-import com.example.service.IInputTxnService;
 import com.example.service.IUserService;
+import com.example.service.IInputTxnService;
 import com.example.service.UserServiceImpl;
 import com.example.service.WarehouseServiceImpl;
 import com.google.gson.Gson;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -565,6 +568,7 @@ public class LoginController
 		return modelAndView;
 	}
 
+
 	@RequestMapping(value = "/inventorydtoragedays/customer", method = RequestMethod.GET)
 	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageDaysForMonthByCustomerID()
 	{
@@ -586,5 +590,50 @@ public class LoginController
 				HttpStatus.OK);
 		return responseEntity;
 	}
+
+	
+  
+
+    @RequestMapping(value = "/inventorystoragecharges/customer/sum", method = RequestMethod.GET)
+    public ResponseEntity<SumInventoryStorageChargesForMonth> findSumInventoryStorageChargesForMonthByCustomerID()
+    {
+      String customerID = "1";
+      SumInventoryStorageChargesForMonth results = inputTxnService.findSumInventoryStorageChargesForMonthByCustomerID(customerID, new Date());
+      ResponseEntity<SumInventoryStorageChargesForMonth> responseEntity = new ResponseEntity<>(results,
+          HttpStatus.OK);
+      return responseEntity;
+    }
+
+    /************************************************************ LOADING CHARGES ***************************************************/
+    @RequestMapping(value = "/inventoryloadingcharges/customer/list", method = RequestMethod.GET)
+    public ResponseEntity<List<InventoryLoadingChargesForMonth>> findInventoryLoadingChargesMonthByCustomerID()
+    {
+      String customerID = "1";
+      List<InventoryLoadingChargesForMonth> results = orderRequestService.findInventoryLoadingChargesMonthByCustomerID(customerID, new Date());
+      ResponseEntity<List<InventoryLoadingChargesForMonth>> responseEntity = new ResponseEntity<>(results,
+          HttpStatus.OK);
+      return responseEntity;
+    }
+    
+    @RequestMapping(value = "/inventoryloadingcharges/customer/sum", method = RequestMethod.GET)
+    public ResponseEntity<SumInventoryLoadingChargesForMonth> findSumInventoryLoadingChargesMonthByCustomerID()
+    {
+      String customerID = "1";
+      SumInventoryLoadingChargesForMonth results = orderRequestService.findSumInventoryLoadingChargesMonthByCustomerID(customerID, new Date());
+      ResponseEntity<SumInventoryLoadingChargesForMonth> responseEntity = new ResponseEntity<>(results,
+          HttpStatus.OK);
+      return responseEntity;
+    }
+
+    /************************************************************ STORAGE & LOADING CHARGES ******************************************/
+    @RequestMapping(value = "/inventorystorageandloadingcharges/customer/sum", method = RequestMethod.GET)
+    public ResponseEntity<SumInventoryStorageAndLoadingChargesForMonth> findSumInventoryStorageAndLoadingChargesForMonthByCustomerID()
+    {
+      String customerID = "1";
+      SumInventoryStorageAndLoadingChargesForMonth sumInventoryStorageAndLoadingChargesForMonth =  inputTxnService.findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(customerID, new Date());
+      ResponseEntity<SumInventoryStorageAndLoadingChargesForMonth> responseEntity = new ResponseEntity<>(sumInventoryStorageAndLoadingChargesForMonth,
+          HttpStatus.OK);
+      return responseEntity;
+    }
 
 }

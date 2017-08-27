@@ -4,13 +4,17 @@
  */
 package com.example.service;
 
+import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.bean.InventoryLoadingChargesForMonth;
+import com.example.bean.SumInventoryLoadingChargesForMonth;
 import com.example.model.OrderRequest;
 import com.example.repository.IOrderRequestRepository;
 
@@ -116,6 +120,45 @@ public class OrderRequestServiceImpl implements IOrderRequestService
       Pageable pageable) {
 
     return orderRequestRepository.findByCustomerIDOrderByCreatedDesc(customerID, pageable);
+  }
+
+
+  /* (non-Javadoc)
+   * @see com.example.service.IOrderRequestService#findInventoryLoadingChargesMonthByCustomerID(java.lang.String, java.util.Date)
+   */
+  @Override
+  public List<InventoryLoadingChargesForMonth> findInventoryLoadingChargesMonthByCustomerID(
+      String customerID, Date someDateOfAMonth) {
+
+    DateTime monthStartDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMinimumValue();
+    DateTime monthEndDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMaximumValue();
+
+    return orderRequestRepository.findInventoryLoadingChargesMonthByCustomerID(customerID, monthStartDateTime.toDate(), monthEndDateTime.toDate());
+  }
+
+  @Override
+  public SumInventoryLoadingChargesForMonth findSumInventoryLoadingChargesMonthByCustomerID(
+      String customerID, Date someDateOfAMonth) {
+    
+    Double loadingCharge = 0.0;
+    Double unloadingCharge = 0.0;
+    Double otherCharge = 0.0;
+    
+    List<InventoryLoadingChargesForMonth> listInventoryLoadingChargesForMonth = findInventoryLoadingChargesMonthByCustomerID(customerID, someDateOfAMonth);
+    
+    for( InventoryLoadingChargesForMonth inventoryLoadingChargesForMonth : listInventoryLoadingChargesForMonth){
+      
+      loadingCharge += Double.parseDouble(inventoryLoadingChargesForMonth.getLoadingCharge());
+      unloadingCharge += Double.parseDouble(inventoryLoadingChargesForMonth.getUnloadingCharge());
+      otherCharge += Double.parseDouble(inventoryLoadingChargesForMonth.getOtherCharge());
+    }
+    SumInventoryLoadingChargesForMonth sumInventoryLoadingChargesForMonth = new SumInventoryLoadingChargesForMonth();
+    sumInventoryLoadingChargesForMonth.setCustomerID(customerID);
+    sumInventoryLoadingChargesForMonth.setLoadingCharge(unloadingCharge);
+    sumInventoryLoadingChargesForMonth.setOtherCharge(otherCharge);
+    sumInventoryLoadingChargesForMonth.setUnloadingCharge(unloadingCharge);
+    
+    return sumInventoryLoadingChargesForMonth;
   }
 
 

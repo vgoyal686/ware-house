@@ -17,6 +17,8 @@ import org.springframework.data.repository.query.Param;
 import com.example.bean.InputFormBean;
 import com.example.bean.InventoryLeftInWarehouses;
 import com.example.bean.InventoryStorageDaysForMonth;
+import com.example.bean.SumInventoryStorageAndLoadingChargesForMonth;
+import com.example.bean.SumInventoryStorageChargesForMonth;
 import com.example.model.InputTxn;
 import com.example.model.InputTxnLevelMapping;
 
@@ -83,4 +85,10 @@ public interface IInputTxnService
 	/**************************** Charges ************************/
 	
 	List<InventoryStorageDaysForMonth> findInventoryStorageChargesForMonthByCustomerID(String customerID, Date someDateOfAMonth);
+	
+	SumInventoryStorageChargesForMonth findSumInventoryStorageChargesForMonthByCustomerID(String customerID, Date someDateOfAMonth);
+	
+	SumInventoryStorageAndLoadingChargesForMonth findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(String customerID, Date someDateOfAMonth);
+	
+	
 }
