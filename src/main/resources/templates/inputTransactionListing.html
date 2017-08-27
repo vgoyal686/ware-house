@@ -45,40 +45,35 @@
 
 			}
 
-			
 			function submitCall(ids) {
 				var k = '/saveAndGetInputTxns/final';
 				var id = $('#id').val();
 				var customerId = $('#customerId').val();
 				var warehouseID = $('#warehouseID').val();
 				var orderID = $('#orderID').val();
-				
-				
-				
-				
-				
+
 				var data = {
 					data : ids,
-					customerId:customerId,
-					warehouseID:warehouseID,
-					orderID:orderID,
-					id:id
+					customerId : customerId,
+					warehouseID : warehouseID,
+					orderID : orderID,
+					id : id
 				}
 
 				$.ajax({
 					type : "POST",
 					url : k,
 					data : data,
-					 success: function(){  
-					   
-						 window.location="/outRequest";
-						 console.log(data);  
-					    },
-					    error: function(XMLHttpRequest, errorThrown) { 
-					        alert("Error: " + errorThrown); 
-					    }  
+					success : function() {
+						alert("successfull");
+
+						console.log(data);
+					},
+					error : function(XMLHttpRequest, errorThrown) {
+						alert("Error: " + errorThrown);
+					}
 				});
-				
+				window.location = "/outRequest";
 			}
 		</script>
 

@@ -98,8 +98,6 @@ public class LoginController
 		ModelAndView modelAndView = new ModelAndView();
 		User user = new User();
 		modelAndView.addObject("user", user);
-		// user.setRoles(userService.findAllRoles());
-
 		modelAndView.addObject("roleAdd", userService.findAllRoles());
 		modelAndView.setViewName("registration");
 		return modelAndView;
@@ -261,7 +259,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/", "/warehouse/listing" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/warehouse/listing" }, method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -355,7 +353,8 @@ public class LoginController
 	public ModelAndView inOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
 			Model model)
 	{
-		//Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);
+		// Iterable<OrderRequest> orderRequests =
+		// orderRequestService.listByCustomerID(search);
 		Iterable<OrderRequest> orderRequests = orderRequestService.findByCustomerIDAndInOrderType(search);
 		model.addAttribute("orderRequests", orderRequests);
 		ModelAndView modelv = new ModelAndView();
@@ -367,7 +366,8 @@ public class LoginController
 	public ModelAndView outOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
 			Model model)
 	{
-		//Iterable<OrderRequest> orderRequests = orderRequestService.listByCustomerID(search);findByCustomerIDAndOutOrderType
+		// Iterable<OrderRequest> orderRequests =
+		// orderRequestService.listByCustomerID(search);findByCustomerIDAndOutOrderType
 		Iterable<OrderRequest> orderRequests = orderRequestService.findByCustomerIDAndOutOrderType(search);
 		model.addAttribute("orderRequests", orderRequests);
 		ModelAndView modelv = new ModelAndView();
@@ -515,7 +515,8 @@ public class LoginController
 	 */
 
 	@RequestMapping(value = "/saveAndGetInputTxns/final", method = RequestMethod.POST)
-	public String saveAndGetInputTxns(@RequestParam(value = "data[]") String[] inputTxnLevelMappingBeans,@RequestParam(value = "id", required = true) String id,
+	public String saveAndGetInputTxns(@RequestParam(value = "data[]") String[] inputTxnLevelMappingBeans,
+			@RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "customerId", required = true) String customerId,
 			@RequestParam(value = "warehouseID", required = true) String warehouseID,
 			@RequestParam(value = "orderID", required = true) String orderID)
@@ -534,8 +535,10 @@ public class LoginController
 				beans.add(InputTxnLevelMappingBea);
 			}
 			OutData outData = new OutData();
-			outData.setCustomerId(customerId); outData.setOrderID(orderID); outData.setWarehouseID(warehouseID);
-			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans,outData);
+			outData.setCustomerId(customerId);
+			outData.setOrderID(orderID);
+			outData.setWarehouseID(warehouseID);
+			int result = inputTxnLevelMappingService.markCorrespondingBothInputTxnAndLevelMappingsAsOut(beans, outData);
 
 		}
 		return "redirect: /outRequest";
@@ -562,25 +565,26 @@ public class LoginController
 		return modelAndView;
 	}
 
-	
-    @RequestMapping(value = "/inventorydtoragedays/customer", method = RequestMethod.GET)
-    public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageDaysForMonthByCustomerID()
-    {
-      String customerID = "1";
-      List<InventoryStorageDaysForMonth> results = inputTxnService.findInventoryStorageDaysForMonthByCustomerID(customerID, new Date());
-      ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
-          HttpStatus.OK);
-      return responseEntity;
-    }
+	@RequestMapping(value = "/inventorydtoragedays/customer", method = RequestMethod.GET)
+	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageDaysForMonthByCustomerID()
+	{
+		String customerID = "1";
+		List<InventoryStorageDaysForMonth> results = inputTxnService
+				.findInventoryStorageDaysForMonthByCustomerID(customerID, new Date());
+		ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
+				HttpStatus.OK);
+		return responseEntity;
+	}
 
-    @RequestMapping(value = "/inventorydtoragecharges/customer", method = RequestMethod.GET)
-    public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID()
-    {
-      String customerID = "1";
-      List<InventoryStorageDaysForMonth> results = inputTxnService.findInventoryStorageChargesForMonthByCustomerID(customerID, new Date());
-      ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
-          HttpStatus.OK);
-      return responseEntity;
-    }
+	@RequestMapping(value = "/inventorydtoragecharges/customer", method = RequestMethod.GET)
+	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID()
+	{
+		String customerID = "1";
+		List<InventoryStorageDaysForMonth> results = inputTxnService
+				.findInventoryStorageChargesForMonthByCustomerID(customerID, new Date());
+		ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
+				HttpStatus.OK);
+		return responseEntity;
+	}
 
 }
