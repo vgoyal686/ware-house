@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+  
+    <div th:fragment="footer">
+    
+    
+   <div class="footer">
+			<div class="container">
+				<div class="row">
+					<br /> <br />
+					<div class="col-sm-3 col-md-3 ">
+						<div class="footer-block">
+							<p>
+								<strong>COMPANY</strong>
+							</p>
+							<!-- ngRepeat: subLink in value.subLink -->
+							<ul class="list-unstyled hidden-xs">
+								<li><a c href="/about">About Us</a></li>
+							</ul>
+							<!-- end ngRepeat: subLink in value.subLink -->
+
+							<!-- end ngRepeat: subLink in value.subLink -->
+							<ul class="list-unstyled hidden-xs ">
+								<li><a href="/team">Team</a></li>
+							</ul>
+
+							<!-- end ngRepeat: subLink in value.subLink -->
+						</div>
+					</div>
+					<!-- end ngRepeat: (key, value) in footerLink -->
+					<div class="col-sm-3 col-md-3">
+						<div class="footer-block">
+							<p>
+								<strong>CATEGORIES</strong>
+							</p>
+							<!-- ngRepeat: subLink in value.subLink -->
+							<ul class="list-unstyled hidden-xs ">
+								<li><a href="/products">Products</a></li>
+							</ul>
+							<!-- end ngRepeat: subLink in value.subLink -->
+							<ul class="list-unstyled hidden-xs ">
+								<li><a href="/order">Orde</a>r</li>
+							</ul>
+							<!-- end ngRepeat: subLink in value.subLink -->
+						</div>
+					</div>
+					<!-- end ngRepeat: (key, value) in footerLink -->
+					<div class="col-sm-3 col-md-3 ">
+						<div class="footer-block">
+							<p>
+								<strong>OTHERS</strong>
+							</p>
+							<!-- ngRepeat: subLink in value.subLink -->
+							<ul class="list-unstyled hidden-xs ">
+								<li><a href="/howItWork">How it Work</a></li>
+							</ul>
+							<!-- end ngRepeat: subLink in value.subLink -->
+							<ul class="list-unstyled hidden-xs ">
+								<li><a href="/blog">Blog</a></li>
+							</ul>
+
+							<!-- end ngRepeat: subLink in value.subLink -->
+						</div>
+					</div>
+					<!-- end ngRepeat: (key, value) in footerLink -->
+					<div class="col-sm-3 col-md-3 hidden-xs">
+						<div class="footer-block">
+							<p>
+								<strong>CONTACT US</strong>
+							</p>
+							<ul class="list-unstyled">
+								<li><a class="no-underline"
+									href="mailto:technosyshub@gmail.com">technosyshub@gmail.com</a></li>
+								<li><a class="no-underline"
+									href="mailto:anoop0gangwar@gmail.com">anoop0gangwar@gmail.com</a></li>
+							</ul>
+						</div>
+						<br />
+						<div class="footer-block hide">
+							<p>
+								<strong>Enter your email address here</strong>
+							</p>
+							<ul class="list-unstyled">
+								<li>
+									<div class="input-group">
+										<input class="form-control" type="text"
+											placeholder="Email address" /> <span
+											class="input-group-addon btn btn-orange">Submit</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+    
+    </div>
+   
+  </body>
+</html>
