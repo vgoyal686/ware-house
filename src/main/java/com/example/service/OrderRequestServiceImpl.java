@@ -132,8 +132,9 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 
     DateTime monthStartDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMinimumValue();
     DateTime monthEndDateTime = new DateTime(someDateOfAMonth).dayOfMonth().withMaximumValue();
-
-    return orderRequestRepository.findInventoryLoadingChargesMonthByCustomerID(customerID, monthStartDateTime.toDate(), monthEndDateTime.toDate());
+    Date monthStartDate= monthStartDateTime.toDate();
+    Date monthEnd= monthEndDateTime.toDate();
+    return orderRequestRepository.findInventoryLoadingChargesMonthByCustomerID(customerID,monthStartDate ,monthEnd);
   }
 
   @Override
@@ -151,6 +152,7 @@ public class OrderRequestServiceImpl implements IOrderRequestService
       loadingCharge += Double.parseDouble(inventoryLoadingChargesForMonth.getLoadingCharge());
       unloadingCharge += Double.parseDouble(inventoryLoadingChargesForMonth.getUnloadingCharge());
       otherCharge += Double.parseDouble(inventoryLoadingChargesForMonth.getOtherCharge());
+      
     }
     SumInventoryLoadingChargesForMonth sumInventoryLoadingChargesForMonth = new SumInventoryLoadingChargesForMonth();
     sumInventoryLoadingChargesForMonth.setCustomerID(customerID);

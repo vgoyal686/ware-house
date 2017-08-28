@@ -650,7 +650,7 @@ public class LoginController
 	 * date
 	 ****************/
 	@RequestMapping(value = "/inventorystorageandloadingcharges/customer/sum", method = RequestMethod.POST)
-	public ResponseEntity<SumInventoryStorageAndLoadingChargesForMonth> findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(
+	public ModelAndView findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(
 			TotalSumInputBean totalSumInputBean)
 	{
 		Date date=totalSumInputBean.getOrderDate();
@@ -660,7 +660,14 @@ public class LoginController
 						);
 		ResponseEntity<SumInventoryStorageAndLoadingChargesForMonth> responseEntity = new ResponseEntity<>(
 				sumInventoryStorageAndLoadingChargesForMonth, HttpStatus.OK);
-		return responseEntity;
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("sum", sumInventoryStorageAndLoadingChargesForMonth);
+		modelAndView.setViewName("SumResult");
+		return modelAndView;
+		
+		
 	}
 
 }
