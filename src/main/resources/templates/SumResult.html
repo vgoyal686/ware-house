@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+</head>
+<body>
+	<div>
+ <div th:replace="fragments/header :: header"></div>	
+</div>
+
+	
+	<h1> Listing</h1>
+
+	<div>
+
+	<label>customerID</label><li th:text="${sum.customerID}"></li>
+	<label>storageCharges</label><li th:text="${sum.storageCharges}"></li>
+	<label>loadingCharge</label><li th:text="${sum.loadingCharge}"></li>
+	<label>unloadingCharge</label><li th:text="${sum.unloadingCharge}"></li>
+	<label>otherCharge</label><li th:text="${sum.otherCharge}"></li>
+	
+	</div>
+
+
+
+	<div class="footerCont">
+	
+
+	<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
