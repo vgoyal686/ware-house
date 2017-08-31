@@ -1,63 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Registration Form</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/registration.css}" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
+
 <body>
-	<!--  	<form th:action="@{/}" method="get">
+    <!--  	<form th:action="@{/}" method="get">
 		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
 	</form>	
 -->
-
-<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/registration/1}"
-					th:object="${user}" method="post" class="form-horizontal"
-					role="form">
-					<h2>Registration Form</h2>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-								class="validation-message"></label> <input type="text"
-								th:field="*{name}" placeholder="First Name" class="form-control" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<label th:if="${#fields.hasErrors('lastName')}"
-								th:errors="*{lastName}" class="validation-message"></label> <input
-								type="text" th:field="*{lastName}" placeholder="Last Name"
-								class="form-control" />
-						</div>
-					</div>
-
-
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<select th:field="*{roles}" class="form-control" multiple>
-								<option th:each="s : ${roleAdd}" th:value="${s.id}"
-									th:text="${s.role}"></option>
-							</select>
-						</div>
-					</div>
-
-					<!--  <div class="form-group">
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <div class="col-md-8 col-md-offset-2 text-center" style="margin-top:2%;margin-bottom:3%">
+        <div class="panel panel-warning text-center">
+            <div class="panel-heading"><strong>Registration Form</strong></div>
+            <div class="panel-body">
+                <form autocomplete="off" action="#" th:action="@{/registration/1}" th:object="${user}" method="post" class="form-horizontal" role="form">
+                    <!--      <h2>Registration Form</h2> -->
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>
+                            <input type="text" th:field="*{name}" placeholder="First Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="validation-message"></label>
+                            <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <select th:field="*{roles}" class="form-control" multiple>
+                                <option th:each="s : ${roleAdd}" th:value="${s.id}" th:text="${s.role}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--  <div class="form-group">
 						<div class="col-sm-9">
 							<input type="text" th:field="*{active}" placeholder="Is Active"
 								class="form-control" /> <label
@@ -66,43 +52,32 @@
 						</div>
 					</div>
 -->
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="text" th:field="*{email}" placeholder="Email"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" /> <label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-								class="validation-message"></label>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Register
-								User</button>
-						</div>
-					</div>
-
-					<span th:utext="${successMessage}"></span>
-
-
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+                            <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                            <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                            <button type="submit" class="btn btn-warning btn-block">Register User
+                            </button>
+                        </div>
+                    </div>
+                    <span th:utext="${successMessage}"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="footerCont">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div> -->
 </body>
+
 </html>
