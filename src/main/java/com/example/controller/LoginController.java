@@ -263,7 +263,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/warehouse/listing" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/warehouse/listing" }, method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
 		ModelAndView modelAndView = new ModelAndView();

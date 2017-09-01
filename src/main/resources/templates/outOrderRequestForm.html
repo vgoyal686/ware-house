@@ -21,9 +21,9 @@
 </head>
 <body>
 
-<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
+	<div>
+		<div th:replace="fragments/header :: header"></div>
+	</div>
 
 
 
@@ -51,30 +51,29 @@
 					</div>
 
 					<div class="form-inline">
-						<input type="text" th:field="*{orderID}" placeholder="orderID"
-							class="form-control" /> <label
+						<label>orderID</label> <input type="text" th:field="*{orderID}"
+							placeholder="orderID" class="form-control" /> <label
 							th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
-							class="validation-message"></label> <input type="date"
-							th:value="*{orderDate}" th:field="*{orderDate}" id="date-started" />
-
-
-
-						<input type="text" th:field="*{orderType}" placeholder="orderType"
+							class="validation-message"></label> <label>Date Started</label> <input
+							type="date" th:value="*{orderDate}" th:field="*{orderDate}"
+							id="date-started" /> <label>orderType</label> <input type="text"
+							th:field="*{orderType}" placeholder="orderType"
 							readonly="readonly" class="form-control" /> <label
 							th:if="${#fields.hasErrors('orderType')}"
 							th:errors="*{orderType}" class="validation-message"></label>
 					</div>
 					<div class="form-inline">
 
-						<input type="text" th:field="*{customerID}"
-							placeholder="customerID" class="form-control" /> <label
-							th:if="${#fields.hasErrors('customerID')}"
-							th:errors="*{customerID}" class="validation-message"></label> <input
-							type="text" th:field="*{warehouseID}" placeholder="warehouseID"
+						<label>customerID</label> <input type="text"
+							th:field="*{customerID}" placeholder="customerID"
 							class="form-control" /> <label
+							th:if="${#fields.hasErrors('customerID')}"
+							th:errors="*{customerID}" class="validation-message"></label> <label>WarehouseID</label>
+						<input type="text" th:field="*{warehouseID}"
+							placeholder="warehouseID" class="form-control" /> <label
 							th:if="${#fields.hasErrors('warehouseID')}"
-							th:errors="*{warehouseID}" class="validation-message"></label> <input
-							type="text" th:field="*{requestRaisedBy}"
+							th:errors="*{warehouseID}" class="validation-message"></label> <label>requestRaisedBy</label>
+						<input type="text" th:field="*{requestRaisedBy}"
 							placeholder="requestRaisedBy" class="form-control" /> <label
 							th:if="${#fields.hasErrors('requestRaisedBy')}"
 							th:errors="*{requestRaisedBy}" class="validation-message"></label>
@@ -86,18 +85,21 @@
 					<div class="form-inline">
 
 
-
-						<input type="text" th:field="*{ratePerUnitPerDay}"
-							placeholder="ratePerUnitPerDay" class="form-control" /> <label
+						<label>ratePerUnitPerDay</label> <input type="text"
+							th:field="*{ratePerUnitPerDay}" placeholder="ratePerUnitPerDay"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('ratePerUnitPerDay')}"
 							th:errors="*{ratePerUnitPerDay}" class="validation-message"></label>
-						<input type="text" th:field="*{loadingCharge}"
-							placeholder="loadingCharge" class="form-control" /> <label
+
+						<label>loadingCharge</label> <input type="text"
+							th:field="*{loadingCharge}" placeholder="loadingCharge"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('loadingCharge')}"
 							th:errors="*{loadingCharge}" class="validation-message"></label>
 
-						<input type="text" th:field="*{unloadingCharge}"
-							placeholder="unloadingCharge" class="form-control" /> <label
+						<label>unloadingCharge</label> <input type="text"
+							th:field="*{unloadingCharge}" placeholder="unloadingCharge"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('unloadingCharge')}"
 							th:errors="*{unloadingCharge}" class="validation-message"></label>
 
@@ -106,16 +108,17 @@
 
 					<div class="form-inline">
 
-						<input type="text" th:field="*{otherCharge}"
-							placeholder="otherCharge" class="form-control" /> <label
+						<label>otherCharge</label> <input type="text"
+							th:field="*{otherCharge}" placeholder="otherCharge"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('otherCharge')}"
-							th:errors="*{otherCharge}" class="validation-message"></label> <input
+							th:errors="*{otherCharge}" class="validation-message"></label> <label>buyerName</label><input
 							type="text" th:field="*{buyerName}" placeholder="buyerName"
 							class="form-control" /> <label
 							th:if="${#fields.hasErrors('buyerName')}"
-							th:errors="*{buyerName}" class="validation-message"></label> <input
-							type="text" th:field="*{buyerEmail}" placeholder="buyerEmail"
-							class="form-control" /> <label
+							th:errors="*{buyerName}" class="validation-message"></label> <label>buyerEmail</label>
+						<input type="text" th:field="*{buyerEmail}"
+							placeholder="buyerEmail" class="form-control" /> <label
 							th:if="${#fields.hasErrors('buyerEmail')}"
 							th:errors="*{buyerEmail}" class="validation-message"></label>
 
@@ -128,19 +131,23 @@
 
 
 					<div class="form-inline">
-						<input type="text" th:field="*{buyerPhoneNumber}"
-							placeholder="buyerPhoneNumber" class="form-control" /> <label
+
+						<label>buyerPhoneNumber</label> <input type="text"
+							th:field="*{buyerPhoneNumber}" placeholder="buyerPhoneNumber"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('buyerPhoneNumber')}"
 							th:errors="*{buyerPhoneNumber}" class="validation-message"></label>
 
-						<input type="text" th:field="*{consigneeAddress}"
-							placeholder="consigneeAddress" class="form-control" /> <label
+						<label>consigneeAddress</label> <input type="text"
+							th:field="*{consigneeAddress}" placeholder="consigneeAddress"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('consigneeAddress')}"
 							th:errors="*{consigneeAddress}" class="validation-message"></label>
 
 
-						<input type="text" th:field="*{invoiceNumber}"
-							placeholder="invoiceNumber" class="form-control" /> <label
+						<label>invoiceNumber</label> <input type="text"
+							th:field="*{invoiceNumber}" placeholder="invoiceNumber"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('invoiceNumber')}"
 							th:errors="*{invoiceNumber}" class="validation-message"></label>
 
@@ -149,15 +156,15 @@
 
 					<div class="form-inline">
 
-						<input type="text" th:field="*{pinCode}" placeholder="pinCode"
-							class="form-control" /> <label
+						<label>pinCode</label> <input type="text" th:field="*{pinCode}"
+							placeholder="pinCode" class="form-control" /> <label
 							th:if="${#fields.hasErrors('pinCode')}" th:errors="*{pinCode}"
-							class="validation-message"></label> <input type="text"
-							th:field="*{truckNumber}" placeholder="truckNumber"
+							class="validation-message"></label> <label>truckNumber</label> <input
+							type="text" th:field="*{truckNumber}" placeholder="truckNumber"
 							class="form-control" /> <label
 							th:if="${#fields.hasErrors('truckNumber')}"
-							th:errors="*{truckNumber}" class="validation-message"></label> <input
-							type="text" th:field="*{modeOfTransfer}"
+							th:errors="*{truckNumber}" class="validation-message"></label> <label>modeOfTransfer</label>
+						<input type="text" th:field="*{modeOfTransfer}"
 							placeholder="modeOfTransfer" class="form-control" /> <label
 							th:if="${#fields.hasErrors('modeOfTransfer')}"
 							th:errors="*{modeOfTransfer}" class="validation-message"></label>
@@ -168,16 +175,17 @@
 
 
 					<div class="form-inline">
-						<input type="text" th:field="*{transportationCost}"
-							placeholder="transportationCost" class="form-control" /> <label
+						<label>transportationCost</label> <input type="text"
+							th:field="*{transportationCost}" placeholder="transportationCost"
+							class="form-control" /> <label
 							th:if="${#fields.hasErrors('transportationCost')}"
 							th:errors="*{transportationCost}" class="validation-message"></label>
 
-						<input type="text" th:field="*{comment}" placeholder="comment"
-							class="form-control" /> <label
+						<label>comment</label> <input type="text" th:field="*{comment}"
+							placeholder="comment" class="form-control" /> <label
 							th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"
-							class="validation-message"></label> <input type="text"
-							th:field="*{trackingID}" placeholder="trackingID"
+							class="validation-message"></label> <label>trackingID</label> <input
+							type="text" th:field="*{trackingID}" placeholder="trackingID"
 							class="form-control" /> <label
 							th:if="${#fields.hasErrors('trackingID')}"
 							th:errors="*{trackingID}" class="validation-message"></label>
@@ -189,8 +197,8 @@
 					<div class="form-inline">
 
 
-						<input type="text" th:field="*{uom}" placeholder="uom"
-							class="form-control" /> <label
+						<label>uom</label> <input type="text" th:field="*{uom}"
+							placeholder="uom" class="form-control" /> <label
 							th:if="${#fields.hasErrors('uom')}" th:errors="*{uom}"
 							class="validation-message"></label>
 
@@ -243,9 +251,9 @@
 	</div>
 
 	<div class="footerCont">
-	
 
-	<div th:replace="fragments/footer :: footer"></div>
+
+		<div th:replace="fragments/footer :: footer"></div>
 	</div>
 </body>
 </html>

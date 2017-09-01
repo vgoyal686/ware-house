@@ -1,81 +1,65 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
+
 <body>
-
-	<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-
-	<div>
-		<a href="/warehouse/view/registration">CREATE WAREHOUSE</a>
-	</div>
-	
-	<div>
-		<a href="/inventoryby/customer"> Inventory Records</a>
-	</div>
-	
-	<h2>WareHouse Listing</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<table class="table" data-spy="scroll">
-		<tr>
-			<th>Name</th>
-			<th>Email</th>
-			<th>Phone</th>
-			<th>Other Phone</th>
-			<th>TotalSpace</th>
-			<th>Available Space</th>
-			<th>State</th>
-			<th>City</th>
-			<th>Pincode</th>
-
-
-
-		</tr>
-		<tr th:each="warehouse:${wareHouses}">
-			<td th:text="${warehouse.name}">..</td>
-			<td th:text="${warehouse.email}">..</td>
-			<td th:text="${warehouse.phone1}">..</td>
-			<td th:text="${warehouse.phone2}">..</td>
-			<td th:text="${warehouse.totalspace}">..</td>
-			<td th:text="${warehouse.availablespace}">..</td>
-			<td th:text="${warehouse.state}">..</td>
-			<td th:text="${warehouse.city}">..</td>
-			<td th:text="${warehouse.pincode}">..</td>
-
-
-
-
-		</tr>
-	</table>
-
-	<p>
-		<a href="../home.html" th:href="@{/warehouse/view/registration}">Return
-			to home</a>
-	</p>
-
-
-	<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
-
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <div class="col-md-12" style="margin-top:1%;">
+        <button class="btn btn-warning" style="">
+            <a href="/warehouse/view/registration" style="color:#fff !important;text-decoration:none;">CREATE WAREHOUSE</a>
+        </button>
+    </div>
+    <div class="col-md-12">
+        <button class="btn btn-warning" style=" margin-top:1%;">
+            <a href="/inventoryby/customer" style="color:#fff !important;text-decoration:none;"> Inventory Records</a>
+        </button>
+    </div>
+    <!-- <h2>WareHouse Listing</h2> -->
+    <div class="col-md-12 text-center" style="margin-top:3%;">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><strong>WareHouse Listing</strong></div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-responsive" data-spy="scroll">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Other Phone</th>
+                        <th>TotalSpace</th>
+                        <th>Available Space</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Pincode</th>
+                    </tr>
+                    <tr th:each="warehouse:${wareHouses}">
+                        <td th:text="${warehouse.name}">..</td>
+                        <td th:text="${warehouse.email}">..</td>
+                        <td th:text="${warehouse.phone1}">..</td>
+                        <td th:text="${warehouse.phone2}">..</td>
+                        <td th:text="${warehouse.totalspace}">..</td>
+                        <td th:text="${warehouse.availablespace}">..</td>
+                        <td th:text="${warehouse.state}">..</td>
+                        <td th:text="${warehouse.city}">..</td>
+                        <td th:text="${warehouse.pincode}">..</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p class="col-md-12">
+        <button class="btn btn-warning">
+            <a href="../home.html" style="color:#fff!important;text-decoration:none;" th:href="@{/warehouse/view/registration}">Return
+            to home</a>
+        </button>
+    </p>
+    <div class="footerCont">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </body>
+
 </html>

@@ -1,58 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 
 <body>
-
- <div th:replace="fragments/header :: header"></div>
-	<div>
-		
-		<div class="breadcrumb">
-			<marquee>Book now get 20% off, while booking the slot
-				online</marquee>
-			<button class="close hide">×</button>
-		</div>
-
-	</div>
-
-
-	
-
-	<div>
-		<form th:object="${student}" th:action="@{/outOrderRequest}" method="get">
-			<input type="text" name="search" id="search" th:value="${search}"
-				placeholder="Search Order Request By CustomerId" th
-				style="width: 20%" /> <input type="submit" value="Search" />
-		</form>
-	</div>
-
-
-	<span> <a th:href="@{/create/out/orderRequest/form}">OUT-Order-Request</a></span>
-	
-
-	<!-- Results block -->
-	<div id="resultsBlock"></div>
-
-
-
-
-
-
-	<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
+    <div th:replace="fragments/header :: header"></div>
+    <!-- <div>
+        <div class="breadcrumb">
+            <marquee>Book now get 20% off, while booking the slot online
+            </marquee>
+            <button class="close hide">×</button>
+        </div>
+    </div> -->
+    <div> <a th:href="@{/create/out/orderRequest/form}">OUT-Order-Request</a></div>
+    <div class="col-md-8 col-md-offset-2 text-center" style="margin-top:5%;">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><strong>Search Order Request</strong></div>
+            <div class="panel-body">
+                <form th:object="${student}" th:action="@{/outOrderRequest}" method="get">
+                    <span class="col-md-6 col-md-offset-2 float-right">
+                    <input type="text" name="search" class="form-control" style="width:100%;" id="search" th:value="${search}" placeholder="Search Order Request By CustomerId" th />
+                    </span>
+                    <span class="col-md-2">
+                    <input type="submit" class="btn btn-warning float-left" value="Search" style="width:100%;" />
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Results block -->
+    <div id="resultsBlock"></div>
+    <div class="footerCont">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </body>
+
 </html>
-
-
-
