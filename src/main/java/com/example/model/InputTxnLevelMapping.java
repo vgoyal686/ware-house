@@ -321,6 +321,8 @@ public class InputTxnLevelMapping {
     this.level2Value = level2Value;
     this.level3Name = level3Name;
     this.level3Value = level3Value;
+    
+    this.softDelete = false;
   }
 
 

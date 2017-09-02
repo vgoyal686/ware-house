@@ -850,6 +850,8 @@ public class InputTxn implements java.io.Serializable{
     this.attribute5Name = attribute5Name;
     this.attribute5Value = attribute5Value;
     this.description = description;
+    
+    this.softDelete = false;
   }
 
   /**
