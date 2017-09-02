@@ -38,9 +38,12 @@ public class InputTxnLevelMapping {
   @Column(name = "id")
   private int id;
  
-  @Column(name = "softDelete")
-  private boolean softDelete = false;
+//  @Column(name = "softDelete")
+//  private boolean softDelete = false;
 
+  @Column(name = "softDelete", columnDefinition = "boolean default false", nullable = false)
+  private Boolean softDelete = false;
+  
 //  @AttributeOverrides({
 //    @AttributeOverride(name="identifierID", column = @Column(name="level1Value")),
 //    @AttributeOverride(name="uom", column = @Column(name="level1Name"))
