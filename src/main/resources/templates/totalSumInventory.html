@@ -1,67 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-<script th:href="@{/js/jquery.min.js}"></script>
-<script th:href="@{/js/bootstrap.min.js}"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
-<link rel="stylesheet" th:href="@{/css/main.css}"></link>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/registration.css}" ></link>
-
+    <script th:href="@{/js/jquery.min.js}"></script>
+    <script th:href="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/main.css}"></link>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"></link>
 </head>
 
 <body>
-
-<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-
-	<div class="container ">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#"
-					th:action="@{/inventorystorageandloadingcharges/customer/sum}"
-					th:object="${totalSumInputBean}" method="post"
-					class="form-horizontal" role="form">
-					<h2>Total Sum Count</h2>
-					<div class="form-inline">
-
-
-						<input type="text" th:field="*{customerId}"
-							placeholder="Customer Id" class="form-control" /> <label
-							th:if="${#fields.hasErrors('customerId')}"
-							th:errors="*{customerId}" class="validation-message"></label> <input
-							type="date" th:field="*{orderDate}" placeholder="Date"
-							class="form-control" /> <label
-							th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"
-							class="validation-message"></label>
-
-					</div>
-
-
-
-					<div class="form-inline">
-
-						<button type="submit" class="btn btn-primary ">Register</button>
-					</div>
-
-
-					<span th:utext="${successMessage}"></span>
-
-
-				</form>
-			</div>
-		</div>
-	</div>
-<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <div class="col-md-8 col-md-offset-2" style="margin-top:2%;margin-bottom:3%">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><strong>Total Sum Count</strong></div>
+            <div class="panel-body">
+                <form autocomplete="off" action="#" th:action="@{/inventorystorageandloadingcharges/customer/sum}" th:object="${totalSumInputBean}" method="post" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <input type="text" th:field="*{customerId}" placeholder="Customer Id" class="form-control" />
+                            <label th:if="${#fields.hasErrors('customerId')}" th:errors="*{customerId}" class="validation-message"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" th:field="*{orderDate}" placeholder="Date" class="form-control" />
+                            <label th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" class="validation-message"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-warning" style="width:31%;">Register</button>
+                        </div>
+                    </div>
+                    <span th:utext="${successMessage}"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footerCont">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </body>
 <script>
-	
 </script>
+
 </html>

@@ -9,14 +9,17 @@
     <div>
         <div th:replace="fragments/header :: header"></div>
     </div>
-    <a href="/registration">Create User</a>
-    <a href="/totalSumView">Total Sum View</a>
+    <div class="col-md-12" style="margin-top:1%;">
+        <button class="btn btn-warning">
+            <a href="/registration" style="color:#fff !important;text-decoration:none;">Create User</a></button>
+        <button class="btn btn-warning"><a style="color:#fff !important;text-decoration:none; " href="/totalSumView ">Total Sum View</a></button>
+    </div>
     <!-- <h1>Users Listing</h1> -->
-    <div class="col-md-12 text-center" style="margin-top:3%;">
-        <div class="panel panel-warning">
-            <div class="panel-heading"><strong>Users Listing</strong></div>
-            <div class="panel-body">
-                <table class="table table-striped table-bordered table-responsive">
+    <div class="col-md-12 text-center " style="margin-top:3%; ">
+        <div class="panel panel-warning ">
+            <div class="panel-heading "><strong>Users Listing</strong></div>
+            <div class="panel-body ">
+                <table class="table table-striped table-bordered table-responsive ">
                     <tr>
                         <th>Id</th>
                         <th>FirstNAME</th>
@@ -26,25 +29,24 @@
                         <th>Roles</th>
                         <th>User</th>
                     </tr>
-                    <tr th:each="user: ${users}">
-                        <td th:text="${user.id}">..</td>
-                        <td th:text="${user.name}">..</td>
-                        <td th:text="${user.lastName}">..</td>
-                        <td th:text="${user.email}">..</td>
-                       <td><a
-						th:href="@{'/inventoryby/customer?customerID=' + ${user.id}}">view</a>
-					</td>
-                        <td>
-                            <li th:each="role : ${user.roles}" th:text="${role.role}">Item description here...</li>
+                    <tr th:each="user: ${users} ">
+                        <td th:text="${user.id} ">..</td>
+                        <td th:text="${user.name} ">..</td>
+                        <td th:text="${user.lastName} ">..</td>
+                        <td th:text="${user.email} ">..</td>
+                        <td><a th:href="@{ '/inventoryby/customer?customerID=' + ${user.id}} ">view</a>
                         </td>
-                        <td th:text="${user.active}">..</td>
+                        <td>
+                            <li th:each="role : ${user.roles} " th:text="${role.role} ">Item description here...</li>
+                        </td>
+                        <td th:text="${user.active} ">..</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-    <div class="footerCont">
-        <div th:replace="fragments/footer :: footer"></div>
+    <div class="footerCont ">
+        <div th:replace="fragments/footer :: footer "></div>
     </div>
 </body>
 
