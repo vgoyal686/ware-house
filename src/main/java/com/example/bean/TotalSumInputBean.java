@@ -35,10 +35,6 @@ public class TotalSumInputBean
 		this.orderDate = orderDate;
 	}
 
-	@Override
-	public String toString()
-	{
-		return "TotalSumInputBean [customerId=" + customerId + ", orderDate=" + orderDate + "]";
-	}
+	
 
 }
