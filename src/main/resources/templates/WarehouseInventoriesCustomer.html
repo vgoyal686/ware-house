@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<head>
-<script th:href="@{/js/jquery.min.js}"></script>
-<script th:href="@{/js/bootstrap.min.js}"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
-<link rel="stylesheet" th:href="@{/css/main.css}"></link>
-</head>
-<body data-spy="scroll">
-<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-	<h1>Details</h1>
-	<div th:fragment="resultsList" id="results-block">
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/css/main.css}" />
-		
-		<div class="table-responsive">
-			<table class="table">
-				<tr>
-					
-					<th>CustomerID</th>
-					<th>level1Name</th>
-					<th>level1Count</th>
-					<th>Create InData</th>
-				</tr>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
- 				<tr th:each="inventory : ${inventories}">
-					
-					<td th:text="${inventory.customerID}">CustomerID</td>
-					<td th:text="${inventory.level1Name}">level1Name</td>
-					<td th:text="${inventory.level1Count}">level1Count</td>
-					<!-- <td><a
+<head>
+    <script th:href="@{/js/jquery.min.js}"></script>
+    <script th:href="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/main.css}"></link>
+</head>
+
+<body data-spy="scroll">
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <!--   <h1>Details</h1> -->
+    <div th:fragment="resultsList" id="results-block">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <div class="col-md-8 col-md-offset-2" style="margin-top:2%;margin-bottom:3%">
+            <div class="panel panel-warning">
+                <div class="panel-heading"><strong>Details</strong></div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>CustomerID</th>
+                                <th>level1Name</th>
+                                <th>level1Count</th>
+                                <!--  <th>Create InData</th> -->
+                            </tr>
+                            <tr th:each="inventory : ${inventories}">
+                                <td th:text="${inventory.customerID}">CustomerID</td>
+                                <td th:text="${inventory.level1Name}">level1Name</td>
+                                <td th:text="${inventory.level1Count}">level1Count</td>
+                                <!-- <td><a
 						th:href="@{'/mergeForm?id=' + ${orderRequest.id}+'&customerId='+${orderRequest.customerID}+'&orderID='+${orderRequest.orderID}+'&warehouseID='+${orderRequest.warehouseID}}">view</a>
 					</td>
 					 -->
-				</tr>
-			</table>
-		</div>
-	<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
-	</div>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footerCont">
+            <div th:replace="fragments/footer :: footer"></div>
+        </div>
+    </div>
 </body>
+
 </html>
-
-
