@@ -263,7 +263,7 @@ public class LoginController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = {"/", "/warehouse/listing" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/warehouse/listing" }, method = RequestMethod.GET)
 	public ModelAndView viewWareHouses()
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -283,14 +283,19 @@ public class LoginController
 			pageSize = new Integer(10);
 		}
 
-		PageRequest pageable = new PageRequest(0, pageSize);
-		Page<OrderRequest> paginated = orderRequestService.getAllOrderRequestWithPagination(pageable);
+		// PageRequest pageable = new PageRequest(0, pageSize);
+		// Page<OrderRequest> paginated =
+		// orderRequestService.getAllOrderRequestWithPagination(pageable);
 
-		PageWrapper<OrderRequest> page = new PageWrapper<OrderRequest>(paginated, "/orderRequest/paginated/listing");
-		modelAndView.addObject("products", page.getContent());
-		modelAndView.addObject("page", page);
-		modelAndView.addObject("newWorkerValue", paginated.getContent());
-		modelAndView.addObject("totalPages", page.getTotalPages());
+		// PageWrapper<OrderRequest> page = new
+		// PageWrapper<OrderRequest>(paginated,
+		// "/orderRequest/paginated/listing");
+		// modelAndView.addObject("products", page.getContent());
+		// modelAndView.addObject("page", page);
+		// modelAndView.addObject("newWorkerValue", paginated.getContent());
+		// modelAndView.addObject("totalPages", page.getTotalPages());
+		List<OrderRequest> orderRequests = orderRequestService.findByInOrderType();
+		modelAndView.addObject("orderRequests", orderRequests);
 
 		modelAndView.addObject("psize", pageSize);
 		modelAndView.setViewName("header");
@@ -301,6 +306,10 @@ public class LoginController
 	public ModelAndView outRequest(String query)
 	{
 		ModelAndView modelAndView = new ModelAndView();
+
+		List<OrderRequest> orderRequests = orderRequestService.findByOutOrderType();
+
+		modelAndView.addObject("orderRequests", orderRequests);
 
 		modelAndView.setViewName("outOrderRequest");
 		return modelAndView;
@@ -568,19 +577,20 @@ public class LoginController
 	}
 
 	@RequestMapping(value = "/inventoryby/customer", method = RequestMethod.GET)
-	public ModelAndView findInventoryLeftInWarehousesByCustomerID()
+	public ModelAndView findInventoryLeftInWarehousesByCustomerID(String customerID)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
+		// Authentication auth =
+		// SecurityContextHolder.getContext().getAuthentication();
+		// String email = auth.getName();
 		// auth.getAuthorities()
 		ModelAndView modelAndView = new ModelAndView();
-		User user = userService.findUserByEmail(email);
+		// User user = userService.findUserByEmail(email);
 		List<InventoryLeftInWarehouses> inventories = new ArrayList<>();
-		if (user != null)
-		{
-			String customerID = "" + user.getId();
-			inventories = inputTxnService.findInventoryLeftInWarehousesByCustomerID(customerID);
-		}
+		// if (user != null)
+		// {
+		// String customerID = "" + user.getId();
+		inventories = inputTxnService.findInventoryLeftInWarehousesByCustomerID(customerID);
+		// }
 
 		modelAndView.addObject("inventories", inventories);
 		modelAndView.setViewName("WarehouseInventoriesCustomer");
@@ -598,6 +608,7 @@ public class LoginController
 		return responseEntity;
 	}
 
+	// storage
 	@RequestMapping(value = "/inventorydtoragecharges/customer", method = RequestMethod.GET)
 	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID()
 	{
@@ -653,21 +664,19 @@ public class LoginController
 	public ModelAndView findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(
 			TotalSumInputBean totalSumInputBean)
 	{
-		Date date=totalSumInputBean.getOrderDate();
-		
+		Date date = totalSumInputBean.getOrderDate();
+
 		SumInventoryStorageAndLoadingChargesForMonth sumInventoryStorageAndLoadingChargesForMonth = inputTxnService
-				.findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(totalSumInputBean.getCustomerId(),date
-						);
+				.findSumInventoryStorageAndLoadingChargesForMonthByCustomerID(totalSumInputBean.getCustomerId(), date);
 		ResponseEntity<SumInventoryStorageAndLoadingChargesForMonth> responseEntity = new ResponseEntity<>(
 				sumInventoryStorageAndLoadingChargesForMonth, HttpStatus.OK);
-		
+
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.addObject("sum", sumInventoryStorageAndLoadingChargesForMonth);
 		modelAndView.setViewName("SumResult");
 		return modelAndView;
-		
-		
+
 	}
 
 }

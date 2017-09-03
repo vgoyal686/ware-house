@@ -51,6 +51,10 @@ public interface IOrderRequestService
 	
 	
 	SumInventoryLoadingChargesForMonth findSumInventoryLoadingChargesMonthByCustomerID(String customerID, Date someDateOfAMonth);
+
+	List<OrderRequest> findByInOrderType();
+
+	List<OrderRequest> findByOutOrderType();
 	
 	
 }

@@ -74,6 +74,18 @@ public class OrderRequestServiceImpl implements IOrderRequestService
 	    
 	    return orderRequestRepository.findByCustomerIDAndOrderType(customerID, "in");
 	  }
+	  
+	  @Override
+	  public List<OrderRequest> findByInOrderType() {
+	    
+	    return orderRequestRepository.findByOrderTypeOrderByCreatedDesc("in");
+	  }
+	  
+	  @Override
+	  public List<OrderRequest> findByOutOrderType() {
+	    
+	    return orderRequestRepository.findByOrderTypeOrderByCreatedDesc("out");
+	  }
 
 	  @Override
 	  public List<OrderRequest> findByCustomerIDAndOutOrderType(String customerID) {

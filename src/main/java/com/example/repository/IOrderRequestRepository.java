@@ -50,6 +50,7 @@ public interface IOrderRequestRepository extends JpaRepository<OrderRequest, Lon
   List<InventoryLoadingChargesForMonth> findInventoryLoadingChargesMonthByCustomerID(@Param("customerID")  String customerID,
                                                                                   @Param("monthStartDateTime") Date monthStartDateTime,
                                                                                   @Param("monthEndDateTime") Date monthEndDateTime);
+List<OrderRequest> findByOrderTypeOrderByCreatedDesc(String string);
   
   
 }
