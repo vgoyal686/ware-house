@@ -1,239 +1,188 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-
-
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
 <head>
-
-
 </head>
+
 <body>
+    <div th:fragment="resultsList" id="results-block">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <script>
+        var InputTxnLevelMappingBean = [];
+        var inputTxnIdsArray = [];
 
+        function retrieveGuests(levelMappingId, inputTxnId) {
+            var exists = false;
+            for (var i = InputTxnLevelMappingBean.length - 1; i >= 0; i--) {
+                if (InputTxnLevelMappingBean[i] === levelMappingId) {
+                    InputTxnLevelMappingBean.splice(i, 1);
+                    exists = true;
+                }
+            }
 
+            for (var i = inputTxnIdsArray.length - 1; i >= 0; i--) {
+                if (inputTxnIdsArray[i] === inputTxnId) {
+                    inputTxnIdsArray.splice(i, 1);
+                    exists = true;
+                }
+            }
+            return exists;
+        }
 
-	<div th:fragment="resultsList" id="results-block">
+        function addGuests(user) {
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/css/main.css}" />
+            levelTxnIdsArray.push(user);
 
-		<script>
-			var InputTxnLevelMappingBean = [];
-			var inputTxnIdsArray = [];
+        }
 
-			function retrieveGuests(levelMappingId, inputTxnId) {
-				var exists = false;
-				for (var i = InputTxnLevelMappingBean.length - 1; i >= 0; i--) {
-					if (InputTxnLevelMappingBean[i] === levelMappingId) {
-						InputTxnLevelMappingBean.splice(i, 1);
-						exists = true;
-					}
-				}
+        function submitCall(ids) {
+            var k = '/saveAndGetInputTxns/final';
+            var id = $('#id').val();
+            var customerId = $('#customerId').val();
+            var warehouseID = $('#warehouseID').val();
+            var orderID = $('#orderID').val();
 
-				for (var i = inputTxnIdsArray.length - 1; i >= 0; i--) {
-					if (inputTxnIdsArray[i] === inputTxnId) {
-						inputTxnIdsArray.splice(i, 1);
-						exists = true;
-					}
-				}
-				return exists;
-			}
+            var data = {
+                data: ids,
+                customerId: customerId,
+                warehouseID: warehouseID,
+                orderID: orderID,
+                id: id
+            }
 
-			function addGuests(user) {
+            $.ajax({
+                type: "POST",
+                url: k,
+                data: data,
+                success: function() {
+                    alert("successfull");
 
-				levelTxnIdsArray.push(user);
+                    console.log(data);
+                },
+                error: function(XMLHttpRequest, errorThrown) {
+                    alert("Error: " + errorThrown);
+                }
+            });
+            window.location = "/outRequest";
+        }
+        </script>
+        <script>
+        function all() {}
+        $('#tableid').find('input').each(function() {
+            alert(this.value);
+        });
+        </script>
+        <script>
+        $(function() {
+            $("#submitButton")
+                .click(
+                    function() {
+                        var IDs = [];
+                        var de = "[id=15, softDelete=false, customerID=9, warehouseID=9, orderID=9, level1Name=Pallet, level1Value=1.70420102712E11, level2Name=Container, level2Value=1.7010400336E10, level3Name=null, level3Value=null, inputTxnId=18]";
+                        IDs.push(de);
+                        $(".table-condensed input:checked").each(
+                            function() {
+                                var a = $(this).parent().attr(
+                                    "id");
+                                console.log(a);
 
-			}
+                                IDs.push(a);
+                            });
+                        submitCall(IDs);
+                    });
+        });
+        </script>
+        <script>
+        $(function() {
+            $('#checkAll').click(function() {
 
-			function submitCall(ids) {
-				var k = '/saveAndGetInputTxns/final';
-				var id = $('#id').val();
-				var customerId = $('#customerId').val();
-				var warehouseID = $('#warehouseID').val();
-				var orderID = $('#orderID').val();
+                $(".table-condensed input:checkbox").each(function() {
+                    this.checked = true;
+                });
 
-				var data = {
-					data : ids,
-					customerId : customerId,
-					warehouseID : warehouseID,
-					orderID : orderID,
-					id : id
-				}
+            });
+        });
+        </script>
+        <script>
+        $(function() {
+            $('#uncheckAll').click(function() {
 
-				$.ajax({
-					type : "POST",
-					url : k,
-					data : data,
-					success : function() {
-						alert("successfull");
+                $(".table-condensed input:checkbox").each(function() {
+                    this.checked = false;
+                });
 
-						console.log(data);
-					},
-					error : function(XMLHttpRequest, errorThrown) {
-						alert("Error: " + errorThrown);
-					}
-				});
-				window.location = "/outRequest";
-			}
-		</script>
-
-
-		<script>
-			function all() {
-			}
-			$('#tableid').find('input').each(function() {
-				alert(this.value);
-			});
-		</script>
-
-		<script>
-			$(function() {
-				$("#submitButton")
-						.click(
-								function() {
-									var IDs = [];
-									var de = "[id=15, softDelete=false, customerID=9, warehouseID=9, orderID=9, level1Name=Pallet, level1Value=1.70420102712E11, level2Name=Container, level2Value=1.7010400336E10, level3Name=null, level3Value=null, inputTxnId=18]";
-									IDs.push(de);
-									$(".table-condensed input:checked").each(
-											function() {
-												var a = $(this).parent().attr(
-														"id");
-												console.log(a);
-
-												IDs.push(a);
-											});
-									submitCall(IDs);
-								});
-			});
-		</script>
-
-		<script>
-			$(function() {
-				$('#checkAll').click(function() {
-
-					$(".table-condensed input:checkbox").each(function() {
-						this.checked = true;
-					});
-
-				});
-			});
-		</script>
-
-		<script>
-			$(function() {
-				$('#uncheckAll').click(function() {
-
-					$(".table-condensed input:checkbox").each(function() {
-						this.checked = false;
-					});
-
-				});
-			});
-		</script>
-
-
-		<div class="footerCont">
-	
-
-	<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-
-
-
-
-		<h1>INPUT TRANSACTION Listing</h1>
-
-
-
-
-
-		<input type="hidden" id="id" th:value="${outData.id}" /> <input
-			type="hidden" id="customerId" th:value="${outData.customerId}" /> <input
-			type="hidden" id="warehouseID" th:value="${outData.warehouseID}" />
-		<input type="hidden" id="orderID" th:value="${outData.orderID}" />
-
-
-
-
-
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="text-right">
-					<button class="btn btn-default" th:id="submitButton" name="MarkOut"
-						type="button">Submit</button>
-
-
-					<button class="btn btn-default" th:id="checkAll" name="MarkOut1"
-						type="button">checkAll</button>
-
-					<button class="btn btn-default" th:id="uncheckAll" name="MarkOut1"
-						type="button">uncheckAll</button>
-				</div>
-			</div>
-		</div>
-
-
-		<table class="table-condensed" th:id="tableid">
-
-
-
-
-			<tr>
-				<th>ID</th>
-				<th>customerID</th>
-				<th>warehouseID</th>
-				<th>orderID</th>
-				<!--  <th>product</th>
+            });
+        });
+        </script>
+        <div class="footerCont">
+            <div>
+                <div th:replace="fragments/header :: header"></div>
+            </div>
+            <!--   <h1>INPUT TRANSACTION Listing</h1> -->
+            <input type="hidden" id="id" th:value="${outData.id}" />
+            <input type="hidden" id="customerId" th:value="${outData.customerId}" />
+            <input type="hidden" id="warehouseID" th:value="${outData.warehouseID}" />
+            <input type="hidden" id="orderID" th:value="${outData.orderID}" />
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-right">
+                        <button class="btn btn-warning" th:id="submitButton" name="MarkOut" type="button">Submit</button>
+                        <button class="btn btn-warning" th:id="checkAll" name="MarkOut1" type="button">checkAll</button>
+                        <button class="btn btn-warning" th:id="uncheckAll" name="MarkOut1" type="button">uncheckAll</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2" style="margin-top:2%;margin-bottom:3%">
+                <div class="panel panel-warning">
+                    <div class="panel-heading"><strong>Input Transaction Listing</strong></div>
+                    <div class="panel-body">
+                        <table class="table-condensed" th:id="tableid">
+                            <tr>
+                                <th>ID</th>
+                                <th>customerID</th>
+                                <th>warehouseID</th>
+                                <th>orderID</th>
+                                <!--  <th>product</th>
 				<th>principalCompany</th>
 				<th>uom</th>
 				<th>identifierID</th>
 				<th>model</th>-->
-				<th>level1Name</th>
-				<th>level1Value</th>
-				<th>level2Name</th>
-				<th>level2Value</th>
-				<th>level3Name</th>
-				<th>level3Value</th>
-
-			</tr>
-
-
-			<tr th:each="user: ${users}">
-				<td th:text="${user.id}">..</td>
-				<td th:text="${user.customerID}">..</td>
-				<td th:text="${user.warehouseID}">..</td>
-				<td th:text="${user.orderID}">..</td>
-				<!--  <td th:text="${user.inputTxn.product}">..</td>
+                                <th>level1Name</th>
+                                <th>level1Value</th>
+                                <th>level2Name</th>
+                                <th>level2Value</th>
+                                <th>level3Name</th>
+                                <th>level3Value</th>
+                            </tr>
+                            <tr th:each="user: ${users}">
+                                <td th:text="${user.id}">..</td>
+                                <td th:text="${user.customerID}">..</td>
+                                <td th:text="${user.warehouseID}">..</td>
+                                <td th:text="${user.orderID}">..</td>
+                                <!--  <td th:text="${user.inputTxn.product}">..</td>
 				<td th:text="${user.inputTxn.principalCompany}">..</td>
 				<td th:text="${user.inputTxn.uom}">..</td>
 				<td th:text="${user.inputTxn.identifierID}">..</td>
 				<td th:text="${user.inputTxn.model}">..</td>-->
-				<td th:text="${user.level1Name}">..</td>
-				<td th:text="${user.level1Value}">..</td>
-				<td th:text="${user.level2Name}">..</td>
-				<td th:text="${user.level2Value}">..</td>
-				<td th:text="${user.level3Name}">..</td>
-				<td th:text="${user.level3Value}">..</td>
-				<td th:id="${user}"><input type="checkbox" th:name="foo"
-					th:value="${user.softDelete}"></input></td>
-			</tr>
-
-
-
-		</table>
-
-
-
-		<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
-
-	</div>
-
+                                <td th:text="${user.level1Name}">..</td>
+                                <td th:text="${user.level1Value}">..</td>
+                                <td th:text="${user.level2Name}">..</td>
+                                <td th:text="${user.level2Value}">..</td>
+                                <td th:text="${user.level3Name}">..</td>
+                                <td th:text="${user.level3Value}">..</td>
+                                <td th:id="${user}">
+                                    <input type="checkbox" th:name="foo" th:value="${user.softDelete}"></input>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="footerCont">
+                <div th:replace="fragments/footer :: footer"></div>
+            </div>
+        </div>
 </body>
+
 </html>
