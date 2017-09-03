@@ -1,171 +1,133 @@
-
-
-
-
-
-
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Create WareHouse Form</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/registration.css}" />
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-	src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-</script>
+    <title>Create WareHouse Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" >
+    </script>
 </head>
+
 <body>
-
-
-	<div>
-		<div th:replace="fragments/header :: header"></div>
-	</div>
-
-
-
-
-
-	<div class="container ">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-
-				<form autocomplete="off" action="#"
-					th:action="@{/create/data/orderRequest}"
-					th:object="${orderRequest}" method="post" class="form-horizontal"
-					role="form">
-					<h2>Order Request Form</h2>
-					<div class="form-inline">
-						<div class="form-inline">
-
-
-							<label>ManagerApproval</label> <input type="checkbox"
-								th:field="*{managerApproval}" class="form-control" /> <label>DocumentReceived</label>
-							<input type="checkbox" th:field="*{documentReceived}"
-								class="form-control" /> <label>wareConfirmation</label> <input
-								type="checkbox" th:field="*{wareConfirmation}">
-						</div>
-
-
-						<label>OrderID</label> <input type="text" th:field="*{orderID}"
-							placeholder="orderID" class="form-control" /> <label
-							th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
-							class="validation-message"></label> <label>date-started</label> <input
-							type="date" th:value="*{orderDate}" th:field="*{orderDate}"
-							id="date-started" />
-						<!--  
-<label
-							th:if="${#fields.hasErrors('orderDate')}"
-							th:errors="*{orderDate}" class="validation-message"></label>
-<input
-							type="date" th:field="*{orderDate}" placeholder="orderDate"
-							class="form-control" />
-					
--->
-					</div>
-					<div class="form-inline">
-
-						<label>OrderType</label> <input type="text"
-							th:field="*{orderType}" placeholder="orderType"
-							readonly="readonly" class="form-control" /> <label
-							th:if="${#fields.hasErrors('orderType')}"
-							th:errors="*{orderType}" class="validation-message"></label><label>CustomerID</label>
-						<input type="text" th:field="*{customerID}"
-							placeholder="customerID" class="form-control" /> <label
-							th:if="${#fields.hasErrors('customerID')}"
-							th:errors="*{customerID}" class="validation-message"></label>
-					</div>
-
-					<div class="form-inline">
-
-
-						<label>WarehouseID</label> <input type="text"
-							th:field="*{warehouseID}" placeholder="warehouseID"
-							class="form-control" /> <label
-							th:if="${#fields.hasErrors('warehouseID')}"
-							th:errors="*{warehouseID}" class="validation-message"></label> <label>RequestRaisedBy</label>
-						<input type="text" th:field="*{requestRaisedBy}"
-							placeholder="requestRaisedBy" class="form-control" /> <label
-							th:if="${#fields.hasErrors('requestRaisedBy')}"
-							th:errors="*{requestRaisedBy}" class="validation-message"></label>
-
-
-					</div>
-
-
-					<div class="form-inline">
-
-
-						<!-- 	<input type="text" th:field="*{wareConfirmation}"
-								placeholder="wareConfirmation" class="form-control" /> <label
-								th:if="${#fields.hasErrors('wareConfirmation')}"
-								th:errors="*{wareConfirmation}" class="validation-message"></label> -->
-
-					</div>
-					<div class="form-inline">
-
-
-
-						<label>RatePerUnitPerDay</label><input type="text"
-							th:field="*{ratePerUnitPerDay}" placeholder="ratePerUnitPerDay"
-							class="form-control" /> <label
-							th:if="${#fields.hasErrors('ratePerUnitPerDay')}"
-							th:errors="*{ratePerUnitPerDay}" class="validation-message"></label>
-						<label>LoadingCharge</label> <input type="text"
-							th:field="*{loadingCharge}" placeholder="loadingCharge"
-							class="form-control" /> <label
-							th:if="${#fields.hasErrors('loadingCharge')}"
-							th:errors="*{loadingCharge}" class="validation-message"></label>
-
-					</div>
-
-					<div class="form-inline">
-						<labe>UnloadingCharge</labe>
-						<input type="text" th:field="*{unloadingCharge}"
-							placeholder="unloadingCharge" class="form-control" /> <label
-							th:if="${#fields.hasErrors('unloadingCharge')}"
-							th:errors="*{unloadingCharge}" class="validation-message"></label>
-
-						<lable>OtherCharge</lable>
-						<input type="text" th:field="*{otherCharge}"
-							placeholder="otherCharge" class="form-control" /> <label
-							th:if="${#fields.hasErrors('otherCharge')}"
-							th:errors="*{otherCharge}" class="validation-message"></label>
-
-
-
-
-					</div>
-
-					<div class="form-inline">
-
-
-						<label>uom</label><input type="text" th:field="*{uom}"
-							placeholder="uom" class="form-control" /> <label
-							th:if="${#fields.hasErrors('uom')}" th:errors="*{uom}"
-							class="validation-message"></label>
-
-						<button type="submit" class="btn btn-primary ">Create
-							Order Request</button>
-
-					</div>
-
-
-					<span th:utext="${successMessage}"></span>
-				</form>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="footerCont">
-
-
-		<div th:replace="fragments/footer :: footer"></div>
-	</div>
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <div class="col-md-8 col-md-offset-2" style="margin-top:2%;margin-bottom:3%">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><strong>Order Request Form Testing</strong></div>
+            <div class="panel-body">
+                <form autocomplete="off" action="#" th:action="@{/create/data/orderRequest}" th:object="${orderRequest}" method="post" class="form-horizontal" role="form">
+                    <!--  <h2>Order Request Form Testing</h2> -->
+                    <!--   <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="form-inline">
+                                <label>ManagerApproval</label>
+                                <input type="checkbox" th:field="*{managerApproval}" class="form-control" />
+                                <label>DocumentReceived</label>
+                                <input type="checkbox" th:field="*{documentReceived}" class="form-control" />
+                                <label>wareConfirmation</label>
+                                <input type="checkbox" th:field="*{wareConfirmation}">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="control-group">
+                                <!--  <span class="control-label">ManagerApproval</span> -->
+                                <div class="controls form-inline">
+                                    <label for="inputKey">ManagerApproval</label>
+                                    <input type="checkbox" th:field="*{managerApproval}" />
+                                    <label>DocumentReceived</label>
+                                    <input type="checkbox" th:field="*{documentReceived}" />
+                                    <label>wareConfirmation</label>
+                                    <input type="checkbox" th:field="*{wareConfirmation}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>OrderID</label>
+                            <label th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}" class="validation-message"></label>
+                            <input type="text" th:field="*{orderID}" placeholder="orderID" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Date-started</label>
+                            <input type="date" class="form-control" th:value="*{orderDate}" th:field="*{orderDate}" id="date-started" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>OrderType</label>
+                            <label th:if="${#fields.hasErrors('orderType')}" th:errors="*{orderType}" class="validation-message"></label>
+                            <input type="text" th:field="*{orderType}" placeholder="orderType" readonly="readonly" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>CustomerID</label>
+                            <label th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}" class="validation-message"></label>
+                            <input type="text" th:field="*{customerID}" placeholder="customerID" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 ">
+                            <label>WarehouseID</label>
+                            <input type="text" th:field="*{warehouseID}" placeholder="warehouseID" class="form-control" />
+                            <label th:if="${#fields.hasErrors('warehouseID')}" th:errors="*{warehouseID}" class="validation-message"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>RequestRaisedBy</label>
+                            <input type="text" th:field="*{requestRaisedBy}" placeholder="requestRaisedBy" class="form-control" />
+                            <label th:if="${#fields.hasErrors('requestRaisedBy')}" th:errors="*{requestRaisedBy}" class="validation-message"> </label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>RatePerUnitPerDay</label>
+                            <input type="text" th:field="*{ratePerUnitPerDay}" placeholder="ratePerUnitPerDay" class="form-control" />
+                            <label th:if="${#fields.hasErrors('ratePerUnitPerDay')}" th:errors="*{ratePerUnitPerDay}" class="validation-message"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>LoadingCharge</label>
+                            <input type="text" th:field="*{loadingCharge}" placeholder="loadingCharge" class="form-control" />
+                            <label th:if="${#fields.hasErrors('loadingCharge')}" th:errors="*{loadingCharge}" class="validation-message"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>UnloadingCharge</label>
+                            <input type="text" th:field="*{unloadingCharge}" placeholder="unloadingCharge" class="form-control" />
+                            <label th:if="${#fields.hasErrors('unloadingCharge')}" th:errors="*{unloadingCharge}" class="validation-message"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>OtherCharge</label>
+                            <input type="text" th:field="*{otherCharge}" placeholder="otherCharge" class="form-control" />
+                            <label th:if="${#fields.hasErrors('otherCharge')}" th:errors="*{otherCharge}" class="validation-message"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Uom</label>
+                            <input type="text" th:field="*{uom}" placeholder="uom" class="form-control" />
+                            <label th:if="${#fields.hasErrors('uom')}" th:errors="*{uom}" class="validation-message"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-warning" style="width:31%;">Create Order Request</button>
+                        </div>
+                    </div>
+                    <span th:utext="${successMessage}"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  <div class="footerCont">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div> -->
 </body>
+
 </html>
