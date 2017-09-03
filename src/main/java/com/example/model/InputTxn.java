@@ -43,8 +43,11 @@ public class InputTxn implements java.io.Serializable{
   @Column(name = "id")
   private int id;
   
-  @Column(name = "softDelete")
-  private boolean softDelete = false;
+//  @Column(name = "softDelete")
+//  private boolean softDelete = false;
+
+  @Column(name = "softDelete", columnDefinition = "boolean default false", nullable = false)
+  private Boolean softDelete = false;
  
   @Temporal(TemporalType.TIMESTAMP)
   private Date inDateTime;
@@ -850,6 +853,8 @@ public class InputTxn implements java.io.Serializable{
     this.attribute5Name = attribute5Name;
     this.attribute5Value = attribute5Value;
     this.description = description;
+    
+    this.softDelete = false;
   }
 
   /**

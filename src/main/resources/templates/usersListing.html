@@ -22,7 +22,7 @@
                         <th>FirstNAME</th>
                         <th>LastName</th>
                         <th>Email</th>
-                        <th>Password</th>
+                        <th>Inventory</th>
                         <th>Roles</th>
                         <th>User</th>
                     </tr>
@@ -31,7 +31,9 @@
                         <td th:text="${user.name}">..</td>
                         <td th:text="${user.lastName}">..</td>
                         <td th:text="${user.email}">..</td>
-                        <td th:text="${user.password}">..</td>
+                       <td><a
+						th:href="@{'/inventoryby/customer?customerID=' + ${user.id}}">view</a>
+					</td>
                         <td>
                             <li th:each="role : ${user.roles}" th:text="${role.role}">Item description here...</li>
                         </td>
