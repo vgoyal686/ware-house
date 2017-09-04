@@ -39,114 +39,114 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Order ID</label>
-                            <input type="text" th:field="*{orderID}" placeholder="orderID" class="form-control" />
+                            <input type="text" th:field="*{orderID}" placeholder="Enter orderID" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Date Started</label>
-                            <input type="date" class="form-control" th:value="*{orderDate}" th:field="*{orderDate}" id="date-started" />
+                            <input type="date" class="form-control" th:value="*{orderDate}" th:field="*{orderDate}" id="date-started" required/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Order Type</label>
-                            <input type="text" th:field="*{orderType}" placeholder="orderType" readonly="readonly" class="form-control" />
+                            <input type="text" th:field="*{orderType}" placeholder="Enter orderType" readonly="readonly" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('orderType')}" th:errors="*{orderType}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Customer ID</label>
-                            <input type="text" th:field="*{customerID}" placeholder="customerID" class="form-control" />
+                            <input type="text" th:field="*{customerID}" placeholder="Enter customerID" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Warehouse ID</label>
-                            <input type="text" th:field="*{warehouseID}" placeholder="warehouseID" class="form-control" />
+                            <input type="text" th:field="*{warehouseID}" placeholder="Enter warehouseID" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('warehouseID')}" th:errors="*{warehouseID}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Request Raised By</label>
-                            <input type="text" th:field="*{requestRaisedBy}" placeholder="requestRaisedBy" class="form-control" />
+                            <input type="text" th:field="*{requestRaisedBy}" placeholder="Enter requestRaisedBy" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('requestRaisedBy')}" th:errors="*{requestRaisedBy}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Rate PerUnitPerDay</label>
-                            <input type="text" th:field="*{ratePerUnitPerDay}" placeholder="ratePerUnitPerDay" class="form-control" />
+                            <input type="text" th:field="*{ratePerUnitPerDay}" placeholder="Enter ratePerUnitPerDay" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('ratePerUnitPerDay')}" th:errors="*{ratePerUnitPerDay}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Loading Charge</label>
-                            <input type="text" th:field="*{loadingCharge}" placeholder="loadingCharge" class="form-control" />
+                            <input type="text" th:field="*{loadingCharge}" placeholder="Enter loadingCharge" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('loadingCharge')}" th:errors="*{loadingCharge}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Unloading Charge</label>
-                            <input type="text" th:field="*{unloadingCharge}" placeholder="unloadingCharge" class="form-control" />
+                            <input type="text" th:field="*{unloadingCharge}" placeholder="Enter unloadingCharge" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('unloadingCharge')}" th:errors="*{unloadingCharge}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Other Charge</label>
-                            <input type="text" th:field="*{otherCharge}" placeholder="otherCharge" class="form-control" />
+                            <input type="text" th:field="*{otherCharge}" placeholder="Enter otherCharge" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('otherCharge')}" th:errors="*{otherCharge}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Buyer Name</label>
-                            <input type="text" th:field="*{buyerName}" placeholder="buyerName" class="form-control" />
+                            <input type="text" th:field="*{buyerName}" placeholder="Enter buyerName" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('buyerName')}" th:errors="*{buyerName}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
-                            <label>BuyerEmail</label>
-                            <input type="text" th:field="*{buyerEmail}" placeholder="buyerEmail" class="form-control" />
+                            <label>Buyer Email</label>
+                            <input type="email" th:field="*{buyerEmail}" placeholder="Enter buyerEmail" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('buyerEmail')}" th:errors="*{buyerEmail}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Buyer PhoneNumber</label>
-                            <input type="text" th:field="*{buyerPhoneNumber}" placeholder="buyerPhoneNumber" class="form-control" />
+                            <input type="text" th:field="*{buyerPhoneNumber}" placeholder="Enter buyerPhoneNumber" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('buyerPhoneNumber')}" th:errors="*{buyerPhoneNumber}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Consignee Address</label>
-                            <input type="text" th:field="*{consigneeAddress}" placeholder="consigneeAddress" class="form-control" />
+                            <input type="text" th:field="*{consigneeAddress}" placeholder="Enter consigneeAddress" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('consigneeAddress')}" th:errors="*{consigneeAddress}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Invoice Number</label>
-                            <input type="text" th:field="*{invoiceNumber}" placeholder="invoiceNumber" class="form-control" />
+                            <input type="text" th:field="*{invoiceNumber}" placeholder="Enter invoiceNumber" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('invoiceNumber')}" th:errors="*{invoiceNumber}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Pin Code</label>
-                            <input type="text" th:field="*{pinCode}" placeholder="pinCode" class="form-control" />
+                            <input type="text" th:field="*{pinCode}" placeholder="Enter pinCode" class="form-control" />
                             <label th:if="${#fields.hasErrors('pinCode')}" th:errors="*{pinCode}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Truck Number</label>
-                            <input type="text" th:field="*{truckNumber}" placeholder="truckNumber" class="form-control" />
+                            <input type="text" th:field="*{truckNumber}" placeholder="Enter truckNumber" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('truckNumber')}" th:errors="*{truckNumber}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Mode Of Transfer</label>
-                            <input type="text" th:field="*{modeOfTransfer}" placeholder="modeOfTransfer" class="form-control" />
+                            <input type="text" th:field="*{modeOfTransfer}" placeholder="Enter modeOfTransfer" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('modeOfTransfer')}" th:errors="*{modeOfTransfer}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Transportation Cost</label>
-                            <input type="text" th:field="*{transportationCost}" placeholder="transportationCost" class="form-control" />
+                            <input type="text" th:field="*{transportationCost}" placeholder="Enter transportationCost" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('transportationCost')}" th:errors="*{transportationCost}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
@@ -158,12 +158,12 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Tracking ID</label>
-                            <input type="text" th:field="*{trackingID}" placeholder="trackingID" class="form-control" />
+                            <input type="text" th:field="*{trackingID}" placeholder="Enter trackingID" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('trackingID')}" th:errors="*{trackingID}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>Uom</label>
-                            <input type="text" th:field="*{uom}" placeholder="uom" class="form-control" />
+                            <input type="text" th:field="*{uom}" placeholder="uom" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('uom')}" th:errors="*{uom}" class="validation-message"></label>
                         </div>
                     </div>

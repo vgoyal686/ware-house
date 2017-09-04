@@ -52,65 +52,65 @@
                         <div class="col-md-6">
                             <label>OrderID</label>
                             <label th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}" class="validation-message"></label>
-                            <input type="text" th:field="*{orderID}" placeholder="orderID" class="form-control" />
+                            <input type="text" th:field="*{orderID}" placeholder="orderID" class="form-control" required="" />
                         </div>
                         <div class="col-md-6">
                             <label>Date-started</label>
-                            <input type="date" class="form-control" th:value="*{orderDate}" th:field="*{orderDate}" id="date-started" />
+                            <input type="date" class="form-control" th:value="*{orderDate}" th:field="*{orderDate}" id="date-started" required/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>OrderType</label>
                             <label th:if="${#fields.hasErrors('orderType')}" th:errors="*{orderType}" class="validation-message"></label>
-                            <input type="text" th:field="*{orderType}" placeholder="orderType" readonly="readonly" class="form-control" />
+                            <input type="text" th:field="*{orderType}" placeholder="orderType" readonly="readonly" class="form-control" required/>
                         </div>
                         <div class="col-md-6">
                             <label>CustomerID</label>
                             <label th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}" class="validation-message"></label>
-                            <input type="text" th:field="*{customerID}" placeholder="customerID" class="form-control" />
+                            <input type="text" th:field="*{customerID}" placeholder="customerID" class="form-control" required/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6 ">
                             <label>WarehouseID</label>
-                            <input type="text" th:field="*{warehouseID}" placeholder="warehouseID" class="form-control" />
+                            <input type="text" th:field="*{warehouseID}" placeholder="warehouseID" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('warehouseID')}" th:errors="*{warehouseID}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>RequestRaisedBy</label>
-                            <input type="text" th:field="*{requestRaisedBy}" placeholder="requestRaisedBy" class="form-control" />
+                            <input type="text" th:field="*{requestRaisedBy}" placeholder="requestRaisedBy" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('requestRaisedBy')}" th:errors="*{requestRaisedBy}" class="validation-message"> </label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>RatePerUnitPerDay</label>
-                            <input type="text" th:field="*{ratePerUnitPerDay}" placeholder="ratePerUnitPerDay" class="form-control" />
+                            <input type="text" th:field="*{ratePerUnitPerDay}" placeholder="ratePerUnitPerDay" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('ratePerUnitPerDay')}" th:errors="*{ratePerUnitPerDay}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>LoadingCharge</label>
-                            <input type="text" th:field="*{loadingCharge}" placeholder="loadingCharge" class="form-control" />
+                            <input type="text" th:field="*{loadingCharge}" placeholder="loadingCharge" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('loadingCharge')}" th:errors="*{loadingCharge}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>UnloadingCharge</label>
-                            <input type="text" th:field="*{unloadingCharge}" placeholder="unloadingCharge" class="form-control" />
+                            <input type="text" th:field="*{unloadingCharge}" placeholder="unloadingCharge" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('unloadingCharge')}" th:errors="*{unloadingCharge}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
                             <label>OtherCharge</label>
-                            <input type="text" th:field="*{otherCharge}" placeholder="otherCharge" class="form-control" />
+                            <input type="text" th:field="*{otherCharge}" placeholder="otherCharge" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('otherCharge')}" th:errors="*{otherCharge}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6">
                             <label>Uom</label>
-                            <input type="text" th:field="*{uom}" placeholder="uom" class="form-control" />
+                            <input type="text" th:field="*{uom}" placeholder="uom" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('uom')}" th:errors="*{uom}" class="validation-message"></label>
                         </div>
                     </div>
