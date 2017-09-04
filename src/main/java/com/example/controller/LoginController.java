@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -366,8 +367,6 @@ public class LoginController
 	public ModelAndView inOrderRequestSearch(@RequestParam(value = "search", required = false) String search,
 			Model model)
 	{
-		// Iterable<OrderRequest> orderRequests =
-		// orderRequestService.listByCustomerID(search);
 		Iterable<OrderRequest> orderRequests = orderRequestService.findByCustomerIDAndInOrderType(search);
 		model.addAttribute("orderRequests", orderRequests);
 		ModelAndView modelv = new ModelAndView();
@@ -609,12 +608,13 @@ public class LoginController
 	}
 
 	// storage
-	@RequestMapping(value = "/inventorydtoragecharges/customer", method = RequestMethod.GET)
-	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID()
+	@RequestMapping(value = "/inventorydtoragecharges/customer", method = RequestMethod.POST)
+	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID(
+			String customerId, @DateTimeFormat(pattern="yyyy-MM-dd") Date date)
 	{
-		String customerID = "1";
-		List<InventoryStorageDaysForMonth> results = inputTxnService
-				.findInventoryStorageChargesForMonthByCustomerID(customerID, new Date());
+
+		List<InventoryStorageDaysForMonth> results = inputTxnService.findInventoryStorageChargesForMonthByCustomerID(
+				customerId, date);
 		ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,
 				HttpStatus.OK);
 		return responseEntity;
@@ -635,11 +635,15 @@ public class LoginController
 	 * LOADING CHARGES
 	 ***************************************************/
 	@RequestMapping(value = "/inventoryloadingcharges/customer/list", method = RequestMethod.GET)
-	public ResponseEntity<List<InventoryLoadingChargesForMonth>> findInventoryLoadingChargesMonthByCustomerID()
+	public ResponseEntity<List<InventoryLoadingChargesForMonth>> findInventoryLoadingChargesMonthByCustomerID(
+			String customerId, @DateTimeFormat(pattern="yyyy-MM-dd") Date date)
 	{
-		String customerID = "1";
+		
+		
+		// String customerID = "1";
 		List<InventoryLoadingChargesForMonth> results = orderRequestService
-				.findInventoryLoadingChargesMonthByCustomerID(customerID, new Date());
+				.findInventoryLoadingChargesMonthByCustomerID(customerId,
+						date);
 		ResponseEntity<List<InventoryLoadingChargesForMonth>> responseEntity = new ResponseEntity<>(results,
 				HttpStatus.OK);
 		return responseEntity;
@@ -673,6 +677,10 @@ public class LoginController
 
 		ModelAndView modelAndView = new ModelAndView();
 
+		modelAndView.addObject("customerId", totalSumInputBean.getCustomerId());
+		modelAndView.addObject("date", totalSumInputBean.getOrderDate());
+
+		modelAndView.addObject("totalSumInputBean", totalSumInputBean);
 		modelAndView.addObject("sum", sumInventoryStorageAndLoadingChargesForMonth);
 		modelAndView.setViewName("SumResult");
 		return modelAndView;
