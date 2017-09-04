@@ -24,71 +24,89 @@
                     <!-- <h2>WareHouse Registration Form</h2> -->
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" th:field="*{name}" placeholder="Name" class="form-control" />
+                            <div class="">
+                                <div style="float:left">
+                                    <label>Name</label>
+                                </div>
+                                <input type="text" th:field="*{name}" placeholder="Enter name" class="form-control" />
                                 <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+                            <div class="">
+                                <div style="float:left">
+                                    <label>Email</label>
+                                </div>
+                                <input type="text" th:field="*{email}" placeholder="Enter email" class="form-control" />
                                 <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                <input type="text" th:field="*{phone1}" placeholder="phone1" class="form-control" />
+                            <div class="">
+                                <div style="float:left">
+                                    <label>Phone1</label>
+                                </div>
+                                <input type="text" th:field="*{phone1}" placeholder="Enter phone1" class="form-control" />
                                 <label th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}" class="validation-message"></label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-                                <input type="text" th:field="*{phone2}" placeholder="phone2" class="form-control" />
-                                <label th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone2}" class="validation-message"></label>
+                            <div>
+                                <div style="float:left">
+                                    <label>Phone2</label>
+                                </div>
+                                <input type="text" th:field="*{phone2}" placeholder="Enter phone2" class="form-control" />
+                                <label th:if="${#fields.hasErrors('phone2')}" th:errors="*{phone2}" class="validation-message"></label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                <input type="text" th:field="*{totalspace}" placeholder="totalspace" class="form-control" />
+                            <div>
+                                <div style="float:left">
+                                    <label>Total Space</label>
+                                </div>
+                                <input type="text" th:field="*{totalspace}" placeholder="Enter total space" class="form-control" />
                                 <label th:if="${#fields.hasErrors('totalspace')}" th:errors="*{totalspace}" class="validation-message"></label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                <input type="text" th:field="*{availablespace}" placeholder="availablespace" class="form-control" />
+                            <div>
+                                <div style="float:left">
+                                    <label>Available Space</label>
+                                </div>
+                                <input type="text" th:field="*{availablespace}" placeholder="Enter available space" class="form-control" />
                                 <label th:if="${#fields.hasErrors('availablespace')}" th:errors="*{availablespace}" class="validation-message"></label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                                <input type="text" th:field="*{state}" placeholder="state" class="form-control" />
+                            <div>
+                                <div style="float:left">
+                                    <label>State</label>
+                                </div>
+                                <input type="text" th:field="*{state}" placeholder="Enter state" class="form-control" />
                                 <label th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="validation-message"></label>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                <input type="text" th:field="*{city}" placeholder="city" class="form-control" />
+                            <div>
+                                <div style="float:left">
+                                    <label>City</label>
+                                </div>
+                                <input type="text" th:field="*{city}" placeholder="Enter city" class="form-control" />
                                 <label th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="validation-message"></label>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="input-group ">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
-                                <input type="text" th:field="*{pincode}" placeholder="pincode" class="form-control" />
+                            <div style="float:left">
+                                <div style="float:left">
+                                    <label>Pincode</label>
+                                </div>
+                                <input type="text" th:field="*{pincode}" placeholder="Enter pincode" class="form-control" />
                                 <label th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}" class="validation-message"></label>
                             </div>
                         </div>
@@ -102,9 +120,9 @@
             </div>
         </div>
     </div>
-    <div class="footerCont">
+    <!-- <div class="footerCont">
         <div th:replace="fragments/footer :: footer"></div>
-    </div>
+    </div> -->
 </body>
 
 </html>
