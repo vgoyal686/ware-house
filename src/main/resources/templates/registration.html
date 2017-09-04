@@ -11,9 +11,9 @@
 </head>
 
 <body>
-    <!--  	<form th:action="@{/}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
-	</form>	
+    <!--    <form th:action="@{/}" method="get">
+        <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+    </form> 
 -->
     <div>
         <div th:replace="fragments/header :: header"></div>
@@ -27,40 +27,40 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
                             <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>
-                            <input type="text" th:field="*{name}" placeholder="First Name" class="form-control" />
+                            <input type="text" th:field="*{name}" placeholder="First Name" class="form-control" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
                             <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="validation-message"></label>
-                            <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" />
+                            <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                            <select th:field="*{roles}" class="form-control" multiple>
-                                <option th:each="s : ${roleAdd}" th:value="${s.id}" th:text="${s.role}"></option>
+                            <select th:field="*{roles}" class="form-control" multiple required>
+                                <option th:each="s : ${roleAdd}" th:value="${s.id}" th:text="${s.role}">
                             </select>
                         </div>
                     </div>
                     <!--  <div class="form-group">
-						<div class="col-sm-9">
-							<input type="text" th:field="*{active}" placeholder="Is Active"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('active')}" th:errors="*{active}"
-								class="validation-message"></label>
-						</div>
-					</div>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{active}" placeholder="Is Active"
+                                class="form-control" /> <label
+                                th:if="${#fields.hasErrors('active')}" th:errors="*{active}"
+                                class="validation-message"></label>
+                        </div>
+                    </div>
 -->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                            <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+                            <input type="email" th:field="*{email}" pattern="[^ @]*@[^ @]*" placeholder="Email" class="form-control" required="" />
                             <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                            <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                            <input type="password" th:field="*{password}" placeholder="Password" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
                         </div>
                     </div>
