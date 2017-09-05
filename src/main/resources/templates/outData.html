@@ -1,96 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/main.css}" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 
 <body>
-
-	<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-
-
-	<form class="form" action="#" th:action="@{/outDataRequest}"
-		th:object="${outData}" method="post">
-		<table class="table">
-			<tr>
-				<td>Level:</td>
-				<td><select th:field="*{levelCat}" id="dropOperator">
-
-						<option th:each="levelOption : ${levelOptions}"
-							th:value="${levelOption}" th:text="${levelOption}"></option>
-				</select></td>
-
-				<td th:if="${#fields.hasErrors('levelCat')}" th:errors="*{levelCat}">Title
-					error message</td>
-			</tr>
-			<tr>
-				<td>Level Name:</td>
-				<td><input type="text" th:field="*{levelName}" /></td>
-				<td th:if="${#fields.hasErrors('levelName')}"
-					th:errors="*{levelName}">Content error message</td>
-			</tr>
-			<tr>
-				<td>Level Value:</td>
-				<td><input type="text" th:field="*{levelValue}" /></td>
-				<td th:if="${#fields.hasErrors('levelValue')}"
-					th:errors="*{levelValue}">Content error message</td>
-			</tr>
-
-
-
-		</table>
-
-		<label>id</label><input type="text" th:field="*{id}"
-			class="form-control" /> <label>customerId</label> <input type="text"
-			th:field="*{customerId}" class="form-control" /> <label>warehouseID</label>
-
-		<input type="text" th:field="*{warehouseID}" class="form-control" />
-
-		<label>orderID</label> <input type="text" th:field="*{orderID}"
-			class="form-control" />
-
-
-		<div style="text-align: center;">
-			<button class="btn btn-default" type="submit">Submit post</button>
-		</div>
-
-	</form>
-
-
-
-
-
-
-
-
-	<!-- Results block -->
-	<!-- 	<div id="resultsBlock"></div> -->
-
-
-
-
-
-	<!-- Pagination Bar -->
-
-	<input type="hidden" id="jsonBom" th:value="${psize}" />
-
-
-
-
-
-
-
-
-	<!--  	<span th:each='item : ${page.items}'>
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <div class="col-md-8 col-md-offset-2 text-center" style="margin-top:4%;">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><strong>WareHouse Form</strong></div>
+            <div class="panel-body">
+                <form class="form" action="#" th:action="@{/outDataRequest}" th:object="${outData}" method="post">
+                    <table class="table">
+                        <tr>
+                            <td>Level:</td>
+                            <td>
+                                <select th:field="*{levelCat}" id="dropOperator">
+                                    <option th:each="levelOption : ${levelOptions}" th:value="${levelOption}" th:text="${levelOption}"></option>
+                                </select>
+                            </td>
+                            <td th:if="${#fields.hasErrors('levelCat')}" th:errors="*{levelCat}">Title error message</td>
+                        </tr>
+                        <tr>
+                            <td>Level Name:</td>
+                            <td>
+                                <input type="text" th:field="*{levelName}" />
+                            </td>
+                            <td th:if="${#fields.hasErrors('levelName')}" th:errors="*{levelName}">Content error message</td>
+                        </tr>
+                        <tr>
+                            <td>Level Value:</td>
+                            <td>
+                                <input type="text" th:field="*{levelValue}" />
+                            </td>
+                            <td th:if="${#fields.hasErrors('levelValue')}" th:errors="*{levelValue}">Content error message</td>
+                        </tr>
+                    </table>
+                    <label>id</label>
+                    <input type="text" th:field="*{id}" class="form-control" />
+                    <label>customerId</label>
+                    <input type="text" th:field="*{customerId}" class="form-control" />
+                    <label>warehouseID</label>
+                    <input type="text" th:field="*{warehouseID}" class="form-control" />
+                    <label>orderID</label>
+                    <input type="text" th:field="*{orderID}" class="form-control" />
+                    <div style="text-align: center;">
+                        <button class="btn btn-default" type="submit">Submit post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Results block -->
+    <!-- 	<div id="resultsBlock"></div> -->
+    <!-- Pagination Bar -->
+    <input type="hidden" id="jsonBom" th:value="${psize}" />
+    <!--  	<span th:each='item : ${page.items}'>
 		<button id="searchButton" name="searchButton"
 			th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
 			type="button" th:text='${item.number}'></button>
@@ -98,9 +69,7 @@
 
 
 -->
-
-
-	<!-- 	<script>
+    <!-- 	<script>
 		function retrieveGuests(url, page, size) {
 			//	 url = '/th-spring-integration/spring/guests';
 			var k = url + "?page=" + page + "&size=" + size;
@@ -115,14 +84,9 @@
 	</script>
 	
  -->
-	<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
-
+    <div class="footerCont">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </body>
+
 </html>
-
-
-
