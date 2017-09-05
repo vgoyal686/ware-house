@@ -115,74 +115,72 @@
             });
         });
         </script>
-        <div class="footerCont">
-            <div>
-                <div th:replace="fragments/header :: header"></div>
-            </div>
-            <!--   <h1>INPUT TRANSACTION Listing</h1> -->
-            <input type="hidden" id="id" th:value="${outData.id}" />
-            <input type="hidden" id="customerId" th:value="${outData.customerId}" />
-            <input type="hidden" id="warehouseID" th:value="${outData.warehouseID}" />
-            <input type="hidden" id="orderID" th:value="${outData.orderID}" />
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="text-right">
-                        <button class="btn btn-warning" th:id="submitButton" name="MarkOut" type="button">Submit</button>
-                        <button class="btn btn-warning" th:id="checkAll" name="MarkOut1" type="button">checkAll</button>
-                        <button class="btn btn-warning" th:id="uncheckAll" name="MarkOut1" type="button">uncheckAll</button>
-                    </div>
+        <div>
+            <div th:replace="fragments/header :: header"></div>
+        </div>
+        <!--   <h1>INPUT TRANSACTION Listing</h1> -->
+        <input type="hidden" id="id" th:value="${outData.id}" />
+        <input type="hidden" id="customerId" th:value="${outData.customerId}" />
+        <input type="hidden" id="warehouseID" th:value="${outData.warehouseID}" />
+        <input type="hidden" id="orderID" th:value="${outData.orderID}" />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right">
+                    <button class="btn btn-warning" th:id="submitButton" name="MarkOut" type="button">Submit</button>
+                    <button class="btn btn-warning" th:id="checkAll" name="MarkOut1" type="button">checkAll</button>
+                    <button class="btn btn-warning" th:id="uncheckAll" name="MarkOut1" type="button">uncheckAll</button>
                 </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2" style="margin-top:2%;margin-bottom:3%">
-                <div class="panel panel-warning">
-                    <div class="panel-heading"><strong>Input Transaction Listing</strong></div>
-                    <div class="panel-body">
-                        <table class="table-condensed" th:id="tableid">
-                            <tr>
-                                <th>ID</th>
-                                <th>customerID</th>
-                                <th>warehouseID</th>
-                                <th>orderID</th>
-                                <!--  <th>product</th>
-				<th>principalCompany</th>
-				<th>uom</th>
-				<th>identifierID</th>
-				<th>model</th>-->
-                                <th>level1Name</th>
-                                <th>level1Value</th>
-                                <th>level2Name</th>
-                                <th>level2Value</th>
-                                <th>level3Name</th>
-                                <th>level3Value</th>
-                            </tr>
-                            <tr th:each="user: ${users}">
-                                <td th:text="${user.id}">..</td>
-                                <td th:text="${user.customerID}">..</td>
-                                <td th:text="${user.warehouseID}">..</td>
-                                <td th:text="${user.orderID}">..</td>
-                                <!--  <td th:text="${user.inputTxn.product}">..</td>
-				<td th:text="${user.inputTxn.principalCompany}">..</td>
-				<td th:text="${user.inputTxn.uom}">..</td>
-				<td th:text="${user.inputTxn.identifierID}">..</td>
-				<td th:text="${user.inputTxn.model}">..</td>-->
-                                <td th:text="${user.level1Name}">..</td>
-                                <td th:text="${user.level1Value}">..</td>
-                                <td th:text="${user.level2Name}">..</td>
-                                <td th:text="${user.level2Value}">..</td>
-                                <td th:text="${user.level3Name}">..</td>
-                                <td th:text="${user.level3Value}">..</td>
-                                <td th:id="${user}">
-                                    <input type="checkbox" th:name="foo" th:value="${user.softDelete}"></input>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="footerCont">
-                <div th:replace="fragments/footer :: footer"></div>
             </div>
         </div>
+        <div class="col-md-10 col-md-offset-1" style="margin-top:2%;margin-bottom:3%">
+            <div class="panel panel-warning">
+                <div class="panel-heading"><strong>Input Transaction Listing</strong></div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-responsive table-altered" th:id="tableid">
+                        <tr>
+                            <th>ID</th>
+                            <th>customerID</th>
+                            <th>warehouseID</th>
+                            <th>orderID</th>
+                            <!--  <th>product</th>
+                <th>principalCompany</th>
+                <th>uom</th>
+                <th>identifierID</th>
+                <th>model</th>-->
+                            <th>level1Name</th>
+                            <th>level1Value</th>
+                            <th>level2Name</th>
+                            <th>level2Value</th>
+                            <th>level3Name</th>
+                            <th>level3Value</th>
+                        </tr>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.id}">..</td>
+                            <td th:text="${user.customerID}">..</td>
+                            <td th:text="${user.warehouseID}">..</td>
+                            <td th:text="${user.orderID}">..</td>
+                            <!--  <td th:text="${user.inputTxn.product}">..</td>
+                <td th:text="${user.inputTxn.principalCompany}">..</td>
+                <td th:text="${user.inputTxn.uom}">..</td>
+                <td th:text="${user.inputTxn.identifierID}">..</td>
+                <td th:text="${user.inputTxn.model}">..</td>-->
+                            <td th:text="${user.level1Name}">..</td>
+                            <td th:text="${user.level1Value}">..</td>
+                            <td th:text="${user.level2Name}">..</td>
+                            <td th:text="${user.level2Value}">..</td>
+                            <td th:text="${user.level3Name}">..</td>
+                            <td th:text="${user.level3Value}">..</td>
+                            <td th:id="${user}">
+                                <input type="checkbox" th:name="foo" th:value="${user.softDelete}"></input>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--  <div class="footerCont">
+            <div th:replace="fragments/footer :: footer"></div>
+        </div> -->
 </body>
 
 </html>
