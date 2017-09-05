@@ -1,111 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
- <script th:href="@{/js/jquery.min.js}"></script>
-<script th:href="@{/js/bootstrap.min.js}"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
-<link rel="stylesheet" th:href="@{/css/main.css}"></link>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/registration.css}" ></link>
 
-  </head>
-  <body>
-  
+<head>
+    <script th:href="@{/js/jquery.min.js}"></script>
+    <script th:href="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/main.css}"></link>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"></link>
+</head>
+
+<body>
     <div th:fragment="footer">
-    
-    
-   <div class="footer">
-			<div class="container">
-				<div class="row">
-					<br /> <br />
-					<div class="col-sm-3 col-md-3 ">
-						<div class="footer-block">
-							<p>
-								<strong>COMPANY</strong>
-							</p>
-							<!-- ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs">
-								<li><a c href="/about">About Us</a></li>
-							</ul>
-							<!-- end ngRepeat: subLink in value.subLink -->
-
-							<!-- end ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs ">
-								<li><a href="/team">Team</a></li>
-							</ul>
-
-							<!-- end ngRepeat: subLink in value.subLink -->
-						</div>
-					</div>
-					<!-- end ngRepeat: (key, value) in footerLink -->
-					<div class="col-sm-3 col-md-3">
-						<div class="footer-block">
-							<p>
-								<strong>CATEGORIES</strong>
-							</p>
-							<!-- ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs ">
-								<li><a href="/products">Products</a></li>
-							</ul>
-							<!-- end ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs ">
-								<li><a href="/order">Orde</a>r</li>
-							</ul>
-							<!-- end ngRepeat: subLink in value.subLink -->
-						</div>
-					</div>
-					<!-- end ngRepeat: (key, value) in footerLink -->
-					<div class="col-sm-3 col-md-3 ">
-						<div class="footer-block">
-							<p>
-								<strong>OTHERS</strong>
-							</p>
-							<!-- ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs ">
-								<li><a href="/howItWork">How it Work</a></li>
-							</ul>
-							<!-- end ngRepeat: subLink in value.subLink -->
-							<ul class="list-unstyled hidden-xs ">
-								<li><a href="/blog">Blog</a></li>
-							</ul>
-
-							<!-- end ngRepeat: subLink in value.subLink -->
-						</div>
-					</div>
-					<!-- end ngRepeat: (key, value) in footerLink -->
-					<div class="col-sm-3 col-md-3 hidden-xs">
-						<div class="footer-block">
-							<p>
-								<strong>CONTACT US</strong>
-							</p>
-							<ul class="list-unstyled">
-								<li><a class="no-underline"
-									href="mailto:technosyshub@gmail.com">technosyshub@gmail.com</a></li>
-								<li><a class="no-underline"
-									href="mailto:anoop0gangwar@gmail.com">anoop0gangwar@gmail.com</a></li>
-							</ul>
-						</div>
-						<br />
-						<div class="footer-block hide">
-							<p>
-								<strong>Enter your email address here</strong>
-							</p>
-							<ul class="list-unstyled">
-								<li>
-									<div class="input-group">
-										<input class="form-control" type="text"
-											placeholder="Email address" /> <span
-											class="input-group-addon btn btn-orange">Submit</span>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> 
-    
+        <div class="col-md-12" style="background: black;padding:4%;color:#fff;right: 0;bottom: 0;left: 0;">
+            <div class="col-md-3">
+                <p><strong>COMPANY</strong></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="">About Us</a></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="">Team</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>CATEGORIES</strong></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="">Products</a></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="">Order</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>OTHERS</strong></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="">How it Work</a></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="">Blog</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>CONTACT US</strong></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="mailto:technosyshub@gmail.com">technosyshub@gmail.com</a></p>
+                <p class="pointer"><a style="text-decoration: none;color: #fff;" href="mailto:anoop0gangwar@gmail.com">anoop0gangwar@gmail.com</a></p>
+            </div>
+        </div>
     </div>
-   
-  </body>
+</body>
+
 </html>

@@ -13,31 +13,31 @@
         <div>
             <div th:replace="fragments/header :: header"></div>
         </div>
-	        <div class="col-md-12 text-center" style="margin-top:3%;">
-	            <div class="panel panel-warning">
-	                <div class="panel-heading"><strong>Details</strong></div>
-	                <div class="panel-body">
-	                    <table class="table table-responsive table-bordered table-striped">
-	                        <tr>
-	                            <th>ID</th>
-	                            <th>CustomerID</th>
-	                            <th>OrderId</th>
-	                            <th>WAREHOUSEID</th>
-	                            <th>Create OutData</th>
-	                        </tr>
-	                        <tr th:each=" orderRequest : ${orderRequests}">
-	                            <td th:text="${orderRequest.id}">Id</td>
-	                            <td th:text="${orderRequest.customerID}">CustomerID</td>
-	                            <td th:text="${orderRequest.orderID}">OrderId</td>
-	                            <td th:text="${orderRequest.warehouseID}">WAREHOUSEID</td>
-	                            <td><a th:href="@{'/out/data/request?id=' + ${orderRequest.id}+'&customerId='+${orderRequest.customerID}+'&orderID='+${orderRequest.orderID}+'&warehouseID='+${orderRequest.warehouseID}}">view</a>
-	                            </td>
-	                        </tr>
-	                    </table>
-	                </div>
-	            </div>
-	        </div>
-        <div class="footerCont">
+        <div class="col-md-12 text-center" style="margin-top:3%;">
+            <div class="panel panel-warning">
+                <div class="panel-heading"><strong>Details</strong></div>
+                <div class="panel-body">
+                    <table class="table table-responsive table-bordered table-striped">
+                        <tr>
+                            <th>ID</th>
+                            <th>CustomerID</th>
+                            <th>OrderId</th>
+                            <th>WAREHOUSEID</th>
+                            <th>Create OutData</th>
+                        </tr>
+                        <tr th:each=" orderRequest : ${orderRequests}">
+                            <td th:text="${orderRequest.id}">Id</td>
+                            <td th:text="${orderRequest.customerID}">CustomerID</td>
+                            <td th:text="${orderRequest.orderID}">OrderId</td>
+                            <td th:text="${orderRequest.warehouseID}">WAREHOUSEID</td>
+                            <td><a th:href="@{'/out/data/request?id=' + ${orderRequest.id}+'&customerId='+${orderRequest.customerID}+'&orderID='+${orderRequest.orderID}+'&warehouseID='+${orderRequest.warehouseID}}">view</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="">
             <div th:replace="fragments/footer :: footer"></div>
         </div>
     </div>
