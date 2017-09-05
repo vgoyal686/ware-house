@@ -1,145 +1,174 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/css/main.css}" /></head>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
 <body>
-
-<div>
- <div th:replace="fragments/header :: header"></div>	
-</div>
-
-<form name="jobsForm" id="jobsForm" novalidate="novalidate" action="#"
-		th:action="@{/addEmployee}" th:object="${inputFormBean}" method="post"
-		enctype="multipart/form-data">
-
-		<div class="container ">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<form autocomplete="off" action="#" th:action="@{/addEmployee}"
-						th:object="${inputFormBean}" method="post"
-						enctype="multipart/form-data" class="form-horizontal" role="form">
-						<h2>In Data Form</h2>
-						<div class="form-inline">
-
-
-							<input readonly type="text" th:field="*{orderID}" placeholder="OrderId"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}"
-								class="validation-message"></label> <input readonly type="text"
-								th:field="*{customerID}" placeholder="customerID"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('customerID')}"
-								th:errors="*{customerID}" class="validation-message"></label>
-
-						</div>
-
-
-						<div class="form-inline">
-
-							<input readonly type="text" th:field="*{warehouseID}"
-								placeholder="warehouseID" class="form-control" /> <label
-								th:if="${#fields.hasErrors('warehouseID')}"
-								th:errors="*{warehouseID}" class="validation-message"></label> <input
-								type="text" th:field="*{invoiceNo}" placeholder="invoiceNo"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('invoiceNo')}"
-								th:errors="*{invoiceNo}" class="validation-message"></label>
-						</div>
-
-						<div class="form-inline">
-
-
-							<input type="text" th:field="*{invoiceDate}"
-								placeholder="invoiceDate" class="form-control" /> <label
-								th:if="${#fields.hasErrors('invoiceDate')}"
-								th:errors="*{invoiceDate}" class="validation-message"></label> <input
-								type="text" th:field="*{lCNo}" placeholder="lCNo"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('lCNo')}" th:errors="*{lCNo}"
-								class="validation-message"></label>
-
-
-						</div>
-
-						<div class="form-inline">
-
-
-
-							<input type="text" th:field="*{dateOfIssue}"
-								placeholder="dateOfIssue" class="form-control" /> <label
-								th:if="${#fields.hasErrors('dateOfIssue')}"
-								th:errors="*{dateOfIssue}" class="validation-message"></label> <input
-								type="text" th:field="*{customer}" placeholder="customer"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"
-								class="validation-message"></label>
-
-						</div>
-						<div class="form-inline">
-
-
-
-							<input type="text" th:field="*{bLDate}" placeholder="bLDate"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('bLDate')}" th:errors="*{bLDate}"
-								class="validation-message"></label> <input type="text"
-								th:field="*{pONo}" placeholder="pONo" class="form-control" /> <label
-								th:if="${#fields.hasErrors('pONo')}" th:errors="*{pONo}"
-								class="validation-message"></label>
-
-						</div>
-
-						<div class="form-inline">
-
-
-
-							<input type="text" th:field="*{bLNo}" placeholder="bLNo"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('bLNo')}" th:errors="*{bLNo}"
-								class="validation-message"></label> <input type="text"
-								th:field="*{comments}" placeholder="comments"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}"
-								class="validation-message"></label>
-
-						</div>
-
-
-
-
-
-
-						<div class="form-inline">
-
-							<span class="btn  btn-file"> Upload Excel File
-								<input type="file" name="file" id="file" required="required" />
-							</span>
-						</div>
-						<div class="form-inline">
-							<button type="submit" class="btn btn-primary ">Register
-								WareHouse</button>
-						</div>
-
-
-						<span th:utext="${successMessage}"></span>
-
-
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="footerCont">
-	
-
-	<div th:replace="fragments/footer :: footer"></div>
-	</div>
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
+    <form name="jobsForm" id="jobsForm" novalidate="novalidate" action="#" th:action="@{/addEmployee}" th:object="${inputFormBean}" method="post" enctype="multipart/form-data">
+        <div class="col-md-8 col-md-offset-2 text-center" style="margin-top:2%;margin-bottom:3%">
+            <div class="panel panel-warning text-center">
+                <div class="panel-heading"><strong>In Data Form</strong></div>
+                <div class="panel-body">
+                    <form autocomplete="off" action="#" th:action="@{/addEmployee}" th:object="${inputFormBean}" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                        <!--  <h2>In Data Form</h2> -->
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Order ID</label>
+                                    </div>
+                                    <input readonly type="text" th:field="*{orderID}" placeholder="OrderId" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('orderID')}" th:errors="*{orderID}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Customer ID</label>
+                                    </div>
+                                    <input readonly type="text" th:field="*{customerID}" placeholder="customerID" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('customerID')}" th:errors="*{customerID}" class="validation-message"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Warehouse ID</label>
+                                    </div>
+                                    <input readonly type="text" th:field="*{warehouseID}" placeholder="warehouseID" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('warehouseID')}" th:errors="*{warehouseID}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Invoice No</label>
+                                    </div>
+                                    <input type="text" th:field="*{invoiceNo}" placeholder="invoiceNo" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('invoiceNo')}" th:errors="*{invoiceNo}" class="validation-message"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Invoice Date</label>
+                                    </div>
+                                    <input type="text" th:field="*{invoiceDate}" placeholder="invoiceDate" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('invoiceDate')}" th:errors="*{invoiceDate}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>lCNo</label>
+                                    </div>
+                                    <input type="text" th:field="*{lCNo}" placeholder="lCNo" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('lCNo')}" th:errors="*{lCNo}" class="validation-message"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Date Of Issue</label>
+                                    </div>
+                                    <input type="text" th:field="*{invoiceDate}" placeholder="invoiceDate" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('invoiceDate')}" th:errors="*{invoiceDate}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Customer</label>
+                                    </div>
+                                    <input type="text" th:field="*{customer}" placeholder="customer" class="form-control" />
+                                    <label th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="validation-message"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>bL Date</label>
+                                    </div>
+                                    <input type="text" th:field="*{bLDate}" placeholder="bLDate" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('bLDate')}" th:errors="*{bLDate}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>pONo</label>
+                                    </div>
+                                    <input type="text" th:field="*{pONo}" placeholder="pONo" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('pONo')}" th:errors="*{pONo}" class="validation-message"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>bL No</label>
+                                    </div>
+                                    <input type="text" th:field="*{bLNo}" placeholder="bLNo" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('bLNo')}" th:errors="*{bLNo}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>Comments</label>
+                                    </div>
+                                    <input type="text" th:field="*{comments}" placeholder="comments" class="form-control" />
+                                    <label th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" class="validation-message"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label>bL No</label>
+                                    </div>
+                                    <input type="text" th:field="*{bLNo}" placeholder="bLNo" class="form-control" required/>
+                                    <label th:if="${#fields.hasErrors('bLNo')}" th:errors="*{bLNo}" class="validation-message"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div style="float:left">
+                                        <label><span class="btn  btn-file">Upload Excel File</span></label>
+                                    </div>
+                                    <input type="file" name="file" id="file" required="required" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <button type="submit" class="btn btn-warning" style="width: 31%;">Register WareHouse
+                            </button>
+                        </div>
+                        <span th:utext="${successMessage}"></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--  <div class="footerCont">
+            <div th:replace="fragments/footer :: footer"></div>
+        </div> -->
 </body>
+
 </html>
-
-
-
-
-
