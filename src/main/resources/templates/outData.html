@@ -21,7 +21,7 @@
                         <tr>
                             <td>Level:</td>
                             <td>
-                                <select th:field="*{levelCat}" id="dropOperator">
+                                <select th:field="*{levelCat}" id="dropOperator" required>
                                     <option th:each="levelOption : ${levelOptions}" th:value="${levelOption}" th:text="${levelOption}"></option>
                                 </select>
                             </td>
@@ -30,26 +30,26 @@
                         <tr>
                             <td>Level Name:</td>
                             <td>
-                                <input type="text" th:field="*{levelName}" />
+                                <input type="text" th:field="*{levelName}" required/>
                             </td>
                             <td th:if="${#fields.hasErrors('levelName')}" th:errors="*{levelName}">Content error message</td>
                         </tr>
                         <tr>
                             <td>Level Value:</td>
                             <td>
-                                <input type="text" th:field="*{levelValue}" />
+                                <input type="text" th:field="*{levelValue}" required/>
                             </td>
                             <td th:if="${#fields.hasErrors('levelValue')}" th:errors="*{levelValue}">Content error message</td>
                         </tr>
                     </table>
                     <label>id</label>
-                    <input type="text" th:field="*{id}" class="form-control" />
+                    <input type="text" th:field="*{id}" class="form-control" required/>
                     <label>customerId</label>
-                    <input type="text" th:field="*{customerId}" class="form-control" />
+                    <input type="text" th:field="*{customerId}" class="form-control" required/>
                     <label>warehouseID</label>
-                    <input type="text" th:field="*{warehouseID}" class="form-control" />
+                    <input type="text" th:field="*{warehouseID}" class="form-control" required/>
                     <label>orderID</label>
-                    <input type="text" th:field="*{orderID}" class="form-control" />
+                    <input type="text" th:field="*{orderID}" class="form-control" required/>
                     <div style="text-align: center;">
                         <button class="btn btn-default" type="submit">Submit post</button>
                     </div>

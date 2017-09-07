@@ -20,11 +20,11 @@
                 <form autocomplete="off" action="#" th:action="@{/inventorystorageandloadingcharges/customer/sum}" th:object="${totalSumInputBean}" method="post" class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-md-6">
-                            <input type="text" th:field="*{customerId}" placeholder="Customer Id" class="form-control" />
+                            <input type="text" th:field="*{customerId}" placeholder="Customer Id" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('customerId')}" th:errors="*{customerId}" class="validation-message"></label>
                         </div>
                         <div class="col-md-6">
-                            <input type="date" th:field="*{orderDate}" placeholder="Date" class="form-control" />
+                            <input type="date" th:field="*{orderDate}" placeholder="Date" class="form-control" required/>
                             <label th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" class="validation-message"></label>
                         </div>
                     </div>

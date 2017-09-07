@@ -93,7 +93,7 @@
                                     <div style="float:left">
                                         <label>Customer</label>
                                     </div>
-                                    <input type="text" th:field="*{customer}" placeholder="customer" class="form-control" />
+                                    <input type="text" th:field="*{customer}" placeholder="customer" class="form-control" required/>
                                     <label th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="validation-message"></label>
                                 </div>
                             </div>

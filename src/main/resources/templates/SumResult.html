@@ -14,7 +14,7 @@
             <div class="panel-heading"><strong>Listing</strong></div>
             <div class="panel-body">
                 <input type="hidden" id="customerId" th:value="${customerId}" />
-                <input type="hidden" id="date" th:value="${date}" />
+                <input type="hidden" id="date" th:value="${date}" required/>
                 <div>
                     <label>Customer ID</label>
                     <li th:text="${sum.customerID}"></li>

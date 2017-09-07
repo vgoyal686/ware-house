@@ -27,11 +27,11 @@
                             <div class="control-group">
                                 <div class="controls form-inline">
                                     <label>Manager Approval</label>
-                                    <input type="checkbox" class="styled" th:field="*{managerApproval}" />
+                                    <input type="checkbox" class="styled" required th:field="*{managerApproval}" />
                                     <label style="margin-left: 3%;">Document Received</label>
-                                    <input type="checkbox" class="styled" th:field="*{documentReceived}" />
+                                    <input type="checkbox" required class="styled" th:field="*{documentReceived}" />
                                     <label style="margin-left: 3%;">Warehouse Confirmation</label>
-                                    <input type="checkbox" class="styled" th:field="*{wareConfirmation}">
+                                    <input type="checkbox" required class="styled" th:field="*{wareConfirmation}">
                                 </div>
                             </div>
                         </div>

@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <form th:object="${student}" th:action="@{/outOrderRequest}" method="get">
                     <span class="col-md-6 col-md-offset-2 float-right">
-                    <input type="text" name="search" class="form-control" style="width:100%;" id="search" th:value="${search}" placeholder="Search Order Request By CustomerId" th />
+                    <input type="text" name="search" class="form-control" required="" style="width:100%;" id="search" th:value="${search}" placeholder="Search Order Request By CustomerId" th />
                     </span>
                     <span class="col-md-2">
                     <input type="submit" class="btn btn-warning float-left" value="Search" style="width:100%;" />
