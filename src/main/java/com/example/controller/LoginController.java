@@ -178,7 +178,7 @@ public class LoginController
 		ModelAndView modelAndView = new ModelAndView();
 		OrderRequest orderRequest = new OrderRequest();
 		orderRequest.setOrderType("out");
-		// orderRequest.setOrderDate(new Date());
+		orderRequest.setOrderDate(new Date());
 		modelAndView.addObject("orderRequest", orderRequest);
 		modelAndView.setViewName("outOrderRequestForm");
 		return modelAndView;
@@ -416,7 +416,10 @@ public class LoginController
 		inputFormBean.setCustomerID(customerId);
 		inputFormBean.setOrderID(orderID);
 		inputFormBean.setWarehouseID(warehouseID);
-		inputFormBean.setInvoiceDate(new Date());
+		Date  currentDate=new Date();
+		inputFormBean.setInvoiceDate(currentDate);
+		inputFormBean.setbLDate(currentDate);
+		inputFormBean.setDateOfIssue(currentDate);
 		modelAndView.addObject("inputFormBean", inputFormBean);
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;

@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
@@ -148,8 +147,12 @@
                             <button type="submit" class="btn btn-warning" style="width: 31%;">Register WareHouse
                             </button>
                         </div>
+                      <h3>Fields in excel scheet</h3>  
+                  <p> Category , Sub-Category , Product , Principal Company , Model , Identifier_ID , UOM , Quantity , Attribute1_Name , Attribute1_Value , Attribute2_Name , Attribute2_Value , Attribute3_Name , Attribute3_value , Attribute4_Name , Attribute4_value , Attribute5_Name , Attribute5_Value , Description</p>      
                         <span th:utext="${successMessage}"></span>
+                   
                     </form>
+                    
                 </div>
             </div>
         </div>
