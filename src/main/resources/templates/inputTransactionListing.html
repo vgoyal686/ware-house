@@ -1,14 +1,14 @@
- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-   </head>
+
 
 <body>
     <div th:fragment="resultsList" id="results-block">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
-       
+</head>
         <script>
         var InputTxnLevelMappingBean = [];
         var inputTxnIdsArray = [];
@@ -57,12 +57,11 @@
                 url: k,
                 data: data,
                 success: function() {
-                    alert("successfull");
+                    alert("successfully  marked out out txn ids ---->"+ data.ids );
 
-                    console.log(data);
                 },
-                error: function(XMLHttpRequest, errorThrown) {
-                    alert("Error: " + errorThrown);
+                error: function() {
+                    alert("Error in marked out out txn ids ---->"+ data.ids  );
                 }
             });
             window.location = "/outRequest";
@@ -137,7 +136,8 @@
             <div class="panel panel-warning">
                 <div class="panel-heading"><strong>Input Transaction Listing</strong></div>
                 <div class="panel-body">
-                    <table class="table table-bordered table-responsive table-altered" th:id="tableid">
+                <!--    <table class="table table-bordered table-responsive table-altered" th:id="tableid">  --> 
+                       <table class="table-condensed" th:id="tableid">
                         <tr>
                             <th>ID</th>
                             <th>customerID</th>
