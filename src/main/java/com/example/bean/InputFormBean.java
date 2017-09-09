@@ -54,7 +54,25 @@ public class InputFormBean
 
 	private String comments;
 
+	private String customer;
+	
 	/**
+   * @author Anurag
+   * @return the customer
+   */
+  public String getCustomer() {
+    return customer;
+  }
+
+  /**
+   * @author Anurag
+   * @param customer the customer to set
+   */
+  public void setCustomer(String customer) {
+    this.customer = customer;
+  }
+
+  /**
 	 * @author Anurag
 	 * @return the orderID
 	 */
