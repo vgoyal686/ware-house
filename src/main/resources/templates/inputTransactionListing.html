@@ -56,12 +56,12 @@
                 type: "POST",
                 url: k,
                 data: data,
-                success: function() {
-                    alert("successfully  marked out out txn ids ---->"+ data.ids );
+                success: function(data) {
+                //   alert("successfully  marked out out txn ids ---->"+ data.ids );
 
                 },
-                error: function() {
-                    alert("Error in marked out out txn ids ---->"+ data.ids  );
+                error: function(data) {
+              //     alert("Successfull in marked out out txn ids ---->"+ data.ids  );
                 }
             });
             window.location = "/outRequest";

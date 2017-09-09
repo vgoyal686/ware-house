@@ -177,6 +177,9 @@ public class LoginController
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		OrderRequest orderRequest = new OrderRequest();
+		orderRequest.setDocumentReceived(true);
+		orderRequest.setManagerApproval(true);
+		orderRequest.setWareConfirmation(true);
 		orderRequest.setOrderType("out");
 		orderRequest.setOrderDate(new Date());
 		modelAndView.addObject("orderRequest", orderRequest);
