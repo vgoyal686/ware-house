@@ -166,7 +166,7 @@ public class LoginController
 		ModelAndView modelAndView = new ModelAndView();
 		OrderRequest orderRequest = new OrderRequest();
 		orderRequest.setOrderType("in");
-		// orderRequest.setOrderDate(new Date());
+		orderRequest.setOrderDate(new Date());
 		modelAndView.addObject("orderRequest", orderRequest);
 		modelAndView.setViewName("orderRequest");
 		return modelAndView;
@@ -235,11 +235,12 @@ public class LoginController
 		{
 			bindingResult.rejectValue("email", "error.user",
 					"There is already a user registered with the email provided");
+			return "warehouse";
 		}
 		if (bindingResult.hasErrors())
 		{
 
-			return "warehouse :: for1";
+			return "warehouse";
 
 		}
 		else
@@ -415,6 +416,7 @@ public class LoginController
 		inputFormBean.setCustomerID(customerId);
 		inputFormBean.setOrderID(orderID);
 		inputFormBean.setWarehouseID(warehouseID);
+		inputFormBean.setInvoiceDate(new Date());
 		modelAndView.addObject("inputFormBean", inputFormBean);
 		modelAndView.setViewName("excel-upload");
 		return modelAndView;

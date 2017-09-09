@@ -64,7 +64,7 @@
                                     <div style="float:left">
                                         <label>Invoice Date</label>
                                     </div>
-                                    <input type="text" th:field="*{invoiceDate}" placeholder="invoiceDate" class="form-control" required/>
+                                    <input type="date" th:field="*{invoiceDate}" placeholder="invoiceDate" class="form-control" required/>
                                     <label th:if="${#fields.hasErrors('invoiceDate')}" th:errors="*{invoiceDate}" class="validation-message"></label>
                                 </div>
                             </div>

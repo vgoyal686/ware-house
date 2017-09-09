@@ -5,7 +5,14 @@
 package com.example.bean;
 
 import java.io.File;
+import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -22,8 +29,14 @@ public class InputFormBean
 	private String warehouseID;
 
 	private String invoiceNo;
+	
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Please provide your orderDate")
+	@Temporal(TemporalType.TIMESTAMP)
 
-	private String invoiceDate;
+
+	private Date invoiceDate;
 
 	private String lCNo;
 
@@ -123,20 +136,7 @@ public class InputFormBean
 	 * @author Anurag
 	 * @return the invoiceDate
 	 */
-	public String getInvoiceDate()
-	{
-		return invoiceDate;
-	}
-
-	/**
-	 * @author Anurag
-	 * @param invoiceDate
-	 *            the invoiceDate to set
-	 */
-	public void setInvoiceDate(String invoiceDate)
-	{
-		this.invoiceDate = invoiceDate;
-	}
+	
 
 	/**
 	 * @author Anurag
@@ -145,6 +145,16 @@ public class InputFormBean
 	public String getlCNo()
 	{
 		return lCNo;
+	}
+
+	public Date getInvoiceDate()
+	{
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(Date invoiceDate)
+	{
+		this.invoiceDate = invoiceDate;
 	}
 
 	/**
