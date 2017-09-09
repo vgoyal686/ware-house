@@ -4,16 +4,11 @@
  */
 package com.example.bean;
 
-import java.io.File;
 import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Anurag
@@ -47,11 +42,12 @@ public class InputFormBean
 
 	private String portOfImport;
 
+	
+	private String bLNo;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Please provide your orderDate")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date bLNo;
-
 	private Date bLDate;
 
 	private String pONo;
@@ -220,12 +216,14 @@ public class InputFormBean
 
 	
 
-	public Date getbLNo()
+	
+
+	public String getbLNo()
 	{
 		return bLNo;
 	}
 
-	public void setbLNo(Date bLNo)
+	public void setbLNo(String bLNo)
 	{
 		this.bLNo = bLNo;
 	}
