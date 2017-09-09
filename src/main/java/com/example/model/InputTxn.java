@@ -89,14 +89,18 @@ public class InputTxn implements java.io.Serializable{
   @Column(name = "invoiceNo")
   private String invoiceNo;
 
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Temporal(TemporalType.TIMESTAMP)  
   @Column(name = "invoiceDate")
-  private String invoiceDate;
+  private Date invoiceDate;
 
   @Column(name = "lCNo")
   private String lCNo;
 
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Temporal(TemporalType.TIMESTAMP)  
   @Column(name = "dateOfIssue")
-  private String dateOfIssue;
+  private Date dateOfIssue;
 
   @Column(name = "customer")
   private String customer;
@@ -110,8 +114,10 @@ public class InputTxn implements java.io.Serializable{
   @Column(name = "bLNo")
   private String bLNo;
 
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @Temporal(TemporalType.TIMESTAMP)  
   @Column(name = "bLDate")
-  private String bLDate;
+  private Date bLDate;
 
   @Column(name = "pONo")
   private String pONo;
@@ -281,7 +287,7 @@ public class InputTxn implements java.io.Serializable{
    * @author Anurag
    * @return the invoiceDate
    */
-  public String getInvoiceDate() {
+  public Date getInvoiceDate() {
     return invoiceDate;
   }
 
@@ -289,7 +295,7 @@ public class InputTxn implements java.io.Serializable{
    * @author Anurag
    * @param invoiceDate the invoiceDate to set
    */
-  public void setInvoiceDate(String invoiceDate) {
+  public void setInvoiceDate(Date invoiceDate) {
     this.invoiceDate = invoiceDate;
   }
 
@@ -313,7 +319,7 @@ public class InputTxn implements java.io.Serializable{
    * @author Anurag
    * @return the dateOfIssue
    */
-  public String getDateOfIssue() {
+  public Date getDateOfIssue() {
     return dateOfIssue;
   }
 
@@ -321,7 +327,7 @@ public class InputTxn implements java.io.Serializable{
    * @author Anurag
    * @param dateOfIssue the dateOfIssue to set
    */
-  public void setDateOfIssue(String dateOfIssue) {
+  public void setDateOfIssue(Date dateOfIssue) {
     this.dateOfIssue = dateOfIssue;
   }
 
@@ -393,7 +399,7 @@ public class InputTxn implements java.io.Serializable{
    * @author Anurag
    * @return the bLDate
    */
-  public String getbLDate() {
+  public Date getbLDate() {
     return bLDate;
   }
 
@@ -401,7 +407,7 @@ public class InputTxn implements java.io.Serializable{
    * @author Anurag
    * @param bLDate the bLDate to set
    */
-  public void setbLDate(String bLDate) {
+  public void setbLDate(Date bLDate) {
     this.bLDate = bLDate;
   }
 
@@ -800,8 +806,8 @@ public class InputTxn implements java.io.Serializable{
    * @param description
    */
   public InputTxn(String customerID, String warehouseID, String orderID, String invoiceNo,
-      String invoiceDate, String lCNo, String dateOfIssue, String customer, String deliveryTerms,
-      String portOfImport, String bLNo, String bLDate, String pONo, String comments,
+                  Date invoiceDate, String lCNo, Date dateOfIssue, String customer, String deliveryTerms,
+      String portOfImport, String bLNo, Date bLDate, String pONo, String comments,
       String category, String subCategory, String product, String principalCompany, String model,
       String identifierID, String uom, String quantity, String attribute1Name,
       String attribute1Value, String attribute2Name, String attribute2Value, String attribute3Name,
@@ -884,8 +890,8 @@ public class InputTxn implements java.io.Serializable{
    * @param description
    */
   public InputTxn(int id, boolean softDelete, String customerID, String warehouseID, String orderID,
-      String invoiceNo, String invoiceDate, String lCNo, String dateOfIssue, String customer,
-      String deliveryTerms, String portOfImport, String bLNo, String bLDate, String pONo,
+      String invoiceNo, Date invoiceDate, String lCNo, Date dateOfIssue, String customer,
+      String deliveryTerms, String portOfImport, String bLNo, Date bLDate, String pONo,
       String comments, String category, String subCategory, String product, String principalCompany,
       String model, String identifierID, String uom, String quantity, String attribute1Name,
       String attribute1Value, String attribute2Name, String attribute2Value, String attribute3Name,
@@ -964,9 +970,9 @@ public class InputTxn implements java.io.Serializable{
 
 
   public InputTxn(int id, boolean softDelete, Date outDate, String customerID, String warehouseID,
-      String orderID, String outOrderID, String invoiceNo, String invoiceDate, String lCNo,
-      String dateOfIssue, String customer, String deliveryTerms, String portOfImport, String bLNo,
-      String bLDate, String pONo, String comments, String category, String subCategory,
+      String orderID, String outOrderID, String invoiceNo, Date invoiceDate, String lCNo,
+      Date dateOfIssue, String customer, String deliveryTerms, String portOfImport, String bLNo,
+      Date bLDate, String pONo, String comments, String category, String subCategory,
       String product, String principalCompany, String model, String identifierID, String uom,
       String quantity, String attribute1Name, String attribute1Value, String attribute2Name,
       String attribute2Value, String attribute3Name, String attribute3Value, String attribute4Name,
