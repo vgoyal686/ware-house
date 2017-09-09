@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <label>Unloading Charge</label>
-                    <li th:text="${sum.unloadingCharge}"></li> <a th:href="@{'/inventoryloadingcharges/customer/list?customerId=' + ${customerId}+'&date='+${date}}">view</a>
+                    <li th:text="${sum.unloadingCharge}"></li> <a th:href="@{'/inventoryloadingcharges/customer/list?customerId=' + ${customerId}+'&date='+${#dates.format(date, 'yyyy-MM-dd')}}">view</a>
                     <div>
                         <form th:action="@{/inventoryloadingcharges/customer/list}" th:object="${totalSumInputBean}" method="post">
                             <button type="submit" class="btn btn-warning">Details</button>
