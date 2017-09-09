@@ -34,23 +34,25 @@ public class InputFormBean
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Please provide your orderDate")
 	@Temporal(TemporalType.TIMESTAMP)
-
-
 	private Date invoiceDate;
 
 	private String lCNo;
 
-	private String dateOfIssue;
-
-	private String customer;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Please provide your orderDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfIssue;
 
 	private String deliveryTerms;
 
 	private String portOfImport;
 
-	private String bLNo;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Please provide your orderDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date bLNo;
 
-	private String bLDate;
+	private Date bLDate;
 
 	private String pONo;
 
@@ -167,42 +169,15 @@ public class InputFormBean
 		this.lCNo = lCNo;
 	}
 
-	/**
-	 * @author Anurag
-	 * @return the dateOfIssue
-	 */
-	public String getDateOfIssue()
+	
+	public Date getDateOfIssue()
 	{
 		return dateOfIssue;
 	}
 
-	/**
-	 * @author Anurag
-	 * @param dateOfIssue
-	 *            the dateOfIssue to set
-	 */
-	public void setDateOfIssue(String dateOfIssue)
+	public void setDateOfIssue(Date dateOfIssue)
 	{
 		this.dateOfIssue = dateOfIssue;
-	}
-
-	/**
-	 * @author Anurag
-	 * @return the customer
-	 */
-	public String getCustomer()
-	{
-		return customer;
-	}
-
-	/**
-	 * @author Anurag
-	 * @param customer
-	 *            the customer to set
-	 */
-	public void setCustomer(String customer)
-	{
-		this.customer = customer;
 	}
 
 	/**
@@ -243,40 +218,24 @@ public class InputFormBean
 		this.portOfImport = portOfImport;
 	}
 
-	/**
-	 * @author Anurag
-	 * @return the bLNo
-	 */
-	public String getbLNo()
+	
+
+	public Date getbLNo()
 	{
 		return bLNo;
 	}
 
-	/**
-	 * @author Anurag
-	 * @param bLNo
-	 *            the bLNo to set
-	 */
-	public void setbLNo(String bLNo)
+	public void setbLNo(Date bLNo)
 	{
 		this.bLNo = bLNo;
 	}
 
-	/**
-	 * @author Anurag
-	 * @return the bLDate
-	 */
-	public String getbLDate()
+	public Date getbLDate()
 	{
 		return bLDate;
 	}
 
-	/**
-	 * @author Anurag
-	 * @param bLDate
-	 *            the bLDate to set
-	 */
-	public void setbLDate(String bLDate)
+	public void setbLDate(Date bLDate)
 	{
 		this.bLDate = bLDate;
 	}
@@ -324,9 +283,10 @@ public class InputFormBean
 	{
 		return "InputFormBean [orderID=" + orderID + ", customerID=" + customerID + ", warehouseID=" + warehouseID
 				+ ", invoiceNo=" + invoiceNo + ", invoiceDate=" + invoiceDate + ", lCNo=" + lCNo + ", dateOfIssue="
-				+ dateOfIssue + ", customer=" + customer + ", deliveryTerms=" + deliveryTerms + ", portOfImport="
-				+ portOfImport + ", bLNo=" + bLNo + ", bLDate=" + bLDate + ", pONo=" + pONo + ", comments=" + comments
-				+ "]";
+				+ dateOfIssue + ", deliveryTerms=" + deliveryTerms + ", portOfImport=" + portOfImport + ", bLNo=" + bLNo
+				+ ", bLDate=" + bLDate + ", pONo=" + pONo + ", comments=" + comments + "]";
 	}
+
+	
 
 }
