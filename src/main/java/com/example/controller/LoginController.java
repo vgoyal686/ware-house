@@ -462,7 +462,9 @@ public class LoginController
 	{
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("totalSumInputBean", new TotalSumInputBean());
+		TotalSumInputBean totalSumBean=new TotalSumInputBean();
+		totalSumBean.setOrderDate(new Date());
+		modelAndView.addObject("totalSumInputBean",totalSumBean);
 		modelAndView.setViewName("totalSumInventory");
 		return modelAndView;
 	}
@@ -617,7 +619,7 @@ public class LoginController
 	public ResponseEntity<List<InventoryStorageDaysForMonth>> findInventoryStorageChargesForMonthByCustomerID(
 			String customerId, @DateTimeFormat(pattern="yyyy-MM-dd") Date date)
 	{
-
+		
 		List<InventoryStorageDaysForMonth> results = inputTxnService.findInventoryStorageChargesForMonthByCustomerID(
 				customerId, date);
 		ResponseEntity<List<InventoryStorageDaysForMonth>> responseEntity = new ResponseEntity<>(results,

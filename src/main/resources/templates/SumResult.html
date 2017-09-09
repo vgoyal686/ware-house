@@ -23,9 +23,10 @@
                     <label>Storage Charges</label>
                     <li th:text="${sum.storageCharges}"></li>
                     <div>
-                        <form th:action="@{/inventorydtoragecharges/customer}" th:object="${totalSumInputBean}" method="post">
-                            <button type="submit" class="btn btn-warning">Details</button>
-                        </form>
+                    
+                     <a th:href="@{'/inventorydtoragecharges/customer?customerId=' + ${customerId}+'&date='+${#dates.format(date, 'yyyy-MM-dd')}}">view</a>
+                   
+                      
                     </div>
                     <div id="resultsBlock"></div>
                 </div>
@@ -33,28 +34,21 @@
                     <label>Loading Charge</label>
                     <li th:text="${sum.loadingCharge}"></li>
                     <div>
-                        <form th:action="@{/inventoryloadingcharges/customer/list}" th:object="${totalSumInputBean}" method="post">
-                            <button type="submit" class="btn btn-warning">Details</button>
-                        </form>
+                    <a th:href="@{'/inventoryloadingcharges/customer/list?customerId=' + ${customerId}+'&date='+${#dates.format(date, 'yyyy-MM-dd')}}">view</a>
+                       
                     </div>
                 </div>
                 <div>
                     <label>Unloading Charge</label>
                     <li th:text="${sum.unloadingCharge}"></li> <a th:href="@{'/inventoryloadingcharges/customer/list?customerId=' + ${customerId}+'&date='+${#dates.format(date, 'yyyy-MM-dd')}}">view</a>
-                    <div>
-                        <form th:action="@{/inventoryloadingcharges/customer/list}" th:object="${totalSumInputBean}" method="post">
-                            <button type="submit" class="btn btn-warning">Details</button>
-                        </form>
-                    </div>
+                    
                 </div>
                 <div>
                     <label>Other Charge</label>
                     <li th:text="${sum.otherCharge}"></li>
                     <div>
-                        <form method="POST" th:action="@{/inventoryloadingcharges/customer/list}" th:object="${totalSumInputBean}">
-                            <button type="submit" name="submit" value="value" class="link-button btn btn-warning">This is a link that sends a POST request
-                            </button>
-                        </form>
+                         <a th:href="@{'/inventoryloadingcharges/customer/list?customerId=' + ${customerId}+'&date='+${#dates.format(date, 'yyyy-MM-dd')}}">view</a>
+                   
                     </div>
                 </div>
             </div>
