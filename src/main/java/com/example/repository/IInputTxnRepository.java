@@ -49,7 +49,10 @@ public interface IInputTxnRepository extends JpaRepository<InputTxn, Long> {
   
   @Query(value = "select new com.example.bean.InventoryLeftInWarehouses(inputTxn.customerID, inputTxn.uom, count(inputTxn)) from InputTxn inputTxn WHERE inputTxn.customerID = :customerID group by inputTxn.customerID, inputTxn.uom")
   List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(@Param("customerID")  String customerID);
-  
+
+  @Query(value = "select new com.example.bean.InventoryLeftInWarehouses(inputTxn.customerID, inputTxn.uom, count(inputTxn)) from InputTxn inputTxn WHERE inputTxn.customerID = :customerID AND inputTxn.softDelete = :softDelete group by inputTxn.customerID, inputTxn.uom")
+  List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(@Param("customerID")  String customerID, @Param("softDelete") boolean softdelete);
+        
   @Query(value = 
   "select new com.example.bean.InventoryStorageDaysForMonth( inputTxn.customerID, inputTxn.orderID, inputTxn.uom, inputTxn.identifierID, inputTxn.inDateTime, "+  
   "COALESCE(inputTxn.outDate, :monthEndDateTime) , DATEDIFF( COALESCE(inputTxn.outDate, :monthEndDateTime), inputTxn.inDateTime) ) " + 

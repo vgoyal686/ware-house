@@ -305,6 +305,25 @@ public class InputTxnLevelMappingServiceImpl implements IInputTxnLevelMappingSer
 	  return inputTxnLevelMappingBeans;
 	}
 	
+	//TODO NEED to put customerId filter in sql query rather than here. This is just a hot fix
+	@Override
+	public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue, String customerID){
+	  
+      List<InputTxnLevelMappingBean> inputTxnLevelMappingBeans = new ArrayList<>();
+      List<InputTxnLevelMapping> inputTxnLevelMappings = findByLevelNameAndLevelValue(levelNo, levelName, levelValue);
+      for (InputTxnLevelMapping inputTxnLevelMapping : inputTxnLevelMappings){
+       
+        if(inputTxnLevelMapping.getCustomerID().equalsIgnoreCase(customerID)){
+          InputTxnLevelMappingBean inputTxnLevelMappingBean = 
+              new InputTxnLevelMappingBean(inputTxnLevelMapping.getId(),inputTxnLevelMapping.isSoftDelete(),inputTxnLevelMapping.getCustomerID(),inputTxnLevelMapping.getWarehouseID(),inputTxnLevelMapping.getOrderID(),inputTxnLevelMapping.getLevel1Name(),inputTxnLevelMapping.getLevel1Value(),inputTxnLevelMapping.getLevel2Name(),inputTxnLevelMapping.getLevel2Value(),inputTxnLevelMapping.getLevel3Name(),inputTxnLevelMapping.getLevel3Value(),inputTxnLevelMapping.getInputTxn().getId());
+          inputTxnLevelMappingBeans.add(inputTxnLevelMappingBean);                          
+        }
+      }
+      
+      
+      return inputTxnLevelMappingBeans;
+	}
+	
 	@Override
 	public Page<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue,
 			Pageable pageable)
