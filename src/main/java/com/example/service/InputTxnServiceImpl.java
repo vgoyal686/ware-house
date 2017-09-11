@@ -276,7 +276,7 @@ public class InputTxnServiceImpl implements IInputTxnService
   public List<InventoryLeftInWarehouses> findInventoryLeftInWarehousesByCustomerID(
       String customerID) {
     
-    return inputTxnRepository.findInventoryLeftInWarehousesByCustomerID(customerID);
+    return inputTxnRepository.findInventoryLeftInWarehousesByCustomerID(customerID, false);
   }
 
 

@@ -66,6 +66,8 @@ public interface IInputTxnLevelMappingService {
   
   public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue);
   
+  public List<InputTxnLevelMappingBean> findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String levelName, String levelValue, String customerID);
+  
   public Page<InputTxnLevelMapping> findByLevelNameAndLevelValue(Integer levelNo, String levelName, String levelValue, Pageable pageable);
   
   /******************** Excel Workbook parsing utility *****************/

@@ -482,6 +482,7 @@ public class LoginController
 
 		String levelName = outData.getLevelName();
 		String levelValue = outData.getLevelValue();
+		String customerID = outData.getCustomerId();
 		int levelNo = 0;
 		if (outData.getLevelCat().equals(LEVEL.LEVEL1.name()))
 		{
@@ -498,7 +499,7 @@ public class LoginController
 		// System.out.println(outData.getLevelCat());
 		// System.out.println(levelNo);
 		List<InputTxnLevelMappingBean> inputTxnLevelMappings = inputTxnLevelMappingService
-				.findByLevelNameAndLevelValueAndGetBean(levelNo, levelName, levelValue);
+				.findByLevelNameAndLevelValueAndGetBean(levelNo, levelName, levelValue, customerID);
 		// List<InputTxnLevelMappingBean>
 		// findByLevelNameAndLevelValueAndGetBean(Integer levelNo, String
 		// levelName, String levelValue)
