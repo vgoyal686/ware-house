@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 
@@ -10,29 +10,25 @@
     <div>
         <div th:replace="fragments/header :: header"></div>
     </div>
-    <div class="col-md-12" style="margin-top:1%;">
-        <button class="btn btn-warning"> <a th:href="@{/create/orderRequest/form}" style="color:#fff !important;text-decoration:none;">IN-Order-Request</a></button>
-        <!--  <span> <a th:href="@{/warehouse/view/registration}">Create-WareHouse</a></span>
-		<span> <a th:href="@{/registration}">Create-Users</a></span>
-	
-		<span> <a th:href="@{/warehouse/listing}">View-WareHouses</a></span> <span>
-			<a th:href="@{/users/listing}">View-Users </a>
-		</span> <span> <a th:href="@{/inputTransactions/listing}">View-Input-Transactions</a></span>
-		 -->
-    </div>
-    <div class="col-md-8 col-md-offset-2 text-center" style="margin-top:5%;">
-        <div class="panel panel-warning">
-            <div class="panel-heading"><strong>Search Order Request</strong></div>
-            <div class="panel-body">
-                <form th:object="${student}" th:action="@{/students}" method="get">
-                    <span class="col-md-6 col-md-offset-2 float-right">
-                    <input type="text" name="search" class="form-control" id="search" th:value="${search}" placeholder="Search Order Request By CustomerId" th style="width:100%;" required/>
+    <div class="col-md-12" style="margin-top:1%;padding-left:0;">
+        <div class="col-md-2">
+            <button class="btn btn-warning"> <a th:href="@{/create/orderRequest/form}" style="color:#fff !important;text-decoration:none;">IN-Order-Request</a></button>
+        </div>
+        <div class="col-md-4" style="float: right;padding-right: 0;">
+            <!-- <div class="panel panel-warning">
+                <div class="panel-heading"><strong>Search Order Request</strong></div>
+                <div class="panel-body"> -->
+            <form th:object="${student}" th:action="@{/students}" method="get">
+                <span class=" input-group">
+                    <input type="text" name="search" class="form-control " id="search" th:value="${search}" placeholder="Search Order Request By CustomerId" th style="width:100%;" required/>
+                
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-warning" value="Search" style="width:100%;"><i class="fa fa-search" aria-hidden="true"></i></input>
                     </span>
-                    <span class="col-md-2">
-                    <input type="submit" class="btn btn-warning" value="Search" style="width:100%;" />
-                    </span>
-                </form>
-            </div>
+                </span>
+            </form>
+            <!-- </div>
+            </div> -->
         </div>
     </div>
     <div class="col-md-12 text-center" style="margin-top:3%;">
@@ -64,40 +60,40 @@
     <!-- Pagination Bar -->
     <input type="hidden" id="jsonBom" th:value="${psize}" />
     <!--  <button id="searchButton1" name="searchButton1"
-						th:onclick="'retrieveGuests(\''+${page.url}+ '\',0,\''+${page.size}+'\');'"
-						type="button">← First</button>
-					<button id="searchButton2" name="searchButton2"
-						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${page.number-2}+ '\',\''+${page.size}+'\');'"
-						type="button">«</button>
+                        th:onclick="'retrieveGuests(\''+${page.url}+ '\',0,\''+${page.size}+'\');'"
+                        type="button">← First</button>
+                    <button id="searchButton2" name="searchButton2"
+                        th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${page.number-2}+ '\',\''+${page.size}+'\');'"
+                        type="button">«</button>
 
-					<button id="searchButton3" name="searchButton3"
-						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${page.number}+ '\',\''+${page.size}+'\');'"
-						type="button">»</button>
+                    <button id="searchButton3" name="searchButton3"
+                        th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${page.number}+ '\',\''+${page.size}+'\');'"
+                        type="button">»</button>
 
-					<button id="searchButton4" name="searchButton4"
-						th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${totalPages - 1} + '\',\''+${page.size}+'\');'"
-						type="button">Last →</button>
+                    <button id="searchButton4" name="searchButton4"
+                        th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${totalPages - 1} + '\',\''+${page.size}+'\');'"
+                        type="button">Last →</button>
 -->
     <!-- 
-	<span th:each='item : ${page.items}'>
-		<button  class="pagination" id="searchButton" name="searchButton"
-			th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
-			type="button" th:text='${item.number}'></button>
-	</span>
+    <span th:each='item : ${page.items}'>
+        <button  class="pagination" id="searchButton" name="searchButton"
+            th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
+            type="button" th:text='${item.number}'></button>
+    </span>
 
  -->
     <script>
     function retrieveGuests(url, page, size) {
-        //	 url = '/th-spring-integration/spring/guests';
+        //   url = '/th-spring-integration/spring/guests';
         var k = url + "?page=" + page + "&size=" + size;
-        //	if ($('#searchSurname').val() != '') {
-        //		url = url + '/' + $('#searchSurname').val();
-        //	}
+        //  if ($('#searchSurname').val() != '') {
+        //      url = url + '/' + $('#searchSurname').val();
+        //  }
 
         $("#resultsBlock").load(k);
     }
     var jsonBom = $('#jsonBom').val();
-    //	retrieveGuests('orderRequest/paginated/listing', 0, jsonBom);
+    //  retrieveGuests('orderRequest/paginated/listing', 0, jsonBom);
     </script>
     <div class="">
         <div th:replace="fragments/footer :: footer"></div>
