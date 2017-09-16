@@ -4,9 +4,9 @@
     <div th:fragment="resultsList" id="results-block">
 
         <head>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
             <link rel="stylesheet" th:href="@{/css/main.css}" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         </head>
         <script>
         var InputTxnLevelMappingBean = [];
@@ -43,6 +43,7 @@
             var warehouseID = $('#warehouseID').val();
             var orderID = $('#orderID').val();
 
+
             var data = {
                 data: ids,
                 customerId: customerId,
@@ -50,14 +51,16 @@
                 orderID: orderID,
                 id: id
             }
+            alert("Data to be submitted", data);
+
 
             $.ajax({
                 type: "POST",
                 url: k,
                 data: data,
-                alert(data);
+
                 success: function(data) {
-                    alert("data", data);
+                    alert("Success data", data);
                     //alert("successfully  marked out out txn ids ---->" + data.ids);
 
                 },
@@ -183,6 +186,7 @@
         <div class="">
             <div th:replace="fragments/footer :: footer"></div>
         </div>
+    </div>
 </body>
 
 </html>
