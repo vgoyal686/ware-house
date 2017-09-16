@@ -7,14 +7,9 @@
 </head>
 
 <body>
-    <div th:replace="fragments/header :: header"></div>
-    <!-- <div>
-        <div class="breadcrumb">
-            <marquee>Book now get 20% off, while booking the slot online
-            </marquee>
-            <button class="close hide">×</button>
-        </div>
-    </div> -->
+    <div>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
     <div class="col-md-12" style="margin-top:1%;padding-left:0;">
         <div class="col-md-2">
             <button class="btn btn-warning"> <a th:href="@{/create/out/orderRequest/form}" style="color:#fff !important;text-decoration:none;">OUT-Order-Request</a></button>
@@ -62,7 +57,24 @@
     </div>
     <!-- Results block -->
     <div id="resultsBlock"></div>
-    <div th:replace="fragments/footer :: footer"></div>
+    <!-- Pagination Bar -->
+    <!-- <input type="hidden" id="jsonBom" th:value="${psize}" /> -->
+    <script>
+    function retrieveGuests(url, page, size) {
+        //   url = '/th-spring-integration/spring/guests';
+        var k = url + "?page=" + page + "&size=" + size;
+        //  if ($('#searchSurname').val() != '') {
+        //      url = url + '/' + $('#searchSurname').val();
+        //  }
+
+        $("#resultsBlock").load(k);
+    }
+    var jsonBom = $('#jsonBom').val();
+    //  retrieveGuests('orderRequest/paginated/listing', 0, jsonBom);
+    </script>
+    <div class="">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </body>
 
 </html>
