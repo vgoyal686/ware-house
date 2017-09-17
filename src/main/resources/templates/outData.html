@@ -56,32 +56,30 @@
         </div>
     </div>
     <!-- Results block -->
-    <!-- 	<div id="resultsBlock"></div> -->
+    <!--    <div id="resultsBlock"></div> -->
     <!-- Pagination Bar -->
     <input type="hidden" id="jsonBom" th:value="${psize}" />
-    <!--  	<span th:each='item : ${page.items}'>
-		<button id="searchButton" name="searchButton"
-			th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
-			type="button" th:text='${item.number}'></button>
-	</span>
+    <!--    <span th:each='item : ${page.items}'>
+        <button id="searchButton" name="searchButton"
+            th:onclick="'retrieveGuests(\''+${page.url}+ '\',\''+${item.number-1}+ '\',\''+${page.size}+'\');'"
+            type="button" th:text='${item.number}'></button>
+    </span>
 
 
 -->
-    <!-- 	<script>
-		function retrieveGuests(url, page, size) {
-			//	 url = '/th-spring-integration/spring/guests';
-			var k = url + "?page=" + page + "&size=" + size;
-			//	if ($('#searchSurname').val() != '') {
-			//		url = url + '/' + $('#searchSurname').val();
-			//	}
+    <script>
+    function retrieveGuests(url, page, size) {
+        //   url = '/th-spring-integration/spring/guests';
+        var k = url + "?page=" + page + "&size=" + size;
+        //  if ($('#searchSurname').val() != '') {
+        //      url = url + '/' + $('#searchSurname').val();
+        //  }
 
-			$("#resultsBlock").load(k);
-		}
-		var jsonBom = $('#jsonBom').val();
-	//	retrieveGuests('/inputTxn/paginated/listing', 0, jsonBom);
-	</script>
-	
- -->
+        $("#resultsBlock").load(k);
+    }
+    var jsonBom = $('#jsonBom').val();
+    //  retrieveGuests('/inputTxn/paginated/listing', 0, jsonBom);
+    </script>
     <div class="">
         <div th:replace="fragments/footer :: footer"></div>
     </div>
