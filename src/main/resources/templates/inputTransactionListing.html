@@ -51,7 +51,7 @@
                 orderID: orderID,
                 id: id
             }
-            alert("Data to be submitted", data);
+          //  alert("Data to be submitted", data);
 
 
             $.ajax({
@@ -60,12 +60,12 @@
                 data: data,
 
                 success: function(data) {
-                    alert("Success data", data);
+              //      alert("Success data", data);
                     //alert("successfully  marked out out txn ids ---->" + data.ids);
 
                 },
                 error: function(data) {
-                    alert("Internal Server Error");
+              //      alert("Internal Server Error");
                 }
             });
             window.location = "/outRequest";
